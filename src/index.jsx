@@ -2,4 +2,4 @@ import React from "react";
 import ReactDOM from "react-dom";
 import {Match} from "./match";
 
-ReactDOM.render(<Match />, document.getElementById("app"));
+ReactDOM.render(<Match quizGenerator={selectQuiz} />, document.getElementById("app"));
