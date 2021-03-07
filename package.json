@@ -8,6 +8,7 @@
     "start": "node src/server/server.js",
     "test": "jest --coverage --env=jsdom",
     "dev": "webpack serve --open --mode development",
+    "watch": "webpack watch --mode development",
     "build": "webpack --mode production"
   },
   "devDependencies": {
