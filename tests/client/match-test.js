@@ -1,6 +1,7 @@
 import {act, Simulate} from "react-dom/test-utils";
 import {render} from "react-dom";
 import {container} from "./react-setup";
+import {BrowserRouter} from "react-router-dom";
 
 const React = require('react');
 const {Match} = require("../../src/client/match");
@@ -14,26 +15,27 @@ describe("Match", () => {
         answer: 2
     }
     
-    it("renders quiz", ()=> {
+    beforeEach(() => {
         act(() => {
-            render(<Match quizGenerator={() => quiz} />, container);
+            render(<BrowserRouter>
+                <Match quizGenerator={() => quiz} />
+            </BrowserRouter>, container);
         });
-
+    });
+    
+    it("renders quiz", ()=> {
         expect(document.querySelector(".question").textContent).toEqual(quiz.question);
         expect([...document.querySelectorAll(".alternative")].map(e => e.textContent))
             .toEqual(quiz.alternatives);
     });
 
-    test("answers quiz", () => {
-        act(() => {
-            render(<Match quizGenerator={() => quiz} />, container);
-        });
-
-        let msg = undefined;
-        global.alert = (s) => {msg = s};
+    test("answers quiz incorrectly", () => {
         Simulate.click(document.querySelector(".alternative"));
-        expect(msg).toBe("Wrong! Try again!");
+        expect(document.querySelector("h1").textContent).toEqual("You lost!");
+    });
+
+    test("answers quiz correctly", () => {
         Simulate.click(document.querySelectorAll(".alternative")[2]);
-        expect(msg).toBe("Correct!");
+        expect(document.querySelector("h1").textContent).toEqual("You won!");
     });
 })

@@ -16,15 +16,34 @@ function MatchView({quiz, onAnswer}) {
 
 export function Match({quizGenerator}) {
     const [quiz, setQuiz] = useState(quizGenerator());
+    const [gameState, setGameState] = useState("playing");
 
     function handleAnswer(answer) {
         if (answer === quiz.answer) {
-            alert("Correct!");
-            setQuiz(quizGenerator());
+            setGameState("win");
         } else {
-            alert("Wrong! Try again!");
+            setGameState("loss");
         }
     }
+    
+    function playAgain() {
+        setQuiz(quizGenerator());
+        setGameState("playing");
+    }
+    
 
-    return <MatchView quiz={quiz} onAnswer={handleAnswer} />; 
+    if (gameState === "win") {
+        return <>
+            <h1>You won!</h1>
+            <button onClick={playAgain}>Play again</button>
+        </>
+    }
+    if (gameState === "loss") {
+        return <>
+            <h1>You lost!</h1>
+            <button onClick={playAgain}>Play again</button>
+        </>
+    }
+
+    return <MatchView quiz={quiz} onAnswer={handleAnswer}/>;
 }
