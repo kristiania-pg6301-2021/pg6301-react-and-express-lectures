@@ -1,0 +1,47 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Quiz</title>
+</head>
+<script src="code.js"></script>
+<script>
+let currentQuestion;
+function handleAnswer(alternative) {
+    if (alternative === currentQuestion.answer) {
+        alert("Correct!");
+        showQuestion();
+    } else {
+        alert("Wrong! Try again");
+    }
+}
+
+function showQuestion() {
+    currentQuestion = quizzes[Math.floor(Math.random() * quizzes.length)];
+
+    document.getElementById("question").innerText = currentQuestion.question;
+
+    document.getElementById("alternative-0").innerText = currentQuestion.alternatives[0];
+    document.getElementById("alternative-1").innerText = currentQuestion.alternatives[1];
+    document.getElementById("alternative-2").innerText = currentQuestion.alternatives[2];
+    document.getElementById("alternative-3").innerText = currentQuestion.alternatives[3];
+}
+</script>
+<body>
+
+<h1>Quiz!</h1>
+
+<div id="question"></div>
+
+<div><button id="alternative-0" onclick="handleAnswer(0)"></button></div>
+<div><button id="alternative-1" onclick="handleAnswer(1)"></button></div>
+<div><button id="alternative-2" onclick="handleAnswer(2)"></button></div>
+<div><button id="alternative-3" onclick="handleAnswer(3)"></button></div>
+
+</body>
+<script>
+    showQuestion();
+</script>
+</html>
