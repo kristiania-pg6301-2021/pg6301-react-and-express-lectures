@@ -34,9 +34,6 @@
     "collectCoverageFrom": [
       "src/**/*.(js|jsx)"
     ],
-    "setupFilesAfterEnv": [
-      "<rootDir>/tests/jest-setup.js"
-    ],
     "testEnvironment": "jsdom",
     "testRegex": "tests/.*-test\\.(js|jsx)$"
   },

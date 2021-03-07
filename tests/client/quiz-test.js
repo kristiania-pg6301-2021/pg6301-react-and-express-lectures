@@ -1,4 +1,4 @@
-import {selectQuiz} from "../src/quiz";
+import {selectQuiz} from "../../src/client/quiz";
 
 describe("quiz", () => {
    

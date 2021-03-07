@@ -1,10 +1,9 @@
 import {act, Simulate} from "react-dom/test-utils";
 import {render} from "react-dom";
-import {container} from "./jest-setup";
-import {MatchView} from "../src/match";
+import {container} from "./react-setup";
 
 const React = require('react');
-const {Match} = require("../src/match");
+const {Match} = require("../../src/client/match");
 
 describe("Match", () => {
     const quiz = {
@@ -17,7 +16,7 @@ describe("Match", () => {
     
     it("renders quiz", ()=> {
         act(() => {
-            render(<MatchView quiz={quiz} />, container);
+            render(<Match quizGenerator={() => quiz} />, container);
         });
 
         expect(document.querySelector(".question").textContent).toEqual(quiz.question);

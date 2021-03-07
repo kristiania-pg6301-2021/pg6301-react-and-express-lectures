@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-export function MatchView({quiz, onAnswer}) {
+function MatchView({quiz, onAnswer}) {
     return <>
         <h1>Quiz!</h1>
         <div className="question">{quiz.question}</div>
