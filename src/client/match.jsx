@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {Link} from "react-router-dom";
 
 function MatchView({quiz, onAnswer}) {
     return <>
@@ -9,6 +10,7 @@ function MatchView({quiz, onAnswer}) {
                 <button className="alternative" onClick={() => onAnswer(index)}>{a}</button>
             </div>
         )}
+        <Link to="/">Home</Link>
     </>;
 }
 
