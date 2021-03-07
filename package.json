@@ -5,6 +5,7 @@
   "author": "Johannes Brodwall <johannes.brodwall@soprasteria.com>",
   "license": "MIT",
   "scripts": {
+    "start": "node src/server/server.js",
     "test": "jest --coverage --env=jsdom",
     "dev": "webpack serve --open --mode development",
     "build": "webpack --mode production"
@@ -38,6 +39,7 @@
     "testRegex": "tests/.*-test\\.(js|jsx)$"
   },
   "dependencies": {
+    "express": "^4.17.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   }
