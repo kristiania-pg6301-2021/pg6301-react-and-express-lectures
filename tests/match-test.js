@@ -1,35 +1,28 @@
+import {act, Simulate} from "react-dom/test-utils";
+import {render} from "react-dom";
+import {container} from "./jest-setup";
+
 const React = require('react');
-const { mount } = require('enzyme');
 const {Match} = require("../src/match");
 
+describe("Match", () => {
+    it("renders quiz", ()=> {
+        act(() => {
+            render(<Match />, container);
+        });
 
-function checkQuizIsDisplayed(driver){
+        expect(document.querySelector(".question").textContent).toBeDefined();
+        expect(document.querySelectorAll(".alternative")).toHaveLength(4);
+    });
 
-    const questions = driver.find('.question');
-    expect(questions.length).toEqual(1);
+    test("answers quiz", () => {
+        act(() => {
+            render(<Match />, container);
+        });
 
-    const answers = driver.find('.alternative');
-    expect(answers.length).toEqual(4);
-}
-
-test("Test rendered quiz", ()=> {
-
-    const driver = mount(<Match/>);
-    checkQuizIsDisplayed(driver);
-});
-
-
-test("Test do answer", () => {
-
-    const driver = mount(<Match/>);
-
-    let msg = undefined;
-
-    global.alert = (s) => {msg = s};
-
-    const first = driver.find('.alternative').at(0);
-    first.simulate('click');
-
-    checkQuizIsDisplayed(driver);
-    expect(msg).toBeDefined();
-});
+        let msg = undefined;
+        global.alert = (s) => {msg = s};
+        Simulate.click(document.querySelector(".alternative"));
+        expect(msg).toBeDefined();
+    });
+})
