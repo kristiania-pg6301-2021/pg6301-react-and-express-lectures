@@ -4,6 +4,11 @@ import * as ReactDOM from "react-dom";
 import {BrowserRouter} from "react-router-dom";
 import {Route, Switch} from "react-router";
 
+interface Quiz {
+    question: string;
+    alternatives: string[];
+}
+
 
 function HomePage() {
     return <>
@@ -12,7 +17,7 @@ function HomePage() {
     </>
 }
 
-function QuizPage({quizFactory}) {
+function QuizPage({quizFactory}: {quizFactory(): Quiz}) {
     const quiz = quizFactory();
     const {question, alternatives} = quiz;
     return <>
@@ -25,7 +30,7 @@ function QuizPage({quizFactory}) {
 }
 
 function App() {
-    const quiz = {
+    const quiz: Quiz = {
         question: "Are you happy?",
         alternatives: ["yes", "no", "maybe"]
     }
