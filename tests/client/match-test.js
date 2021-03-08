@@ -15,8 +15,8 @@ describe("Match", () => {
         answer: 2
     }
     
-    beforeEach(() => {
-        act(() => {
+    beforeEach(async () => {
+        await act(async () => {
             render(<BrowserRouter>
                 <Match quizGenerator={() => quiz} />
             </BrowserRouter>, container);
@@ -30,12 +30,16 @@ describe("Match", () => {
     });
 
     test("answers quiz incorrectly", () => {
-        Simulate.click(document.querySelector(".alternative"));
+        act(() => {
+            Simulate.click(document.querySelector(".alternative"));
+        })
         expect(document.querySelector("h1").textContent).toEqual("You lost!");
     });
 
     test("answers quiz correctly", () => {
-        Simulate.click(document.querySelectorAll(".alternative")[2]);
+        act(() => {
+            Simulate.click(document.querySelectorAll(".alternative")[2]);
+        })
         expect(document.querySelector("h1").textContent).toEqual("You won!");
     });
-})
+});

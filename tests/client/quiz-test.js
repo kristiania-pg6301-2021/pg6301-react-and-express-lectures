@@ -1,4 +1,4 @@
-import {selectQuiz} from "../../src/client/quiz";
+import {loadQuiz} from "../../src/client/quiz";
 
 describe("quiz", () => {
    
@@ -16,7 +16,7 @@ describe("quiz", () => {
             })
         }));
         
-        const quiz = await selectQuiz();
+        const quiz = await loadQuiz();
         expect(quiz.question).toEqual("Which of the following is a number");
         expect(quiz.alternatives).toHaveLength(4);
         expect(quiz.alternatives).toContain("x");

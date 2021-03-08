@@ -17,12 +17,18 @@ function MatchView({quiz, onAnswer}) {
 export function Match({quizGenerator}) {
     const [quiz, setQuiz] = useState();
     const [gameState, setGameState] = useState("loading");
+    const [error, setError] = useState();
     
     async function loadQuestion() {
+        setError(undefined);
         setGameState("loading");
-        const quiz = await quizGenerator();
-        setQuiz(quiz);
-        setGameState("playing");
+        try {
+            const quiz = await quizGenerator();
+            setQuiz(quiz);
+            setGameState("playing");
+        } catch (e) {
+            setError(e);
+        }
     }
     
     useEffect(() => loadQuestion(), []);
@@ -33,6 +39,16 @@ export function Match({quizGenerator}) {
         } else {
             setGameState("loss");
         }
+    }
+    
+    if (error) {
+        return <>
+            <h1>An error occurred</h1>
+            <pre>
+                {error.toString()}
+            </pre>
+            <button onClick={loadQuestion}>Retry</button>
+        </>
     }
     
     if (gameState === "loading") {

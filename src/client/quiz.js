@@ -55,17 +55,11 @@ const quizzes = [
 
 ];
 
-async function sleep(millis) {
-    return new Promise((resolve, reject) => {
-        setTimeout(resolve, millis);
-    });
+async function selectQuiz() {
+    return quizzes[Math.floor(Math.random() * quizzes.length)]
 }
 
-export async function selectQuiz() {
-    return await loadQuiz();
-}
-
-export async function loadQuiz() {
+async function loadQuiz() {
     const response = await fetch("https://opentdb.com/api.php?category=23&difficulty=easy&type=multiple&amount=1");
     if (!response.ok) {
         throw new Error("Request failed " + response.statusText);
@@ -76,4 +70,8 @@ export async function loadQuiz() {
     const answer = Math.trunc(Math.random()*(alternatives.length+1));
     alternatives.splice(answer, 0, correct_answer);
     return {question, alternatives, answer};
+}
+
+module.exports = {
+    selectQuiz, loadQuiz
 }
