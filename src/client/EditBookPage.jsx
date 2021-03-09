@@ -22,7 +22,15 @@ export function EditBookPage() {
   }, [query]);
 
   async function handleSubmit(e) {
+    const id = new URLSearchParams(query.search).get("id");
     e.preventDefault();
+    await fetch(`/api/books/${id}`, {
+      method: "PUT",
+      body: JSON.stringify({ title, author, year }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   }
 
   if (loading) {

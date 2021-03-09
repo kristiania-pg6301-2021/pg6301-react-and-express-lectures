@@ -22,8 +22,8 @@ const books = [
 app.use(bodyParser.json());
 
 app.get("/api/books/:id", (req, res) => {
-  console.log({ id: req.params.id });
-  res.json(books.find((b) => b.id == req.params.id));
+  const id = parseInt(req.params.id);
+  res.json(books.find((b) => b.id === id));
 });
 
 app.get("/api/books", (req, res) => {
@@ -38,9 +38,23 @@ app.post("/api/books", async (req, res) => {
   res.send();
 });
 
+app.put("/api/books/:id", (req, res) => {
+  const book = req.body;
+  const id = parseInt(req.params.id);
+  const { author, title, year } = book;
+  const bookIndex = books.findIndex((b) => b.id === id);
+  books[bookIndex] = { id, title, author, year };
+  res.status(200);
+  res.send();
+});
+
 app.use(express.static(path.resolve(__dirname, "..", "..", "dist")));
-app.use((_, res) => {
-  res.sendFile(path.resolve(__dirname, "..", "..", "dist", "index.html"));
+app.use((req, res, next) => {
+  if (req.method === "GET") {
+    res.sendFile(path.resolve(__dirname, "..", "..", "dist", "index.html"));
+  } else {
+    next();
+  }
 });
 
 app.listen(3000, () => {
