@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`application shows application home page 1`] = `"<h1>This is the quiz</h1><button>Start new quiz</button>"`;
