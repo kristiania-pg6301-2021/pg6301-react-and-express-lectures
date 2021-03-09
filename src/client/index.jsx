@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Link } from "react-router-dom";
 import { Route, Switch } from "react-router";
 import { BookListPage } from "./BookListPage";
+import { NewBookPage } from "./NewBookPage";
 
 function HomePage() {
   return (
@@ -21,10 +22,6 @@ function HomePage() {
   );
 }
 
-function NewBookPage() {
-  return <h1>Add a new book</h1>;
-}
-
 function EditBookPage() {
   return <h1>Edit book</h1>;
 }
@@ -32,6 +29,11 @@ function EditBookPage() {
 function Application() {
   return (
     <BrowserRouter>
+      <header>
+        <div>
+          <Link to="/">Home</Link>
+        </div>
+      </header>
       <Switch>
         <Route path="/create">
           <NewBookPage />

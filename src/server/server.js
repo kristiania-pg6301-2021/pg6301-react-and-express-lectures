@@ -1,23 +1,36 @@
 const path = require("path");
 const express = require("express");
+const bodyParser = require("body-parser");
 
 const app = express();
 
+const books = [
+  {
+    id: 1,
+    title: "Lord or the Rings",
+    author: "JRR Tolkien",
+    year: 1954,
+  },
+  {
+    id: 2,
+    title: "Uncle Tom's Cabin",
+    author: "Harriet Beecher Stowe",
+    year: 1852,
+  },
+];
+
+app.use(bodyParser.json());
+
 app.get("/api/books", (req, res) => {
-  res.json([
-    {
-      id: 1,
-      title: "Lord or the Rings",
-      author: "JRR Tolkien",
-      year: 1954,
-    },
-    {
-      id: 2,
-      title: "Uncle Tom's Cabin",
-      author: "Harriet Beecher Stowe",
-      year: 1852,
-    },
-  ]);
+  res.json(books);
+});
+
+app.post("/api/books", async (req, res) => {
+  const book = req.body;
+  const { author, title, year } = book;
+  books.push({ author, title, year, id: books.length + 1 });
+  res.status(201);
+  res.send();
 });
 
 app.use(express.static(path.resolve(__dirname, "..", "..", "dist")));
