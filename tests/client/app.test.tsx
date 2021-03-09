@@ -5,7 +5,9 @@ import { act } from "react-dom/test-utils";
 
 import {App} from "../../src/client/app";
 
-let container: Element|undefined;
+import pretty from "pretty";
+
+let container: HTMLElement;
 beforeEach(() => {
     // setup a DOM element as a render target
     container = document.createElement("div");
@@ -15,19 +17,17 @@ beforeEach(() => {
 afterEach(() => {
     // cleanup on exiting
     unmountComponentAtNode(container!);
-    container!.remove();
-    container = undefined;
+    container.remove();
 });
-
 
 
 describe("application", () => {
     
     it("shows application home page", () => {
         act(() => {
-            render(<App />, container!);
+            render(<App />, container);
         });
-        expect(container?.innerHTML).toMatchSnapshot();
+        expect(pretty(container.innerHTML)).toMatchSnapshot();
     });
     
 });
