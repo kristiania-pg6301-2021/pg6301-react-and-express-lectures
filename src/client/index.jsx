@@ -2,7 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { BrowserRouter, Link } from "react-router-dom";
-import { Switch, Route } from "react-router";
+import { Route, Switch } from "react-router";
+import { BookListPage } from "./BookListPage";
 
 function HomePage() {
   return (
@@ -18,10 +19,6 @@ function HomePage() {
       </ul>
     </>
   );
-}
-
-function BookListPage() {
-  return <h1>All books:</h1>;
 }
 
 function NewBookPage() {
