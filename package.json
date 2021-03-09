@@ -3,5 +3,15 @@
   "version": "1.0.0",
   "main": "index.js",
   "author": "Johannes Brodwall <johannes.brodwall@soprasteria.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel src/client/index.html"
+  },
+  "devDependencies": {
+    "parcel": "1.12.3"
+  },
+  "dependencies": {
+    "react": "17.0.1",
+    "react-dom": "^17.0.1"
+  }
 }
