@@ -5,10 +5,12 @@
   "author": "Johannes Brodwall <johannes.brodwall@soprasteria.com>",
   "license": "MIT",
   "scripts": {
-    "start": "parcel src/client/index.html"
+    "start": "parcel src/client/index.html",
+    "format": "prettier --write src"
   },
   "devDependencies": {
-    "parcel": "1.12.3"
+    "parcel": "1.12.3",
+    "prettier": "^2.2.1"
   },
   "dependencies": {
     "react": "17.0.1",
