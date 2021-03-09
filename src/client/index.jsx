@@ -5,6 +5,7 @@ import { BrowserRouter, Link } from "react-router-dom";
 import { Route, Switch } from "react-router";
 import { BookListPage } from "./BookListPage";
 import { NewBookPage } from "./NewBookPage";
+import { EditBookPage } from "./EditBookPage";
 
 function HomePage() {
   return (
@@ -20,10 +21,6 @@ function HomePage() {
       </ul>
     </>
   );
-}
-
-function EditBookPage() {
-  return <h1>Edit book</h1>;
 }
 
 function Application() {

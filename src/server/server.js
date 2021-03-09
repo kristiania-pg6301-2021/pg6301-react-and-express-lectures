@@ -21,6 +21,11 @@ const books = [
 
 app.use(bodyParser.json());
 
+app.get("/api/books/:id", (req, res) => {
+  console.log({ id: req.params.id });
+  res.json(books.find((b) => b.id == req.params.id));
+});
+
 app.get("/api/books", (req, res) => {
   res.json(books);
 });

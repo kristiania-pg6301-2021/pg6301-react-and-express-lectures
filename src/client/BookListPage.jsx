@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export function BookListPage() {
   const [books, setBooks] = useState();
@@ -37,7 +38,9 @@ export function BookListPage() {
     <>
       <h1>All books:</h1>
       {books.map((book) => (
-        <div>{book.title}</div>
+        <div key={book.id}>
+          <Link to={"/edit?id=" + book.id}>{book.title}</Link>
+        </div>
       ))}
     </>
   );
