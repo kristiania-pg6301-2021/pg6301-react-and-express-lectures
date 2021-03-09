@@ -1,3 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`application shows application home page 1`] = `"<h1>Welcome to the quiz</h1><button>Start new quiz</button>"`;
+
+exports[`application shows loading page 1`] = `"<h1>Loading</h1>"`;
+
+exports[`application shows quiz 1`] = `
+"<h1>Quiz</h1>
+<div>Question: Huh?</div><button>yeah</button><button>nah!</button>"
+`;

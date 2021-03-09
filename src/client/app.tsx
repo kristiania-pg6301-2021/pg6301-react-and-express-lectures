@@ -2,8 +2,9 @@ import * as React from "react";
 
 import {BrowserRouter} from "react-router-dom";
 import {Route, Switch} from "react-router";
+import {useEffect, useState} from "react";
 
-interface Quiz {
+export interface Quiz {
     question: string;
     alternatives: string[];
 }
@@ -16,27 +17,53 @@ function HomePage() {
     </>
 }
 
-function QuizPage({quizFactory}: {quizFactory(): Quiz}) {
-    const quiz = quizFactory();
+export function QuizPage({quizFactory}: {quizFactory(): Promise<Quiz>}) {
+    const [quiz, setQuiz] = useState<Quiz|undefined>();
+    const [error, setError] = useState<Error|undefined>();
+
+    async function loadQuiz() {
+        setError(undefined);
+        setQuiz(undefined);
+        try {
+            setQuiz(await quizFactory());
+        } catch (e) {
+            setError(e);
+        }
+    }
+    
+    useEffect(() => {
+        loadQuiz();
+    }, []);
+    
+    if (error) {
+        return <>
+            <h1>An error occurred</h1>
+            <pre>{error.toString()}</pre>
+            <button onClick={() => loadQuiz()}>Retry</button>
+        </>
+    }
+    
+    if (!quiz) {
+        return <>
+            <h1>Loading</h1>
+        </>;
+    }
+    
     const {question, alternatives} = quiz;
     return <>
         <h1>Quiz</h1>
         <div>Question: {question}</div>
-        {alternatives.map(a =>
-            <button>{a}</button>
+        {alternatives.map((a, index) =>
+            <button key={index}>{a}</button>
         )}
     </>
 }
 
-export function App() {
-    const quiz: Quiz = {
-        question: "Are you happy today?",
-        alternatives: ["yes", "no", "maybe"]
-    }
+export function App({quizFactory}: {quizFactory(): Promise<Quiz>}) {
     return <BrowserRouter>
         <Switch>
             <Route path="/quiz">
-                <QuizPage quizFactory={() => quiz} />
+                <QuizPage quizFactory={quizFactory} />
             </Route>
             <Route exact path="/">
                 <HomePage />

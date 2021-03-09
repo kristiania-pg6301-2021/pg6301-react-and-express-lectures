@@ -3,7 +3,7 @@ import * as React from "react";
 import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 
-import {App} from "../../src/client/app";
+import {App, QuizPage} from "../../src/client/app";
 
 import pretty from "pretty";
 
@@ -25,9 +25,28 @@ describe("application", () => {
     
     it("shows application home page", () => {
         act(() => {
-            render(<App />, container);
+            render(<App quizFactory={jest.fn()} />, container);
         });
         expect(pretty(container.innerHTML)).toMatchSnapshot();
     });
+    
+    it("shows quiz", async () => {
+        const quiz = {
+            question: "Huh?", alternatives: ["yeah", "nah!"]
+        };
+        await act(async () => {
+            render(<QuizPage quizFactory={() => Promise.resolve(quiz)} />, container);
+        });
+        expect(pretty(container.innerHTML)).toMatchSnapshot();
+        expect(container.querySelector("h1")!.textContent).toEqual("Quiz");
+    });
+    
+    it("shows loading page", () => {
+        act(() => {
+            render(<QuizPage quizFactory={() => new Promise(jest.fn())} />, container);
+        });
+        expect(pretty(container.innerHTML)).toMatchSnapshot();
+        expect(container.querySelector("h1")!.textContent).toEqual("Loading");
+    })
     
 });
