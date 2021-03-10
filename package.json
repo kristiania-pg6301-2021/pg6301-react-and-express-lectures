@@ -3,5 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "author": "Johannes Brodwall <johannes.brodwall@soprasteria.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "parcel": "^1.12.3"
+  },
+  "scripts": {
+    "start": "parcel src/client/index.html"
+  }
 }
