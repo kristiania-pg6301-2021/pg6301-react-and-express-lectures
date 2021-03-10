@@ -5,12 +5,14 @@
   "author": "Johannes Brodwall <johannes.brodwall@soprasteria.com>",
   "license": "MIT",
   "devDependencies": {
+    "concurrently": "^6.0.0",
     "nodemon": "^2.0.7",
     "parcel": "^1.12.3"
   },
   "scripts": {
-    "start": "nodemon src/server/server.js",
-    "dev": "parcel src/client/index.html"
+    "start": "concurrently \"npm run server\" \"npm run parcel\"",
+    "server": "nodemon --watch src/server src/server/server.js",
+    "parcel": "parcel watch src/client/index.html"
   },
   "dependencies": {
     "express": "^4.17.1",
