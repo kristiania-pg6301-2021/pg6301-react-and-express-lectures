@@ -5,10 +5,11 @@
   "author": "Johannes Brodwall <johannes.brodwall@soprasteria.com>",
   "license": "MIT",
   "devDependencies": {
+    "nodemon": "^2.0.7",
     "parcel": "^1.12.3"
   },
   "scripts": {
-    "start": "node src/server/server.js",
+    "start": "nodemon src/server/server.js",
     "dev": "parcel src/client/index.html"
   },
   "dependencies": {

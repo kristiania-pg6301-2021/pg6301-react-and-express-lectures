@@ -8,10 +8,10 @@ function Application() {
     return <BrowserRouter>
         <Switch>
             <Route path={"/books"}>
-                <h1>List all the books</h1>
+                <h1>List books</h1>
             </Route>
             <Route path={"/create"}>
-                <h1>Create a new book</h1>
+                <h1>Create new book</h1>
             </Route>
             <Route path={"/edit"}>
                 <h1>Edit an existing book</h1>
