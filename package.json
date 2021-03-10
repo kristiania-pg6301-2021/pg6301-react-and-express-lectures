@@ -9,5 +9,9 @@
   },
   "scripts": {
     "start": "parcel src/client/index.html"
+  },
+  "dependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
   }
 }
