@@ -31,5 +31,10 @@ export function BookListPage() {
     }
     
     
-    return <h1>List books</h1>;
+    return <>
+        <h1>List books</h1>
+        {books.map(({id, title}) => (
+            <li key={id}>{title}</li>
+        ))}
+        </>;
 }
