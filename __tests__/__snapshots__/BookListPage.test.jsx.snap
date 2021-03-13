@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`book list view renders on real DOM 1`] = `"<h1>List books</h1><li>Lord of the dance</li>"`;
+exports[`book list view renders on real DOM 1`] = `"<h1>List books</h1><li><a href=\\"/edit?id=1\\">Lord of the dance</a></li>"`;
 
 exports[`book list view shows loading view 1`] = `
 Array [
@@ -8,7 +8,12 @@ Array [
     List books
   </h1>,
   <li>
-    Lord of the dance
+    <a
+      href="/edit?id=1"
+      onClick={[Function]}
+    >
+      Lord of the dance
+    </a>
   </li>,
 ]
 `;
