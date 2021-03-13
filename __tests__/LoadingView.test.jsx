@@ -1,6 +1,8 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import TestRenderer from "react-test-renderer";
 import {LoadingView} from "../src/client/LoadingView";
+import {act} from "react-dom/test-utils";
 
 
 describe("loading view", () => {
@@ -8,4 +10,12 @@ describe("loading view", () => {
         const view = TestRenderer.create(<LoadingView />);
         expect(view.toJSON()).toMatchSnapshot();
     });
+    
+    it("renders on real DOM", () => {
+        const container = document.createElement("div");
+        document.body.appendChild(container);
+        act(() => ReactDOM.render(<LoadingView />, container));
+        
+        expect(container.innerHTML).toMatchSnapshot();
+    })
 });
