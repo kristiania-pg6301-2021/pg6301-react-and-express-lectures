@@ -5,7 +5,21 @@ import {Route, Switch} from "react-router";
 import {BookListPage} from "./BookListPage";
 import {CreateBookPage} from "./CreateBookPage";
 
+class BookApi {
+    async listBooks() {
+        const res = await fetch("/api/books");
+        if (!res.ok) {
+            throw new Error(`Something went wrong loading ${res.url}: ${res.statusText}`);
+        }
+
+        return await res.json();
+    }
+}
+
+
+
 function Application() {
+    const bookApi = new BookApi();
     return <BrowserRouter>
         <nav>
             <Link to={"/"}>Home</Link>
@@ -13,7 +27,7 @@ function Application() {
         <main>
             <Switch>
                 <Route path={"/books"}>
-                    <BookListPage/>
+                    <BookListPage bookApi={bookApi} />
                 </Route>
                 <Route path={"/create"}>
                     <CreateBookPage/>

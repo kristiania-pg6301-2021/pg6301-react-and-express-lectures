@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`book list view renders on real DOM 1`] = `"<h1>List books</h1><li>Lord of the dance</li>"`;
+
+exports[`book list view shows loading view 1`] = `
+Array [
+  <h1>
+    List books
+  </h1>,
+  <li>
+    Lord of the dance
+  </li>,
+]
+`;
