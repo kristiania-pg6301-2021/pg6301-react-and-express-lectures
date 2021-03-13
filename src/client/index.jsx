@@ -4,6 +4,7 @@ import {BrowserRouter, Link} from "react-router-dom";
 import {Route, Switch} from "react-router";
 import {BookListPage} from "./BookListPage";
 import {CreateBookPage} from "./CreateBookPage";
+import {EditBookPage} from "./EditBookPage";
 
 class BookApi {
     async listBooks() {
@@ -11,11 +12,17 @@ class BookApi {
         if (!res.ok) {
             throw new Error(`Something went wrong loading ${res.url}: ${res.statusText}`);
         }
-
+        return await res.json();
+    }
+    
+    async fetchBook(id) {
+        const res = await fetch(`/api/books/${id}`);
+        if (!res.ok) {
+            throw new Error(`Something went wrong loading ${res.url}: ${res.statusText}`);
+        }
         return await res.json();
     }
 }
-
 
 
 function Application() {
@@ -27,13 +34,13 @@ function Application() {
         <main>
             <Switch>
                 <Route path={"/books"}>
-                    <BookListPage bookApi={bookApi} />
+                    <BookListPage bookApi={bookApi}/>
                 </Route>
                 <Route path={"/create"}>
-                    <CreateBookPage/>
+                    <CreateBookPage bookApi={bookApi}/>
                 </Route>
                 <Route path={"/edit"}>
-                    <h1>Edit an existing book</h1>
+                    <EditBookPage bookApi={bookApi}/>
                 </Route>
                 <Route exact path={"/"}>
                     <h1>Book application home page</h1>

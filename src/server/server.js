@@ -22,6 +22,11 @@ const books = [{
 app.use(bodyParser.json());
 app.use(express.static(path.resolve(__dirname, "..", "..", "dist")));
 
+app.get("/api/books/:id", (req, res) => {
+    const id = parseInt(req.params.id);
+    res.json(books.find(b => b.id === id));
+})
+
 app.get("/api/books", (req, res) => {
     console.log(books);
     res.json(books);
