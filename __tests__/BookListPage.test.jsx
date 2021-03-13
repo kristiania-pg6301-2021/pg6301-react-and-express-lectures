@@ -7,7 +7,7 @@ import {BookListPage} from "../src/client/BookListPage";
 class MockBookApi {
     async listBooks() {
         return [
-            {title: "Lord of the dance"}
+            {title: "Lord of the dance", id: 1}
         ]
     }
 }
