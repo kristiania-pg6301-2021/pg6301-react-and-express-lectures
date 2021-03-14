@@ -25,8 +25,10 @@ export function EditBookPage({ bookApi }) {
     }
   }, [search]);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+    const id = new URLSearchParams(search).get("id");
+    await bookApi.updateBook(id, { title, author, year });
   }
 
   if (error) {
@@ -39,12 +41,12 @@ export function EditBookPage({ bookApi }) {
   return (
     <form onSubmit={handleSubmit}>
       <h1>Edit book: {title}</h1>
-      <InputField label={"Title"} value={title} onChange={setTitle} />
-      <InputField label={"Author"} value={author} onChange={setAuthor} />
+      <InputField label={"Title"} value={title} onChangeValue={setTitle} />
+      <InputField label={"Author"} value={author} onChangeValue={setAuthor} />
       <InputField
         label={"Year"}
         value={year}
-        onChange={setYear}
+        onChangeValue={setYear}
         type="number"
       />
       <button>Submit</button>

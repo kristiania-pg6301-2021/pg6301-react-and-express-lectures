@@ -21,12 +21,12 @@ export function CreateBookPage() {
   return (
     <form onSubmit={submit}>
       <h1>Create new book</h1>
-      <InputField label={"Title"} value={title} onChange={setTitle} />
-      <InputField label={"Author"} value={author} onChange={setAuthor} />
+      <InputField label={"Title"} value={title} onChangeValue={setTitle} />
+      <InputField label={"Author"} value={author} onChangeValue={setAuthor} />
       <InputField
         label={"Year"}
         value={year}
-        onChange={setYear}
+        onChangeValue={setYear}
         type="number"
       />
       <button>Submit</button>
