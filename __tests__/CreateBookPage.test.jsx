@@ -17,15 +17,16 @@ function changeValue(input, value) {
 }
 
 function testFindInput(form, label) {
-  const input = form
+  return form
     .findAllByType("label")
     .find((p) => p.props.children.join("").startsWith(label))
     .findByType("input");
-  return input;
 }
 
 function testChangeValue(input, value) {
-  input.props.onChange({ target: { value } });
+  TestRenderer.act(() => {
+    input.props.onChange({ target: { value } });
+  });
 }
 
 describe("create book view", () => {
@@ -42,11 +43,13 @@ describe("create book view", () => {
     expect(view.toJSON()).toMatchSnapshot();
     const form = view.root.findByType("form");
     testChangeValue(testFindInput(form, "Title"), "My Title");
+    testChangeValue(testFindInput(form, "Author"), "My Author");
+    testChangeValue(testFindInput(form, "Year"), "2021");
     form.props.onSubmit({ preventDefault() {} });
     expect(saveBook).toBeCalledWith({
       title: "My Title",
-      author: "",
-      year: "",
+      author: "My Author",
+      year: "2021",
     });
   });
 
