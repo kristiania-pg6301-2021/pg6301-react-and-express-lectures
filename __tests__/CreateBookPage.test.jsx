@@ -40,8 +40,14 @@ describe("create book view", () => {
     );
 
     await act(async () => {
-      Simulate.submit(container.querySelector("form"));
+      const form = container.querySelector("form");
+      const titleLabel = [...form.querySelectorAll("label")].find((l) =>
+        l.textContent.startsWith("Title")
+      );
+      const titleInput = titleLabel.querySelector("input");
+      await Simulate.change(titleInput, { target: { value: "MyBook" } });
+      Simulate.submit(form);
     });
-    expect(saveBook).toBeCalled();
+    expect(saveBook).toBeCalledWith({ title: "MyBook", author: "", year: "" });
   });
 });
