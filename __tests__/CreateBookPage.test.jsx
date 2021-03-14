@@ -5,6 +5,17 @@ import { act, Simulate } from "react-dom/test-utils";
 import { MemoryRouter } from "react-router";
 import { CreateBookPage } from "../src/client/CreateBookPage";
 
+function findInputByLabel(form, label) {
+  const titleLabel = [...form.querySelectorAll("label")].find((l) =>
+    l.textContent.startsWith(label)
+  );
+  return titleLabel.querySelector("input");
+}
+
+function changeValue(input, value) {
+  Simulate.change(input, { target: { value } });
+}
+
 describe("create book view", () => {
   it("test renders view", async () => {
     const saveBook = jest.fn();
@@ -41,13 +52,15 @@ describe("create book view", () => {
 
     await act(async () => {
       const form = container.querySelector("form");
-      const titleLabel = [...form.querySelectorAll("label")].find((l) =>
-        l.textContent.startsWith("Title")
-      );
-      const titleInput = titleLabel.querySelector("input");
-      await Simulate.change(titleInput, { target: { value: "MyBook" } });
+      await changeValue(findInputByLabel(form, "Title"), "MyBook");
+      await changeValue(findInputByLabel(form, "Author"), "Author");
+      await changeValue(findInputByLabel(form, "Year"), "2021");
       Simulate.submit(form);
     });
-    expect(saveBook).toBeCalledWith({ title: "MyBook", author: "", year: "" });
+    expect(saveBook).toBeCalledWith({
+      title: "MyBook",
+      author: "Author",
+      year: "2021",
+    });
   });
 });
