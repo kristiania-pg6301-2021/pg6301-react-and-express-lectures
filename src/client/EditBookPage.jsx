@@ -1,45 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router";
+import React, { useState } from "react";
+import { useLocation, useParams } from "react-router";
 import { LoadingView } from "./LoadingView";
 import { InputField } from "./InputField";
+import { useLoader } from "./useLoader";
 
-export function EditBookPage({ bookApi }) {
-  const { search } = useLocation();
-  const [book, setBook] = useState();
-  const [error, setError] = useState();
-
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const [year, setYear] = useState("");
-
-  useEffect(async () => {
-    try {
-      const id = new URLSearchParams(search).get("id");
-      let book = await bookApi.fetchBook(id);
-      setBook(book);
-      setTitle(book.title);
-      setAuthor(book.author);
-      setYear(book.year);
-    } catch (e) {
-      setError(e);
-    }
-  }, [search]);
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    const id = new URLSearchParams(search).get("id");
-    await bookApi.updateBook(id, { title, author, year });
-  }
-
-  if (error) {
-    return <div>An error occurred: {error.toString()}</div>;
-  }
-  if (!book) {
-    return <LoadingView />;
-  }
-
+function EditBookForm({ book, onSubmit }) {
+  const [title, setTitle] = useState(book.title);
+  const [author, setAuthor] = useState(book.author);
+  const [year, setYear] = useState(book.year);
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        onSubmit({ title, author, year });
+      }}
+    >
       <h1>Edit book: {title}</h1>
       <InputField label={"Title"} value={title} onChangeValue={setTitle} />
       <InputField label={"Author"} value={author} onChangeValue={setAuthor} />
@@ -52,4 +27,29 @@ export function EditBookPage({ bookApi }) {
       <button>Submit</button>
     </form>
   );
+}
+
+export function EditBookPage({ bookApi }) {
+  const { search } = useLocation();
+  const params = useParams();
+  console.log(params);
+
+  const { error, data: book } = useLoader(() => {
+    const id = new URLSearchParams(search).get("id");
+    return bookApi.fetchBook(id);
+  }, [search]);
+
+  async function handleSubmit(book) {
+    const id = new URLSearchParams(search).get("id");
+    await bookApi.updateBook(id, book);
+  }
+
+  if (error) {
+    return <div>An error occurred: {error.toString()}</div>;
+  }
+  if (!book) {
+    return <LoadingView />;
+  }
+
+  return <EditBookForm book={book} onSubmit={handleSubmit} />;
 }
