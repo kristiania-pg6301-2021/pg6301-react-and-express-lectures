@@ -13,7 +13,9 @@ function findInputByLabel(form, label) {
 }
 
 function changeValue(input, value) {
-  Simulate.change(input, { target: { value } });
+  act(() => {
+    Simulate.change(input, { target: { value } });
+  });
 }
 
 function testFindInput(form, label) {
@@ -67,13 +69,11 @@ describe("create book view", () => {
     });
     expect(container.innerHTML).toMatchSnapshot();
 
-    await act(async () => {
-      const form = container.querySelector("form");
-      await changeValue(findInputByLabel(form, "Title"), "MyBook");
-      await changeValue(findInputByLabel(form, "Author"), "Author");
-      await changeValue(findInputByLabel(form, "Year"), "2021");
-      Simulate.submit(form);
-    });
+    const form = container.querySelector("form");
+    await changeValue(findInputByLabel(form, "Title"), "MyBook");
+    await changeValue(findInputByLabel(form, "Author"), "Author");
+    await changeValue(findInputByLabel(form, "Year"), "2021");
+    Simulate.submit(form);
     expect(saveBook).toBeCalledWith({
       title: "MyBook",
       author: "Author",
