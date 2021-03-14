@@ -27,6 +27,15 @@ app.get("/api/books/:id", (req, res) => {
   res.json(books.find((b) => b.id === id));
 });
 
+app.put("/api/books/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const { title, author, year } = req.body;
+  const index = books.findIndex((b) => b.id === id);
+  books[index] = { id, title, author, year };
+  res.status(200);
+  res.end();
+});
+
 app.get("/api/books", (req, res) => {
   console.log(books);
   res.json(books);

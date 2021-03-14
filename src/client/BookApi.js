@@ -10,6 +10,16 @@ export class BookApi {
     });
   }
 
+  async updateBook(id, book) {
+    await fetch(`/api/books/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(book),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+
   async listBooks() {
     const res = await fetch("/api/books");
     if (!res.ok) {
