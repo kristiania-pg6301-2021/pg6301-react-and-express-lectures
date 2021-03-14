@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`create book view renders on real DOM 1`] = `"<form><h1>Create new book</h1><div><label>Title: <input type=\\"text\\" value=\\"\\"></label></div><div><label>Author: <input type=\\"text\\" value=\\"\\"></label></div><div><label>Year: <input type=\\"number\\" value=\\"\\"></label></div><button>Submit</button></form>"`;
+
+exports[`create book view test renders view 1`] = `
+<form
+  onSubmit={[Function]}
+>
+  <h1>
+    Create new book
+  </h1>
+  <div>
+    <label>
+      Title
+      :
+       
+      <input
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </label>
+  </div>
+  <div>
+    <label>
+      Author
+      :
+       
+      <input
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </label>
+  </div>
+  <div>
+    <label>
+      Year
+      :
+       
+      <input
+        onChange={[Function]}
+        type="number"
+        value=""
+      />
+    </label>
+  </div>
+  <button>
+    Submit
+  </button>
+</form>
+`;

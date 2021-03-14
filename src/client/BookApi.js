@@ -1,4 +1,15 @@
 export class BookApi {
+  async saveBook(book) {
+    console.log("Submitting", book);
+    await fetch("/api/books", {
+      method: "POST",
+      body: JSON.stringify(book),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+
   async listBooks() {
     const res = await fetch("/api/books");
     if (!res.ok) {
