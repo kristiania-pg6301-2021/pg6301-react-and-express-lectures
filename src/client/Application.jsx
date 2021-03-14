@@ -6,8 +6,7 @@ import { CreateBookPage } from "./CreateBookPage";
 import { EditBookPage } from "./EditBookPage";
 import React from "react";
 
-export function Application() {
-  const bookApi = new BookApi();
+export function Application({ bookApi }) {
   return (
     <BrowserRouter>
       <nav>

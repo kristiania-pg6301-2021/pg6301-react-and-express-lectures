@@ -4,10 +4,14 @@ import TestRenderer from "react-test-renderer";
 import { act } from "react-dom/test-utils";
 import { BookListPage } from "../src/client/BookListPage";
 import { MemoryRouter } from "react-router";
+import { Application } from "../src/client/Application";
 
 class MockBookApi {
   async listBooks() {
     return [{ title: "Lord of the dance", id: 1 }];
+  }
+  async fetchBook() {
+    return { title: "Lord of the dance", author: "Dummy", year: 2021, id: 1 };
   }
 }
 
@@ -29,17 +33,20 @@ describe("book list view", () => {
     const container = document.createElement("div");
     document.body.appendChild(container);
     await act(async () => {
-      ReactDOM.render(
-        <MemoryRouter>
-          <BookListPage bookApi={new MockBookApi()} />
-        </MemoryRouter>,
-        container
-      );
+      ReactDOM.render(<Application bookApi={new MockBookApi()} />, container);
+    });
+    const listLink = container.querySelector("ul li a");
+    expect(listLink.textContent).toEqual("List books");
+    await act(async () => {
+      listLink.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     });
 
     expect(container.innerHTML).toMatchSnapshot();
-    expect(container.querySelector("li").textContent).toEqual(
-      "Lord of the dance"
-    );
+    const links = [...container.querySelectorAll("a")];
+    const bookLink = links.find((a) => a.textContent === "Lord of the dance");
+    await act(async () => {
+      bookLink.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    });
+    expect(container.innerHTML).toMatchSnapshot();
   });
 });

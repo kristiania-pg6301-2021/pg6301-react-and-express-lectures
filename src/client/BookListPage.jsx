@@ -17,7 +17,7 @@ export function BookListPage({ bookApi }) {
   useEffect(loadBooks, []);
 
   if (error) {
-    return <div>Something went wrong</div>;
+    return <div>Something went wrong: {error.toString()}</div>;
   }
 
   if (!books) {
