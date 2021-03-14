@@ -1,20 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { LoadingView } from "./LoadingView";
 import { Link } from "react-router-dom";
+import { useLoader } from "./useLoader";
 
 export function BookListPage({ bookApi }) {
-  const [books, setBooks] = useState();
-  const [error, setError] = useState();
-
-  async function loadBooks() {
-    try {
-      setBooks(await bookApi.listBooks());
-    } catch (e) {
-      setError(e);
-    }
-  }
-
-  useEffect(loadBooks, []);
+  const { error, data: books } = useLoader(() => bookApi.listBooks(), []);
 
   if (error) {
     return <div>Something went wrong: {error.toString()}</div>;

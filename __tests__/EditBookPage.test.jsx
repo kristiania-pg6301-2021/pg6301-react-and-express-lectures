@@ -47,4 +47,29 @@ describe("edit book view", () => {
       "Edit book: Book 12"
     );
   });
+
+  it("displays errors on load", () => {
+    const container = document.createElement("div");
+    document.body.appendChild(container);
+    act(() => {
+      ReactDOM.render(
+        <MemoryRouter initialEntries={["/books/12/edit"]}>
+          <Route path={"/books/:id/edit"}>
+            <EditBookPage
+              bookApi={{
+                fetchBook: () => {
+                  throw new Error("Loading failed");
+                },
+              }}
+            />
+          </Route>
+        </MemoryRouter>,
+        container
+      );
+    });
+    expect(container.innerHTML).toMatchSnapshot();
+    expect(container.querySelector(".errorView").textContent).toContain(
+      "Loading failed"
+    );
+  });
 });

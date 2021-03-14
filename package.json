@@ -38,6 +38,9 @@
     "last 1 Chrome version"
   ],
   "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.(js|jsx)"
+    ],
     "transform": {
       "\\.[jt]sx?$": "babel-jest"
     }

@@ -43,7 +43,9 @@ export function EditBookPage({ bookApi }) {
   }
 
   if (error) {
-    return <div>An error occurred: {error.toString()}</div>;
+    return (
+      <div className="errorView">An error occurred: {error.toString()}</div>
+    );
   }
   if (!book) {
     return <LoadingView />;
