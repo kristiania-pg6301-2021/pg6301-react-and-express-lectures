@@ -16,6 +16,18 @@ function changeValue(input, value) {
   Simulate.change(input, { target: { value } });
 }
 
+function testFindInput(form, label) {
+  const input = form
+    .findAllByType("label")
+    .find((p) => p.props.children.join("").startsWith(label))
+    .findByType("input");
+  return input;
+}
+
+function testChangeValue(input, value) {
+  input.props.onChange({ target: { value } });
+}
+
 describe("create book view", () => {
   it("test renders view", async () => {
     const saveBook = jest.fn();
@@ -28,9 +40,14 @@ describe("create book view", () => {
       );
     });
     expect(view.toJSON()).toMatchSnapshot();
-    expect(view.root.findByType("h1").children.join("")).toEqual(
-      "Create new book"
-    );
+    const form = view.root.findByType("form");
+    testChangeValue(testFindInput(form, "Title"), "My Title");
+    form.props.onSubmit({ preventDefault() {} });
+    expect(saveBook).toBeCalledWith({
+      title: "My Title",
+      author: "",
+      year: "",
+    });
   });
 
   it("renders on real DOM", async () => {
@@ -46,9 +63,6 @@ describe("create book view", () => {
       );
     });
     expect(container.innerHTML).toMatchSnapshot();
-    expect(container.querySelector("h1").textContent).toEqual(
-      "Create new book"
-    );
 
     await act(async () => {
       const form = container.querySelector("form");
