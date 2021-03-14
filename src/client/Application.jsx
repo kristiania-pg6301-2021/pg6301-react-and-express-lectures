@@ -13,13 +13,13 @@ export function Application({ bookApi }) {
       </nav>
       <main>
         <Switch>
-          <Route path={"/books"}>
+          <Route exact path={"/books"}>
             <BookListPage bookApi={bookApi} />
           </Route>
           <Route path={"/create"}>
             <CreateBookPage bookApi={bookApi} />
           </Route>
-          <Route path={"/edit"}>
+          <Route path={"/books/:id/edit"}>
             <EditBookPage bookApi={bookApi} />
           </Route>
           <Route exact path={"/"}>

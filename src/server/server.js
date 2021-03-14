@@ -24,7 +24,12 @@ app.use(express.static(path.resolve(__dirname, "..", "..", "dist")));
 
 app.get("/api/books/:id", (req, res) => {
   const id = parseInt(req.params.id);
-  res.json(books.find((b) => b.id === id));
+  const book = books.find((b) => b.id === id);
+  if (book) {
+    res.json(book);
+  } else {
+    res.sendStatus(404);
+  }
 });
 
 app.put("/api/books/:id", (req, res) => {

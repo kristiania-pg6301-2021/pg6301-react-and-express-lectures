@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import TestRenderer from "react-test-renderer";
 import { act } from "react-dom/test-utils";
-import { MemoryRouter } from "react-router";
+import { MemoryRouter, Route, Switch } from "react-router";
 import { EditBookPage } from "../src/client/EditBookPage";
 
 class MockBookApi {
@@ -16,8 +16,10 @@ describe("edit book view", () => {
     let view;
     await TestRenderer.act(async () => {
       view = TestRenderer.create(
-        <MemoryRouter initialEntries={["/edit?id=12"]}>
-          <EditBookPage bookApi={new MockBookApi()} />
+        <MemoryRouter initialEntries={["/books/12/edit"]}>
+          <Route path={"/books/:id/edit"}>
+            <EditBookPage bookApi={new MockBookApi()} />
+          </Route>
         </MemoryRouter>
       );
     });
@@ -32,8 +34,10 @@ describe("edit book view", () => {
     document.body.appendChild(container);
     await act(async () => {
       ReactDOM.render(
-        <MemoryRouter initialEntries={["/edit?id=12"]}>
-          <EditBookPage bookApi={new MockBookApi()} />
+        <MemoryRouter initialEntries={["/books/12/edit"]}>
+          <Route path={"/books/:id/edit"}>
+            <EditBookPage bookApi={new MockBookApi()} />
+          </Route>
         </MemoryRouter>,
         container
       );

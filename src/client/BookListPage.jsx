@@ -29,7 +29,7 @@ export function BookListPage({ bookApi }) {
       <h1>List books</h1>
       {books.map(({ id, title }) => (
         <li key={id}>
-          <Link to={`/edit?id=${id}`}>{title}</Link>
+          <Link to={`/books/${id}/edit`}>{title}</Link>
         </li>
       ))}
     </>

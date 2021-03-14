@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`book list view renders on real DOM 1`] = `"<nav><a href=\\"/\\">Home</a></nav><main><h1>List books</h1><li><a href=\\"/edit?id=1\\">Lord of the dance</a></li></main>"`;
+exports[`book list view renders on real DOM 1`] = `"<nav><a href=\\"/\\">Home</a></nav><main><h1>List books</h1><li><a href=\\"/books/1/edit\\">Lord of the dance</a></li></main>"`;
 
 exports[`book list view renders on real DOM 2`] = `"<nav><a href=\\"/\\">Home</a></nav><main><form><h1>Edit book: Lord of the dance</h1><div><label>Title: <input type=\\"text\\" value=\\"Lord of the dance\\"></label></div><div><label>Author: <input type=\\"text\\" value=\\"Dummy\\"></label></div><div><label>Year: <input type=\\"number\\" value=\\"2021\\"></label></div><button>Submit</button></form></main>"`;
 
@@ -11,7 +11,7 @@ Array [
   </h1>,
   <li>
     <a
-      href="/edit?id=1"
+      href="/books/1/edit"
       onClick={[Function]}
     >
       Lord of the dance

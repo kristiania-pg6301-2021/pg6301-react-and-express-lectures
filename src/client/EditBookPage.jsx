@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation, useParams } from "react-router";
+import { useHistory, useLocation, useParams } from "react-router";
 import { LoadingView } from "./LoadingView";
 import { InputField } from "./InputField";
 import { useLoader } from "./useLoader";
@@ -30,18 +30,16 @@ function EditBookForm({ book, onSubmit }) {
 }
 
 export function EditBookPage({ bookApi }) {
-  const { search } = useLocation();
-  const params = useParams();
-  console.log(params);
+  const history = useHistory();
+  const { id } = useParams();
 
   const { error, data: book } = useLoader(() => {
-    const id = new URLSearchParams(search).get("id");
     return bookApi.fetchBook(id);
-  }, [search]);
+  }, [id]);
 
   async function handleSubmit(book) {
-    const id = new URLSearchParams(search).get("id");
     await bookApi.updateBook(id, book);
+    history.push("/");
   }
 
   if (error) {
