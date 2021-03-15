@@ -8,27 +8,21 @@ const LocalStrategy = require("passport-local").Strategy;
 
 const app = express();
 
-passport.use(
-  new LocalStrategy(
-    {
-      usernameField: "username",
-      passwordField: "password",
-    },
-    (username, password, done) => {
-      console.log({ username, password });
-      if (username === "admin" && password === "secret") {
-        return done(null, username);
-      } else {
-        return done(null, false, { message: "Invalid username/password" });
-      }
-    }
-  )
-);
-
 app.use(bodyParser.json());
 app.use(
-  session({
-    secret: "a secret used to encrypt the session cookies",
+    session({
+        secret: "a secret used to encrypt the session cookies",
+    })
+);
+
+passport.use(
+  new LocalStrategy((username, password, done) => {
+    console.log({ username, password });
+    if (username === "admin" && password === "secret") {
+      return done(null, username);
+    } else {
+      return done(null, false, { message: "Invalid username/password" });
+    }
   })
 );
 
@@ -41,29 +35,16 @@ passport.deserializeUser((id, done) => {
   done(null, id);
 });
 
-
-
 app.get("/api/account", (req, res) => {
-  const {user} = req;
+  const { user } = req;
   if (!user) {
     return res.status(401).send();
   }
   res.json({ user, account: { balance: 240 } });
 });
 
-app.post("/api/login", (req, res, next) => {
-  passport.authenticate("local", {}, (err, user, info) => {
-    if (!user) {
-      return res.status(400).json(info).send();
-    }
-    req.logIn(user, (err) => {
-      if (err) {
-        return next(err);
-      }
-      console.log("session estabilishd");
-      res.status(204).send();
-    })
-  })(req, res, next);
+app.post("/api/login", passport.authenticate("local"), (req, res) => {
+  res.status(200).send();
 });
 
 app.use(express.static(path.resolve(__dirname, "..", "..", "dist")));
