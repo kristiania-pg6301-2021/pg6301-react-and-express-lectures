@@ -1,7 +1,8 @@
-import { BrowserRouter, Link } from "react-router-dom";
-import { Route, Switch } from "react-router";
+import {BrowserRouter, Link} from "react-router-dom";
+import {Route, Switch} from "react-router";
 import React from "react";
-import { AccountPage } from "./AccountPage";
+import {AccountPage} from "./AccountPage";
+import {LoginPage} from "./LoginPage";
 
 export function Application() {
   return (
@@ -16,10 +17,10 @@ export function Application() {
           </ul>
         </Route>
         <Route path="/my/account">
-          <AccountPage />
+          <AccountPage/>
         </Route>
         <Route path="/login">
-          <h1>Log in</h1>
+          <LoginPage/>
         </Route>
         <Route>
           <h1>Not found</h1>

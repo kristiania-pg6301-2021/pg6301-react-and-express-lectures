@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
+import {HttpError} from "./HttpError";
 
 function useLoader(loader, deps) {
   const [loading, setLoading] = useState(true);
@@ -25,18 +26,6 @@ function useLoader(loader, deps) {
   return { loading, data, error, reload };
 }
 
-class HttpError extends Error {
-  constructor(res) {
-    super("Failed to access " + res.url + ": " + res.status + " " + res.statusText);
-    this.status = res.status;
-  }
-  
-  status() {
-    return this.status;
-  }
-
-}
-
 export function AccountPage() {
   const { loading, data, error } = useLoader(async () => {
     const res = await fetch("/api/account");
@@ -59,7 +48,7 @@ export function AccountPage() {
 
   return (
     <>
-      <h1>Account</h1>
+      <h1>Account for {data.user}</h1>
       <div>You have ${data.account.balance}</div>
     </>
   );
