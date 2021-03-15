@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
+import {Link} from "react-router-dom";
 
 function useLoader(loader, deps) {
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(true);
   const [data, setData] = useState();
   const [error, setError] = useState();
 
@@ -12,6 +13,7 @@ function useLoader(loader, deps) {
     try {
       setData(await loader());
     } catch (e) {
+      console.log("error", e);
       setError(e);
     } finally {
       setLoading(false);
@@ -23,21 +25,36 @@ function useLoader(loader, deps) {
   return { loading, data, error, reload };
 }
 
+class HttpError extends Error {
+  constructor(res) {
+    super("Failed to access " + res.url + ": " + res.status + " " + res.statusText);
+    this.status = res.status;
+  }
+  
+  status() {
+    return this.status;
+  }
+
+}
+
 export function AccountPage() {
   const { loading, data, error } = useLoader(async () => {
     const res = await fetch("/api/account");
     if (!res.ok) {
-      throw new Error("Failed to GET " + res.url + ": " + res.statusText);
+      throw new HttpError(res);
     }
     return res.json();
   });
 
-  if (loading) {
-    return <div>Loading...</div>;
+  if (error) {
+    return <div>
+      Error: {error.toString()}
+      {error.status === 401 && <div><Link to="/login"><button>Log in</button></Link></div>}
+    </div>;
   }
 
-  if (error) {
-    return <div>Error: {error.toString()}</div>;
+  if (loading) {
+    return <div>Loading...</div>;
   }
 
   return (

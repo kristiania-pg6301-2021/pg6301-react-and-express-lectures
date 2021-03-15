@@ -5,6 +5,10 @@ const express = require("express");
 const app = express();
 
 app.get("/api/account", (req, res) => {
+  if (!req.user) {
+    return res.status(401).send();
+  }
+  
   res.json({ account: { balance: 240 } });
 });
 

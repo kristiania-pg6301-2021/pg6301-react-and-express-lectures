@@ -8,7 +8,7 @@ export function Application() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <h1>Hello world</h1>
+          <h1>My bank</h1>
           <ul>
             <li>
               <Link to="/my/account">Account page</Link>
@@ -17,6 +17,12 @@ export function Application() {
         </Route>
         <Route path="/my/account">
           <AccountPage />
+        </Route>
+        <Route path="/login">
+          <h1>Log in</h1>
+        </Route>
+        <Route>
+          <h1>Not found</h1>
         </Route>
       </Switch>
     </BrowserRouter>
