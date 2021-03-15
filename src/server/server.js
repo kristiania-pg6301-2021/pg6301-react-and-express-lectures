@@ -11,9 +11,8 @@ app.use((req, res, next) => {
   } else {
     next();
   }
-})
-
+});
 
 app.listen(3000, () => {
   console.log("App started");
-})
+});

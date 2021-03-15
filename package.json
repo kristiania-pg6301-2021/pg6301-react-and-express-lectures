@@ -6,13 +6,19 @@
   "license": "MIT",
   "devDependencies": {
     "concurrently": "^6.0.0",
+    "eslint": "^7.22.0",
+    "eslint-plugin-react": "^7.22.0",
     "nodemon": "^2.0.7",
-    "parcel": "^2.0.0-beta.1"
+    "parcel": "^2.0.0-beta.1",
+    "prettier": "^2.2.1"
   },
   "scripts": {
     "start": "concurrently npm:start:parcel npm:start:express",
     "start:parcel": "parcel src/client/index.html",
-    "start:express": "nodemon --watch src/server src/server/server.js"
+    "start:express": "nodemon --watch src/server src/server/server.js",
+    "build": "npm run format && npm run lint",
+    "format": "prettier --write src",
+    "lint": "eslint src/client/**/*.{js,jsx}"
   },
   "dependencies": {
     "express": "^4.17.1",
