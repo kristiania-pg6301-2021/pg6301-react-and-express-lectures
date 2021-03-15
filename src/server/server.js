@@ -1,7 +1,12 @@
+/* eslint-disable */
 const path = require("path");
 const express = require("express");
 
 const app = express();
+
+app.get("/api/account", (req, res) => {
+  res.json({ account: { balance: 240 } });
+});
 
 app.use(express.static(path.resolve(__dirname, "..", "..", "dist")));
 

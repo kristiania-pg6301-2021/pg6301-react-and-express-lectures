@@ -1,6 +1,7 @@
 import { BrowserRouter, Link } from "react-router-dom";
 import { Route, Switch } from "react-router";
 import React from "react";
+import { AccountPage } from "./AccountPage";
 
 export function Application() {
   return (
@@ -15,8 +16,7 @@ export function Application() {
           </ul>
         </Route>
         <Route path="/my/account">
-          <h1>Account</h1>
-          <div>You have $100</div>
+          <AccountPage />
         </Route>
       </Switch>
     </BrowserRouter>
