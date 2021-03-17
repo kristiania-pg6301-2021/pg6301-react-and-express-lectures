@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {InputField} from "./InputField";
 
 
 export function CreateBookPage() {
@@ -22,9 +23,9 @@ export function CreateBookPage() {
     
     return <form onSubmit={submit}>
         <h1>Create new book</h1>
-        <div><label>Title: <input type="text" value={title} onChange={e => setTitle(e.target.value)}/></label></div>
-        <div><label>Author: <input type="text" value={author} onChange={e => setAuthor(e.target.value)}/></label></div>
-        <div><label>Year: <input type="number" value={year} onChange={e => setYear(e.target.value)}/></label></div>
+        <InputField label={"Title"} value={title} onChangeValue={setTitle}/>
+        <InputField label={"Author"} value={author} onChangeValue={setAuthor}/>
+        <InputField label={"Year"} value={year} onChangeValue={setYear} type="number"/>
         <button>Submit</button>
-        </form>;
+    </form>;
 }

@@ -27,16 +27,29 @@ app.get("/api/books", (req, res) => {
     res.json(books);
 })
 
+app.get("/api/books/:id", (req, res) => {
+    const id = parseInt(req.params.id);
+    const book = books.find(b => b.id === id);
+    res.json(book);
+})
+
+app.put("/api/books/:id", (req, res) => {
+    const id = parseInt(req.params.id);
+    const bookIndex = books.findIndex(b => b.id === id);
+    const {title, author, year} = req.body;
+    books[bookIndex] = {title, author, year, id};
+    res.status(200).end();
+})
+
 app.post("/api/books", (req, res) => {
     const {title, author, year} = req.body;
     console.log(req.body);
    books.push({title, author, year, id: books.length+1})
-    res.status(201);
-   res.end();
+    res.status(201).end();
 });
 
 app.use((req, res, next) => {
-    if (req.method !== "GET") {
+    if (req.method !== "GET" || req.path.startsWith("/api")) {
         return next();
     }
     res.sendFile(path.resolve(__dirname, "..", "..", "dist", "index.html"));
