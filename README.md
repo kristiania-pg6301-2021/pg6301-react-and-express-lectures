@@ -14,3 +14,9 @@
 5. Add `start`, `start:client`, `start:server`, `format` scripts
 6. Create `src/client/index.html`, `src/client/index.jsx`, `src/server/server.js`
 7. Client loads data from server
+   * Add 'Access-Control-Allow-Origin' header to response
+8. Client posts data to server
+   * Handler OPTIONS (pre-flight)
+   * Add 'Access-Control-Allow-Origin' header to response
+9. Move data to cookie
+
