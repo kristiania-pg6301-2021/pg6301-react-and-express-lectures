@@ -13,6 +13,8 @@ function createApp() {
     app.use(
         session({
             secret: "a secret used to encrypt the session cookies",
+            resave: true,
+            saveUninitialized: false
         })
     );
 
