@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { useLoader } from "./useLoader";
+import { UserApi } from "./UserApi";
 
-function UserProfileForm({ reload }) {
+function UserProfileForm({ userApi, reload }) {
   const [username, setUsername] = useState("");
   const [postError, setPostError] = useState();
 
@@ -10,16 +11,7 @@ function UserProfileForm({ reload }) {
     e.preventDefault();
     try {
       setPostError(undefined);
-      const res = await fetch("http://localhost:3000/api/user", {
-        method: "POST",
-        body: JSON.stringify({ username }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (!res.ok) {
-        throw new Error("Res failed: " + res.status);
-      }
+      await userApi.postUser({ username });
       reload();
     } catch (e) {
       setPostError(e);
@@ -40,14 +32,10 @@ function UserProfileForm({ reload }) {
   );
 }
 
-function FrontPage() {
-  const { data, error, loading, reload } = useLoader(async () => {
-    const res = await fetch("http://localhost:3000/api/user");
-    if (!res.ok) {
-      throw new Error("Res failed: " + res.status);
-    }
-    return await res.json();
-  });
+function FrontPage({ userApi }) {
+  const { data, error, loading, reload } = useLoader(
+    async () => await userApi.fetchUser()
+  );
 
   if (error) {
     return <div>Error: {error.toString()}</div>;
@@ -59,13 +47,13 @@ function FrontPage() {
   return (
     <>
       <h1>Hello there: {data.username}</h1>
-      <UserProfileForm reload={reload} />
+      <UserProfileForm userApi={userApi} reload={reload} />
     </>
   );
 }
 
 function Application() {
-  return <FrontPage />;
+  return <FrontPage userApi={new UserApi()} />;
 }
 
 ReactDOM.render(<Application />, document.getElementById("root"));
