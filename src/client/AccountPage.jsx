@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
 import {HttpError} from "./HttpError";
 
 function useLoader(loader, deps) {
@@ -38,7 +37,7 @@ export function AccountPage() {
   if (error) {
     return <div>
       Error: {error.toString()}
-      {error.status === 401 && <div><Link to="/login"><button>Log in</button></Link></div>}
+      {error.status === 401 && <div><a href="/login" target="_self"><button>Log in</button></a></div>}
     </div>;
   }
 
