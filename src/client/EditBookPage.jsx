@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import { LoadingView } from "./LoadingView";
 import { InputField } from "./InputField";
+import { useLoading } from "./useLoading";
+import { ErrorView } from "./ErrorView";
 
 function EditBookForm({ book }) {
   const [title, setTitle] = useState(book.title);
@@ -37,30 +39,18 @@ function EditBookForm({ book }) {
 }
 
 export function EditBookPage({ bookApi }) {
-  const [book, setBook] = useState();
-  const [error, setError] = useState();
-
-  const location = useLocation();
-
-  async function loadBook() {
-    try {
-      let id = new URLSearchParams(location.search).get("id");
-      console.log({ id });
-      setBook(await bookApi.getBook(id));
-    } catch (e) {
-      setError(e);
-    }
-  }
-
-  useEffect(loadBook, []);
+  const { loading, error, data, reload } = useLoading(async () => {
+    let id = new URLSearchParams(location.search).get("id");
+    return await bookApi.getBook(id);
+  });
 
   if (error) {
-    return <div>Something went wrong: {error.toString()}</div>;
+    return <ErrorView error={error} reload={reload()} />;
   }
 
-  if (!book) {
+  if (loading || !data) {
     return <LoadingView />;
   }
 
-  return <EditBookForm book={book} />;
+  return <EditBookForm book={data} />;
 }
