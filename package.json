@@ -1,0 +1,35 @@
+{
+  "name": "pg6301-quiz-game",
+  "version": "1.0.0",
+  "description": "* [ ] React fetches data from express on different origin\r * [ ] React tries to use a session with the backend\r * [ ] React authenticates with AD with PKCE\r * [ ] React passes access token as request header",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently npm:start:client npm:start:server",
+    "start:client": "parcel src/client/index.html",
+    "start:server": "nodemon src/server/server.js",
+    "format": "prettier --write src",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jhannes/pg6301-quiz-game.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jhannes/pg6301-quiz-game/issues"
+  },
+  "homepage": "https://github.com/jhannes/pg6301-quiz-game#readme",
+  "devDependencies": {
+    "concurrently": "^6.0.0",
+    "nodemon": "^2.0.7",
+    "parcel": "^2.0.0-beta.2",
+    "prettier": "^2.2.1"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  }
+}
