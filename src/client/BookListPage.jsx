@@ -1,19 +1,13 @@
 import React, {useState, useEffect} from "react";
 import {LoadingView} from "./LoadingView";
 
-export function BookListPage() {
+export function BookListPage({bookApi}) {
     const [books, setBooks] = useState();
     const [error, setError] = useState();
     
     async function loadBooks() {
         try {
-            const res = await fetch("/api/books");
-            if (!res.ok) {
-                throw new Error(`Something went wrong loading ${res.url}: ${res.statusText}`);
-            }
-
-            const json = await res.json();
-            setBooks(json);
+            setBooks(await bookApi.listBooks());
         } catch (e) {
             setError(e);
         }
