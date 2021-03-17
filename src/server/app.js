@@ -5,7 +5,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const passport = require("passport");
-const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const AzureStrategy = require("passport-azure-ad").OIDCStrategy;
 
 function createApp() {
   const app = express();
@@ -20,14 +20,18 @@ function createApp() {
   );
 
   passport.use(
-    new GoogleStrategy(
+    new AzureStrategy(
       {
-        clientID: process.env.GOOGLE_CLIENT_ID,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: "https://webapps.kristiania.no:3000/oauth2callback", 
+        clientID: process.env.MICROSOFT_CLIENT_ID,
+        clientSecret: process.env.MICROSOFT_CLIENT_SECRET,
+        responseType: "code",
+        responseMode: "query",
+        validateIssuer: false,
+        redirectUrl: "https://webapps.kristiania.no:3000/oauth2callback",
+        identityMetadata: "https://login.microsoftonline.com/common/.well-known/openid-configuration"
       },
       function (accessToken, refreshToken, profile, cb) {
-        cb(null, profile.emails ? profile.emails[0].value : profile.displayName);
+        cb(null, profile.upn || profile.displayName);
       }
     )
   );
@@ -50,11 +54,11 @@ function createApp() {
     res.json({ user, account: { balance: 240 } });
   });
 
-  app.get("/login", passport.authenticate("google", { scope: ["profile", "email"] }));
+  app.get("/login", passport.authenticate("azuread-openidconnect", { scope: ["profile", "email"] }));
 
   app.get(
     "/oauth2callback",
-    passport.authenticate("google", { failureRedirect: "/login" }),
+    passport.authenticate("azuread-openidconnect"),
     function (req, res) {
       // Successful authentication, redirect home.
       res.redirect("/");
