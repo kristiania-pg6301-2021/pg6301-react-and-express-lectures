@@ -1,0 +1,10 @@
+*.key
+*.crt
+.env
+*.iml
+
+node_modules/
+dist/
+.idea/
+.cache/
+.parcel-cache/
