@@ -24,10 +24,10 @@ function createApp() {
       {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: "https://webapps.kristiania.no:3000/oauth2callback",
+        callbackURL: "https://webapps.kristiania.no:3000/oauth2callback", 
       },
       function (accessToken, refreshToken, profile, cb) {
-        cb(null, profile.displayName);
+        cb(null, profile.emails ? profile.emails[0].value : profile.displayName);
       }
     )
   );
@@ -50,7 +50,7 @@ function createApp() {
     res.json({ user, account: { balance: 240 } });
   });
 
-  app.get("/login", passport.authenticate("google", { scope: ["profile"] }));
+  app.get("/login", passport.authenticate("google", { scope: ["profile", "email"] }));
 
   app.get(
     "/oauth2callback",
