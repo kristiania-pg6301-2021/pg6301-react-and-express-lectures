@@ -41,7 +41,7 @@ function Application() {
           <Route path={"/create"}>
             <CreateBookPage />
           </Route>
-          <Route path={"/edit"}>
+          <Route path={"/books/:id/edit"}>
             <EditBookPage bookApi={bookApi} />
           </Route>
           <Route exact path={"/"}>
