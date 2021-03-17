@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { useLoader } from "./useLoader";
 
-function UserProfileForm() {
+function UserProfileForm({ reload }) {
   const [username, setUsername] = useState("");
   const [postError, setPostError] = useState();
 
@@ -20,6 +20,7 @@ function UserProfileForm() {
       if (!res.ok) {
         throw new Error("Res failed: " + res.status);
       }
+      reload();
     } catch (e) {
       setPostError(e);
     }
@@ -40,7 +41,7 @@ function UserProfileForm() {
 }
 
 function FrontPage() {
-  const { data, error, loading } = useLoader(async () => {
+  const { data, error, loading, reload } = useLoader(async () => {
     const res = await fetch("http://localhost:3000/api/user");
     if (!res.ok) {
       throw new Error("Res failed: " + res.status);
@@ -58,7 +59,7 @@ function FrontPage() {
   return (
     <>
       <h1>Hello there: {data.username}</h1>
-      <UserProfileForm />
+      <UserProfileForm reload={reload} />
     </>
   );
 }
