@@ -12,9 +12,7 @@ function Application() {
         </nav>
         <main>
             <Switch>
-                <Route path={"/books"}>
-                    <BookListPage/>
-                </Route>
+                <Route exact path={"/books"} component={BookListPage} />
                 <Route path={"/create"}>
                     <CreateBookPage/>
                 </Route>
@@ -22,7 +20,7 @@ function Application() {
                     <h1>Edit an existing book</h1>
                 </Route>
                 <Route exact path={"/"}>
-                    <h1>Book application home page</h1>
+                    <h1>Book application</h1>
                     <ul>
                         <li><Link to={"/books"}>List books</Link></li>
                         <li><Link to={"/create"}>Add a book</Link></li>
