@@ -3,12 +3,13 @@ import ReactDOM from "react-dom";
 import { useLoader } from "./useLoader";
 
 function FrontPage() {
-  const { data, error, loading } = useLoader(
-    () =>
-      new Promise((resolve) => {
-        setTimeout(() => resolve({ username: "Johannes" }), 500);
-      })
-  );
+  const { data, error, loading } = useLoader(async () => {
+    const res = await fetch("http://localhost:3000/api/user");
+    if (!res.ok) {
+      throw new Error("Res failed: " + res.status);
+    }
+    return await res.json();
+  });
 
   if (error) {
     return <div>Error: {error.toString()}</div>;
