@@ -6,13 +6,25 @@ import {BookListPage} from "./BookListPage";
 import {CreateBookPage} from "./CreateBookPage";
 
 function Application() {
+    const bookApi = {
+        listBooks: async () => {
+            const res = await fetch("/api/books");
+            if (!res.ok) {
+                throw new Error(`Something went wrong loading ${res.url}: ${res.statusText}`);
+            }
+            return await res.json();
+        }
+    }
+    
     return <BrowserRouter>
         <nav>
             <Link to={"/"}>Home</Link>
         </nav>
         <main>
             <Switch>
-                <Route exact path={"/books"} component={BookListPage} />
+                <Route exact path={"/books"}>
+                    <BookListPage bookApi={bookApi} />
+                </Route>
                 <Route path={"/create"}>
                     <CreateBookPage/>
                 </Route>

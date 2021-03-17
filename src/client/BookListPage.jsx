@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {LoadingView} from "./LoadingView";
+import {Link} from "react-router-dom";
 
 export function BookListPage({bookApi}) {
     const [books, setBooks] = useState();
@@ -16,7 +17,7 @@ export function BookListPage({bookApi}) {
     useEffect(loadBooks, []);
     
     if (error) {
-        return <div>Something went wrong</div>;
+        return <div>Something went wrong: {error.toString()}</div>;
     }
     
     
@@ -28,7 +29,7 @@ export function BookListPage({bookApi}) {
     return <>
         <h1>List books</h1>
         {books.map(({id, title}) => (
-            <li key={id}>{title}</li>
+            <li key={id}><Link to={`/edit?id=${id}`}>{title}</Link></li>
         ))}
         </>;
 }
