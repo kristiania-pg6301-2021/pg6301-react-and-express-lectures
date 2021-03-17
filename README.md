@@ -10,8 +10,17 @@ Setting up a react application:
 7. `npm install -P react react-dom`
 8. Restart `npm start`
 9. Add `ReactDOM.render(<h1>Hello world</h1>, document.getElementById("root"))`
+10. In order to use promises, you have to add to `package.json` a section with "`browserslist`"
 
 Now the React application should be showing
+
+Adding tests:
+
+1. `npm install -D jest babel-jest @babel/preset-env @babel/preset-react`
+2. Add `"test": "jest"` as a script in `package.json`
+3. Add `package.json` sections for `"jest"` to transform with `babel-jest` and for `babel` to use the installed presets from #1
+4. Add a test file under `__tests__`
+
 
 ## Troubleshooting
 
