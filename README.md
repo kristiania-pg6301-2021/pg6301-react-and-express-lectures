@@ -19,4 +19,4 @@
    * Handler OPTIONS (pre-flight)
    * Add 'Access-Control-Allow-Origin' header to response
 9. Move data to cookie
-
+10. Authenticate with Active Directory (client side)
