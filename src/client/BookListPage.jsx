@@ -5,22 +5,22 @@ import { useLoading } from "./useLoading";
 import { ErrorView } from "./ErrorView";
 
 export function BookListPage({ bookApi }) {
-  const { error, loading, data, reload } = useLoading(async () =>
-    bookApi.listBooks()
+  const { data: books, error, loading, reload } = useLoading(
+    async () => await bookApi.listBooks()
   );
 
   if (error) {
     return <ErrorView error={error} reload={reload} />;
   }
 
-  if (loading || !data) {
+  if (loading || !books) {
     return <LoadingView />;
   }
 
   return (
     <>
       <h1>List books</h1>
-      {data.map(({ id, title }) => (
+      {books.map(({ id, title }) => (
         <li key={id}>
           <Link to={`/books/${id}/edit`}>{title}</Link>
         </li>

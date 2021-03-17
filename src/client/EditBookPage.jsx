@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router";
+import React, { useState } from "react";
+import { useParams } from "react-router";
 import { LoadingView } from "./LoadingView";
 import { InputField } from "./InputField";
 import { useLoading } from "./useLoading";
@@ -41,7 +41,7 @@ function EditBookForm({ book }) {
 export function EditBookPage({ bookApi }) {
   const { id } = useParams();
 
-  const { loading, error, data, reload } = useLoading(
+  const { data: book, loading, error, reload } = useLoading(
     async () => await bookApi.getBook(id),
     [id]
   );
@@ -50,9 +50,9 @@ export function EditBookPage({ bookApi }) {
     return <ErrorView error={error} reload={reload()} />;
   }
 
-  if (loading || !data) {
+  if (loading || !book) {
     return <LoadingView />;
   }
 
-  return <EditBookForm book={data} />;
+  return <EditBookForm book={book} />;
 }
