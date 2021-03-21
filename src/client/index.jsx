@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Link } from "react-router-dom";
 import { Route, Switch } from "react-router";
+import { ProfilePage } from "./ProfilePage";
 
 function Application() {
   return (
@@ -15,7 +16,7 @@ function Application() {
             <h1>Login here</h1>
           </Route>
           <Route path={"/profile"}>
-            <h1>User profile</h1>
+            <ProfilePage />
           </Route>
           <Route exact path={"/"}>
             <h1>Welcome</h1>

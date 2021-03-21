@@ -24,6 +24,11 @@
   * `./node_modules/.bin/eslint --init`
   * Add package script for eslint
 * [ ] Access an API and route frontend based on the response
+  * `useLoader` and `fetchJson` in ProfilePage
+  * Error handling in ProfilePage
+  * Backend returns 401
+  * Frontend button to redirect to login
+  * Refactor to separate files
 * [ ] Implement a password login with Passport #5
 * [ ] Implement Google login with Passport #6
 * [ ] Implement Active Directory login with Passport #7
