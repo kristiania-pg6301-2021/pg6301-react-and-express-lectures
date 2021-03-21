@@ -17,7 +17,7 @@
 * [x] Route the frontend
   * `npm install -P react-router react-router-dom`
   * Create Application, FrontPage, LoginPage and ProfilePage
-* [ ] Format and lint the code
+* [x] Format and lint the code
   * `npm install -D eslint prettier`
   * Add package script for prettier
   * Setup prettier in IntelliJ

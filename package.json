@@ -8,6 +8,7 @@
     "start:express": "nodemon src/server/server.js",
     "start:parcel": "parcel src/client/index.html",
     "format": "prettier --write src/",
+    "check": "eslint src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,6 +24,7 @@
   "devDependencies": {
     "concurrently": "^6.0.0",
     "eslint": "^7.22.0",
+    "eslint-plugin-react": "^7.22.0",
     "nodemon": "^2.0.7",
     "parcel": "^2.0.0-beta.2",
     "prettier": "^2.2.1"
