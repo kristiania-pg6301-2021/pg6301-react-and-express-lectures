@@ -1,34 +1,40 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {BrowserRouter, Link} from "react-router-dom";
-import {Route, Switch} from "react-router";
-
+import { BrowserRouter, Link } from "react-router-dom";
+import { Route, Switch } from "react-router";
 
 function Application() {
-    return <div>
-        <BrowserRouter>
-        <div><Link to={"/"}>Kristiania demo app</Link></div>
-            <Switch>
-                <Route path={"/login"}>
-                    <h1>Login here</h1>
-                </Route>
-                <Route path={"/profile"}>
-                    <h1>User profile</h1>
-                </Route>
-                <Route exact path={"/"}>
-                    <h1>Welcome</h1>
-                    <ul>
-                        <li><Link to={"/profile"}>User profile</Link></li>
-                        <li><Link to={"/login"}>Log in</Link></li>
-                    </ul>
-                </Route>
-                <Route>
-                    <h1>Page not found</h1>
-                </Route>
-            </Switch>
-        </BrowserRouter>
-    </div>;
+  return (
+    <div>
+      <BrowserRouter>
+        <div>
+          <Link to={"/"}>Kristiania demo app</Link>
+        </div>
+        <Switch>
+          <Route path={"/login"}>
+            <h1>Login here</h1>
+          </Route>
+          <Route path={"/profile"}>
+            <h1>User profile</h1>
+          </Route>
+          <Route exact path={"/"}>
+            <h1>Welcome</h1>
+            <ul>
+              <li>
+                <Link to={"/profile"}>User profile</Link>
+              </li>
+              <li>
+                <Link to={"/login"}>Log in</Link>
+              </li>
+            </ul>
+          </Route>
+          <Route>
+            <h1>Page not found</h1>
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    </div>
+  );
 }
 
-ReactDOM.render(<Application/>, document.getElementById("root"));
-
+ReactDOM.render(<Application />, document.getElementById("root"));

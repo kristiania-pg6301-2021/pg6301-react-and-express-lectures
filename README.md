@@ -18,6 +18,11 @@
   * `npm install -P react-router react-router-dom`
   * Create Application, FrontPage, LoginPage and ProfilePage
 * [ ] Format and lint the code
+  * `npm install -D eslint prettier`
+  * Add package script for prettier
+  * Setup prettier in IntelliJ
+  * `./node_modules/.bin/eslint --init`
+  * Add package script for eslint
 * [ ] Access an API and route frontend based on the response
 * [ ] Implement a password login with Passport #5
 * [ ] Implement Google login with Passport #6
