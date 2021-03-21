@@ -1,5 +1,10 @@
 
-* [ ] Create a react app with parcel
+* [x] Create a react app with parcel
+  * `npm init`
+  * `npm install -D parcel@next`
+  * `npm install -P react react-dom`
+  * Create `src/client/index.html` and `src/client/index.jsx`
+  * Create a package.json script for parcel: `parcel src/client/index.html`
 * [ ] Serve the app from express
 * [ ] Route the frontend
 * [ ] Format and lint the code
