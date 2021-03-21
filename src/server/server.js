@@ -1,9 +1,11 @@
+require("dotenv").config();
 const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
 const app = express();
 
@@ -24,6 +26,20 @@ passport.use(
     }
   })
 );
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: "/oauth2callback",
+    },
+    (accessToken, refreshToken, profile, done) => {
+      console.log(profile);
+      done(null, profile.displayName);
+    }
+  )
+);
+
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((id, done) => done(null, id));
 app.use(passport.initialize());
@@ -34,6 +50,12 @@ app.get("/api/profile", (req, res) => {
     return res.status(401).send();
   }
   res.json(req.user);
+});
+
+app.get("/login", passport.authenticate("google", { scope: ["profile"] }));
+
+app.get("/oauth2callback", passport.authenticate("google"), (req, res) => {
+  res.redirect("/");
 });
 
 app.post("/api/login", passport.authenticate("local"), (req, res) => {

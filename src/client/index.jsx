@@ -26,7 +26,9 @@ function Application() {
                 <Link to={"/profile"}>User profile</Link>
               </li>
               <li>
-                <Link to={"/login"}>Log in</Link>
+                <a href={"/login"} target="_self">
+                  Log in
+                </a>
               </li>
             </ul>
           </Route>

@@ -37,7 +37,12 @@
   * Express login route to use `passport.authenticate("local")`
   * `passport.use(new LocalStrategy()); passport.serialize...()`
   * `app.use(passport.initialize()); app.use(passport.session())`
-* [ ] Implement Google login with Passport #6
+* [x] Implement Google login with Passport #6
+  * LoginPage is replaced with server side page
+  * `npm install -P dotenv passport-google-oauth20`
+  * `passport.use(new GoogleStrategy());`
+  * https://console.cloud.google.com/apis/credentials
+  * `app.get("/oauth2callback")`
 * [ ] Implement Active Directory login with Passport #7
     * [ ] Setup new Active Directory tenant 
 

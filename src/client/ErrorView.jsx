@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import React from "react";
 
 export function ErrorView({ error, reload }) {
@@ -7,9 +6,9 @@ export function ErrorView({ error, reload }) {
       <div>
         <div>Unauthorized</div>
         {error.status === 401 && (
-          <Link to={"/login"}>
+          <a href={"/login"} target="_self">
             <button>Log in</button>
-          </Link>
+          </a>
         )}
       </div>
     );
