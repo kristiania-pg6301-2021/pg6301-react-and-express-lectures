@@ -14,7 +14,9 @@
   * `require("express")().listen(3000)`
   * `app.use(express.static(path(__dirname, "..", "..", "dist")`
   * `app.use((req, res, next) => res.sendFile(...)`
-* [ ] Route the frontend
+* [x] Route the frontend
+  * `npm install -P react-router react-router-dom`
+  * Create Application, FrontPage, LoginPage and ProfilePage
 * [ ] Format and lint the code
 * [ ] Access an API and route frontend based on the response
 * [ ] Implement a password login with Passport #5
