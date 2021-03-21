@@ -29,13 +29,14 @@
   * Backend returns 401
   * Frontend button to redirect to login
   * Refactor to separate files
-* [ ] Implement a password login with Passport #5
+* [x] Implement a password login with Passport #5
   * LoginPage POSTs username and password to /api/login
   * `npm install -P session body-parser`
   * /api/profile returns username from session (wrong implementation)
   * `npm install -P passport passport-local`
   * Express login route to use `passport.authenticate("local")`
-  * `passport.use(new LocalStrategy())`
+  * `passport.use(new LocalStrategy()); passport.serialize...()`
+  * `app.use(passport.initialize()); app.use(passport.session())`
 * [ ] Implement Google login with Passport #6
 * [ ] Implement Active Directory login with Passport #7
     * [ ] Setup new Active Directory tenant 
