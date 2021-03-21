@@ -14,6 +14,9 @@
   * `require("express")().listen(3000)`
   * `app.use(express.static(path(__dirname, "..", "..", "dist")`
   * `app.use((req, res, next) => res.sendFile(...)`
+* [ ] IMPROVEMENT: Serve with HTTP certificate #11
+  * Turn on https - `https.createServer({key, cert}, app).listen(3000)`
+  * `openssl req -x509 -nodes -keyout server.key -out server.crt -subj "/CN=localhost" -addext "subjectAltName = DNS:localhost"` 
 * [x] Route the frontend
   * `npm install -P react-router react-router-dom`
   * Create Application, FrontPage, LoginPage and ProfilePage
@@ -29,10 +32,13 @@
   * Backend returns 401
   * Frontend button to redirect to login
   * Refactor to separate files
-* [x] Implement a password login with Passport #5
+* [x] IMPROVEMENT: Implement fake login with cookies and session
   * LoginPage POSTs username and password to /api/login
-  * `npm install -P session body-parser`
+  * `npm install -P body-parser cookie-parser`
+  * /api/profile returns username from cookie (wrong implementation)
+  * `npm install -P session`
   * /api/profile returns username from session (wrong implementation)
+* [x] Implement a password login with Passport #5
   * `npm install -P passport passport-local`
   * Express login route to use `passport.authenticate("local")`
   * `passport.use(new LocalStrategy()); passport.serialize...()`
@@ -43,18 +49,11 @@
   * `passport.use(new GoogleStrategy());`
   * https://console.cloud.google.com/apis/credentials
   * `app.get("/oauth2callback")`
-* [ ] Implement Active Directory login with Passport #7
+* [x] Implement Active Directory login with Passport #7
   * `npm install -P passport-azure-ad`
   * `passport.use(nwe AzureStrategy())`
   * Change `authenticate()` argument
-  * Turn on https - `https.createServer({key, cert}, app).listen(3000)`
-  * `openssl req -new -nodes -x509 -subj "/CN=localhost" -addext "subjectAltName = DNS:localhost" -keyout server.key -out server.crt`
 
 
-* [ ] Setup new Active Directory tenant 
-
-Neste gang:
-
-* [ ] Serve with HTTP certificate #11
 
 
