@@ -1,16 +1,30 @@
-const express = require("express");
 const path = require("path");
+const express = require("express");
+const bodyParser = require("body-parser");
+const session = require("express-session");
 
 const app = express();
 
+app.use(bodyParser.json());
+app.use(
+  session({
+    secret: "Cg10BwFzX2um",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
 app.get("/api/profile", (req, res) => {
-  if (!req.user) {
+  const { username } = req.session;
+  if (!username) {
     return res.status(401).send();
   }
-  res.json({ username: "Johannes" });
+  res.json({ username });
 });
 
 app.post("/api/login", (req, res) => {
+  const { username } = req.body;
+  req.session.username = username;
   res.send();
 });
 
