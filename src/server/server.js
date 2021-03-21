@@ -2,6 +2,14 @@ const express = require("express");
 const path = require("path");
 
 const app = express();
+
+app.get("/api/profile", (req, res) => {
+  if (!req.user) {
+    return res.status(401).send();
+  }
+  res.json({ username: "Johannes" });
+});
+
 app.use(express.static(path.resolve(__dirname, "..", "..", "dist")));
 app.use((req, res, next) => {
   if (req.method === "GET" && !req.path.startsWith("/api")) {

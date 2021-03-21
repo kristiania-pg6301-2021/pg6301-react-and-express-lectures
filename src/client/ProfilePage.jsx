@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
+class HttpError extends Error {
+  constructor(url, res) {
+    super(`Failed to fetch ${url}: ${res.status} ${res.statusText}`);
+    this.status = res.status;
+  }
+}
 
 async function fetchJson(url) {
   const res = await fetch(url);
   if (!res.ok) {
-    throw new Error(`Failed to fetch ${url}: ${res.status} ${res.statusText}`);
+    throw new HttpError(url, res);
   }
   return await res.json();
 }
@@ -36,6 +44,18 @@ function LoadingView() {
 }
 
 function ErrorView({ error, reload }) {
+  if (error.status === 401) {
+    return (
+      <div>
+        <div>Unauthorized</div>
+        {error.status === 401 && (
+          <Link to={"/login"}>
+            <button>Log in</button>
+          </Link>
+        )}
+      </div>
+    );
+  }
   return (
     <div>
       <div>Error: {error.toString()}</div>
