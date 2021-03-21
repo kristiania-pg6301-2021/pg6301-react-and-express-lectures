@@ -44,7 +44,14 @@
   * https://console.cloud.google.com/apis/credentials
   * `app.get("/oauth2callback")`
 * [ ] Implement Active Directory login with Passport #7
-    * [ ] Setup new Active Directory tenant 
+  * `npm install -P passport-azure-ad`
+  * `passport.use(nwe AzureStrategy())`
+  * Change `authenticate()` argument
+  * Turn on https - `https.createServer({key, cert}, app).listen(3000)`
+  * `openssl req -new -nodes -x509 -subj "/CN=localhost" -addext "subjectAltName = DNS:localhost" -keyout server.key -out server.crt`
+
+
+* [ ] Setup new Active Directory tenant 
 
 Neste gang:
 

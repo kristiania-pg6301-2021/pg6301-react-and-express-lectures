@@ -6,6 +6,9 @@ const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const AzureStrategy = require("passport-azure-ad").OIDCStrategy;
+const https = require("https");
+const fs = require("fs");
 
 const app = express();
 
@@ -33,10 +36,23 @@ passport.use(
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: "/oauth2callback",
     },
-    (accessToken, refreshToken, profile, done) => {
-      console.log(profile);
-      done(null, profile.displayName);
-    }
+    (accessToken, refreshToken, profile, done) =>
+      done(null, profile.displayName)
+  )
+);
+passport.use(
+  new AzureStrategy(
+    {
+      clientID: process.env.MICROSOFT_CLIENT_ID,
+      clientSecret: process.env.MICROSOFT_CLIENT_SECRET,
+      redirectUrl: "https://localhost:3000/oauth2callback",
+      responseType: "code",
+      responseMode: "query",
+      identityMetadata:
+        "https://login.microsoftonline.com/common/.well-known/openid-configuration",
+      validateIssuer: false,
+    },
+    (accessToken, refreshToken, profile, done) => done(null, profile.upn)
   )
 );
 
@@ -52,11 +68,18 @@ app.get("/api/profile", (req, res) => {
   res.json(req.user);
 });
 
-app.get("/login", passport.authenticate("google", { scope: ["profile"] }));
+app.get(
+  "/login",
+  passport.authenticate("azuread-openidconnect", { scope: ["profile"] })
+);
 
-app.get("/oauth2callback", passport.authenticate("google"), (req, res) => {
-  res.redirect("/");
-});
+app.get(
+  "/oauth2callback",
+  passport.authenticate("azuread-openidconnect"),
+  (req, res) => {
+    res.redirect("/");
+  }
+);
 
 app.post("/api/login", passport.authenticate("local"), (req, res) => {
   res.send();
@@ -71,6 +94,14 @@ app.use((req, res, next) => {
   }
 });
 
-const server = app.listen(3000, () => {
-  console.log(`started on http://localhost:${server.address().port}`);
-});
+const server = https
+  .createServer(
+    {
+      key: fs.readFileSync("server.key"),
+      cert: fs.readFileSync("server.crt"),
+    },
+    app
+  )
+  .listen(3000, () => {
+    console.log(`started on https://localhost:${server.address().port}`);
+  });
