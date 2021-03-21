@@ -1,70 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-
-class HttpError extends Error {
-  constructor(url, res) {
-    super(`Failed to fetch ${url}: ${res.status} ${res.statusText}`);
-    this.status = res.status;
-  }
-}
-
-async function fetchJson(url) {
-  const res = await fetch(url);
-  if (!res.ok) {
-    throw new HttpError(url, res);
-  }
-  return await res.json();
-}
-
-function useLoader(loadingFunction) {
-  const [data, setData] = useState();
-  const [error, setError] = useState();
-  const [loading, setLoading] = useState(true);
-
-  async function reload() {
-    setData(undefined);
-    setLoading(true);
-    setError(undefined);
-    try {
-      setData(await loadingFunction());
-    } catch (e) {
-      setError(e);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  useEffect(reload, []);
-
-  return { data, error, loading, reload };
-}
-
-function LoadingView() {
-  return <div>Loading...</div>;
-}
-
-function ErrorView({ error, reload }) {
-  if (error.status === 401) {
-    return (
-      <div>
-        <div>Unauthorized</div>
-        {error.status === 401 && (
-          <Link to={"/login"}>
-            <button>Log in</button>
-          </Link>
-        )}
-      </div>
-    );
-  }
-  return (
-    <div>
-      <div>Error: {error.toString()}</div>
-      <div>
-        <button onClick={reload}>Try again</button>
-      </div>
-    </div>
-  );
-}
+import React from "react";
+import { ErrorView } from "./ErrorView";
+import { LoadingView } from "./LoadingView";
+import { useLoader } from "./lib/useLoader";
+import { fetchJson } from "./lib/http";
 
 export function ProfilePage() {
   const { data, error, loading, reload } = useLoader(() =>
