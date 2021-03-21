@@ -23,13 +23,19 @@
   * Setup prettier in IntelliJ
   * `./node_modules/.bin/eslint --init`
   * Add package script for eslint
-* [ ] Access an API and route frontend based on the response
+* [x] Access an API and route frontend based on the response
   * `useLoader` and `fetchJson` in ProfilePage
   * Error handling in ProfilePage
   * Backend returns 401
   * Frontend button to redirect to login
   * Refactor to separate files
 * [ ] Implement a password login with Passport #5
+  * LoginPage POSTs username and password to /api/login
+  * `npm install -P session body-parser`
+  * /api/profile returns username from session (wrong implementation)
+  * `npm install -P passport passport-local`
+  * Express login route to use `passport.authenticate("local")`
+  * `passport.use(new LocalStrategy())`
 * [ ] Implement Google login with Passport #6
 * [ ] Implement Active Directory login with Passport #7
     * [ ] Setup new Active Directory tenant 

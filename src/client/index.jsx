@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Link } from "react-router-dom";
 import { Route, Switch } from "react-router";
 import { ProfilePage } from "./ProfilePage";
+import { LoginPage } from "./LoginPage";
 
 function Application() {
   return (
@@ -13,7 +14,7 @@ function Application() {
         </div>
         <Switch>
           <Route path={"/login"}>
-            <h1>Login here</h1>
+            <LoginPage />
           </Route>
           <Route path={"/profile"}>
             <ProfilePage />

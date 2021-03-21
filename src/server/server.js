@@ -10,6 +10,10 @@ app.get("/api/profile", (req, res) => {
   res.json({ username: "Johannes" });
 });
 
+app.post("/api/login", (req, res) => {
+  res.send();
+});
+
 app.use(express.static(path.resolve(__dirname, "..", "..", "dist")));
 app.use((req, res, next) => {
   if (req.method === "GET" && !req.path.startsWith("/api")) {
