@@ -3,10 +3,12 @@ export class UserApi {
     this.server = "http://localhost:3000";
   }
 
-  async fetchUser() {
-    const res = await fetch(this.server + "/api/user");
-    this.checkResponse(res);
-    return await res.json();
+  async fetchUser(accessToken) {
+    return fetchJson(this.server + "/api/user", {
+      headers: {
+        ...(accessToken ? { Authorization: "Bearer " + accessToken } : {}),
+      },
+    });
   }
 
   async postUser(user) {
@@ -17,12 +19,27 @@ export class UserApi {
         "Content-Type": "application/json",
       },
     });
-    this.checkResponse(res);
+    checkResponse(res);
   }
+}
 
-  checkResponse(res) {
-    if (!res.ok) {
-      throw new Error("Res failed: " + res.status);
-    }
+export async function fetchJson(url, { headers } = { headers: {} }) {
+  console.log("fetching", url);
+  const res = await fetch(url, {
+    headers: {
+      ...{ Accept: "application/json" },
+      ...headers,
+    },
+  });
+  console.log(url, res);
+  checkResponse(res);
+  return await res.json();
+}
+
+function checkResponse(res) {
+  if (!res.ok) {
+    const error = new Error("Res failed: " + res.status);
+    error.status = res.status;
+    throw error;
   }
 }
