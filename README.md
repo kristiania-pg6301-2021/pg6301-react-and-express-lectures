@@ -7,7 +7,8 @@
   * Create `src/client/index.html` and `src/client/index.jsx`
   * package.json script for parcel   
 * [ ] Serve app from express
-  * `npm install -P express nodemon`
+  * `npm install -P express`
+  * `npm install -D nodemon`
   * Create `src/server/server.js`
   * `listen(3000)`
   * `app.use(express.static())`
