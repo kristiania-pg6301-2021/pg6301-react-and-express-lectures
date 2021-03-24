@@ -22,10 +22,13 @@
   * `npm install -P react-router react-router-dom`
   * Extract Application, FrontPage, LoginPage, ProfilePage
   * `app.use(() => .... res.sendFile("index.html")`
-* [ ] Access API from frontend - with custom hooks
+* [x] Access API from frontend - with custom hooks
   * ProfilePage fetches /api/profile using new useLoading, fetchJson functions
   * Implement /api/profile (dummy) on express
-* [ ] prettier to format code
+* [x] prettier to format code
+  * `npm install -D prettier`
+  * Add package script for prettier
+  * Setup prettier in IntelliJ/VS Code
 * [ ] Implement session with cookie
 * [ ] Implement password login with passport js
 * [ ] Implement Google with passport js

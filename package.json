@@ -6,6 +6,7 @@
   "scripts": {
     "start": "parcel src/client/index.html",
     "start:express": "nodemon --watch src/server src/server/server.js",
+    "format": "prettier --write src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,7 +22,8 @@
   "homepage": "https://github.com/kristiania-pg6301-2021/pg6301-react-and-express-lectures#readme",
   "devDependencies": {
     "nodemon": "^2.0.7",
-    "parcel": "^2.0.0-beta.2"
+    "parcel": "^2.0.0-beta.2",
+    "prettier": "^2.2.1"
   },
   "dependencies": {
     "express": "^4.17.1",
