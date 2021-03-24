@@ -1,21 +1,23 @@
 
 
-* [ ] Create react app with parcel
+* [x] Create react app with parcel
   * `npm init`
   * `npm -D parcel@next`
   * `npm -P react react-dom`
   * Create `src/client/index.html` and `src/client/index.jsx`
   * package.json script for parcel   
-* [ ] Serve app from express
+* [x] Serve app from express
   * `npm install -P express`
   * `npm install -D nodemon`
   * Create `src/server/server.js`
   * `listen(3000)`
   * `app.use(express.static())`
-* [ ] Setup express with https
-  * Add webapps.kristiania.no 127.0.0.1 in /etc/hosts
-  * Create a certificate with `openssl req`
-  * Use https certificate in express
+* [x] Setup express with https
+  * Add webapps.kristiania.no 127.0.0.1 in /etc/hosts (c:\windows\system32\drivers\etc\hosts)
+  * Create a certificate with `openssl req -x509 -nodes -keyout server.key -out server.crt -subj "/CN=webapps.kristiania.no" -ad
+    dext "subjectAltName = DNS:webapps.kristiania.no"`
+  * Install self-signed certificate as Trusted Root CA
+  * Use https certificate in express `const server = https.createServer({ key: fs.readFileSync("server.key"), cert: fs.readFileSync("server.crt") }, app).listen(3000`
 * [ ] Route in fronter
   * `app.use(() => .... res.sendFile("index.html")`
 * [ ] Access API from frontend - with custom hooks

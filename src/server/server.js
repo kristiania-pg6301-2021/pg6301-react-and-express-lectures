@@ -1,5 +1,7 @@
 const express = require("express");
 const path = require("path");
+const https = require("https");
+const fs = require("fs");
 
 const app = express();
 
@@ -7,7 +9,10 @@ console.log("Hello world");
 
 app.use(express.static(path.resolve(__dirname, "..", "..", "dist")));
 
-
-const server = app.listen(3000, () => {
+const server = https.createServer({
+    key: fs.readFileSync("server.key"),
+    cert: fs.readFileSync("server.crt")
+}, app).listen(3000, () => {
     console.log(`server started on http://localhost:${server.address().port}`)
 })
+
