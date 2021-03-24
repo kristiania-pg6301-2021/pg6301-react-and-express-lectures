@@ -13,9 +13,8 @@
   * `listen(3000)`
   * `app.use(express.static())`
 * [x] Setup express with https
-  * Add webapps.kristiania.no 127.0.0.1 in /etc/hosts (c:\windows\system32\drivers\etc\hosts)
-  * Create a certificate with `openssl req -x509 -nodes -keyout server.key -out server.crt -subj "/CN=webapps.kristiania.no" -ad
-    dext "subjectAltName = DNS:webapps.kristiania.no"`
+  * Add `127.0.0.1 webapps.kristiania.no` in /etc/hosts (c:\windows\system32\drivers\etc\hosts)
+  * Create a certificate with `openssl req -x509 -nodes -keyout server.key -out server.crt -subj "/CN=webapps.kristiania.no" -addext "subjectAltName = DNS:webapps.kristiania.no"`
   * Install self-signed certificate as Trusted Root CA
   * Use https certificate in express `const server = https.createServer({ key: fs.readFileSync("server.key"), cert: fs.readFileSync("server.crt") }, app).listen(3000`
 * [x] Route in frontend
