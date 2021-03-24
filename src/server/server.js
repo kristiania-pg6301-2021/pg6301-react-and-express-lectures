@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.get("/api/profile", (req, res) => {
-  const { username } = req.session; // = "Johannes fra serveren";
+  const { username } = req.session;
   if (!username) {
     return res.status(401).send();
   }

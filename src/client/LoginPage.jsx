@@ -1,42 +1,8 @@
 import React, { useState } from "react";
 import { postJson } from "./http";
 import { useHistory } from "react-router";
-
-function InputField({ value, onValueChange, type = "text", label }) {
-  return (
-    <div>
-      <label>
-        {label}:{" "}
-        <input
-          type={type}
-          value={value}
-          onChange={(e) => onValueChange(e.target.value)}
-        />
-      </label>
-    </div>
-  );
-}
-
-function useSubmit(submitFunction, onSubmitSuccess) {
-  const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState();
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    setSubmitting(true);
-    setError(undefined);
-    try {
-      await submitFunction();
-      onSubmitSuccess();
-    } catch (e) {
-      setError(e);
-    } finally {
-      setSubmitting(false);
-    }
-  }
-
-  return { handleSubmit, submitting, error };
-}
+import { useSubmit } from "./useSubmit";
+import { InputField } from "./InputField";
 
 export function LoginPage() {
   const [username, setUsername] = useState("");
