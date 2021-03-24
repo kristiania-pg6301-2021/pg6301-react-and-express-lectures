@@ -28,10 +28,20 @@
   * `npm install -D prettier`
   * Add package script for prettier
   * Setup prettier in IntelliJ/VS Code
-* [ ] Implement session with cookie
+* [x] Implement login with cookie
   * If we don't know the user, /api/profiles give 401
   * If we get 401, let the user log in
-  * Save username on cookie
+  * LoginPage uses new `useSubmit` and `postJson` helpers to submit the login form
+  * Save username on cookie:
+  * `npm install -P body-parser cookie-parser`
+  * `app.use(bodyParser.json()); app.use(cookieParser());`
+  * `app.post("/api/login", (req, res) => {const { username } = req.body; req.cookies.username = username; res.end();});`
+  * `app.get("/api/profile", (req, res) => { const { username } = req.cookies;  res.json({ username }); }`
+  * (Add check for username present in GET /api/profile)
+* [x] Implement login with session
+  * `npm install -P express-session`
+  * `app.use(session({...}))`
+  * Exchange `.cookie` with `.session` in POST /api/login and GET /api/profile
 * [ ] Implement password login with passport js
 * [ ] Implement Google with passport js
 * [ ] Implement Active Directory with passport js
