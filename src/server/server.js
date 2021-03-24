@@ -4,14 +4,22 @@ const https = require("https");
 const fs = require("fs");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const session = require("express-session");
 
 const app = express();
 
+app.use(
+  session({
+    secret: "32bJS7s5k5al",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.get("/api/profile", (req, res) => {
-  let username = req.cookies.username; // = "Johannes fra serveren";
+  const { username } = req.session; // = "Johannes fra serveren";
   if (!username) {
     return res.status(401).send();
   }
@@ -20,7 +28,7 @@ app.get("/api/profile", (req, res) => {
 
 app.post("/api/login", (req, res) => {
   const { username } = req.body;
-  res.cookie("username", username);
+  req.session.username = username;
   res.end();
 });
 
