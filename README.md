@@ -7,9 +7,13 @@
   * Create `src/client/index.html` and `src/client/index.jsx`
   * package.json script for parcel   
 * [ ] Serve app from express
-  * `npm install -P express`
+  * `npm install -P express nodemon`
+  * Create `src/server/server.js`
+  * `listen(3000)`
+  * `app.use(express.static())`
 * [ ] Setup express with https
 * [ ] Route in fronter
+  * `app.use(() => .... res.sendFile("index.html")`
 * [ ] Access API from frontend - with custom hooks
 * [ ] prettier to format code
 * [ ] Implement session with cookie
