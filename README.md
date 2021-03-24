@@ -13,6 +13,9 @@
   * `listen(3000)`
   * `app.use(express.static())`
 * [ ] Setup express with https
+  * Add webapps.kristiania.no 127.0.0.1 in /etc/hosts
+  * Create a certificate with `openssl req`
+  * Use https certificate in express
 * [ ] Route in fronter
   * `app.use(() => .... res.sendFile("index.html")`
 * [ ] Access API from frontend - with custom hooks
