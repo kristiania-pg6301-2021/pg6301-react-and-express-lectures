@@ -18,7 +18,7 @@
     dext "subjectAltName = DNS:webapps.kristiania.no"`
   * Install self-signed certificate as Trusted Root CA
   * Use https certificate in express `const server = https.createServer({ key: fs.readFileSync("server.key"), cert: fs.readFileSync("server.crt") }, app).listen(3000`
-* [ ] Route in frontend
+* [x] Route in frontend
   * `npm install -P react-router react-router-dom`
   * Extract Application, FrontPage, LoginPage, ProfilePage
   * `app.use(() => .... res.sendFile("index.html")`

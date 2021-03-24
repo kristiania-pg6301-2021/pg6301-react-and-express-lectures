@@ -7,6 +7,10 @@ const app = express();
 
 console.log("Hello world");
 
+app.get("/api/profile", (req, res) => {
+    res.json({username: "Johannes fra serveren"});
+})
+
 app.use(express.static(path.resolve(__dirname, "..", "..", "dist")));
 app.use((req, res, next) => {
     if (req.method === "GET" && !req.path.startsWith("/api")) {

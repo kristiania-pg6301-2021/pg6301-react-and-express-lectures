@@ -2,13 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import {BrowserRouter, Link} from "react-router-dom";
 import {Route, Switch} from "react-router";
-
-function ProfilePage() {
-    return <div>
-        <h1>Your profile:</h1>
-        <div>Username: Johannes</div>
-    </div>;
-}
+import {ProfilePage} from "./ProfilePage";
 
 function LoginPage() {
     return null;
