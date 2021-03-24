@@ -3,10 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Link } from "react-router-dom";
 import { Route, Switch } from "react-router";
 import { ProfilePage } from "./ProfilePage";
-
-function LoginPage() {
-  return null;
-}
+import { LoginPage } from "./LoginPage";
 
 function FrontPage() {
   return (

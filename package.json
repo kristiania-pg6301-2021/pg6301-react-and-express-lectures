@@ -26,6 +26,8 @@
     "prettier": "^2.2.1"
   },
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

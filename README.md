@@ -30,6 +30,9 @@
   * Add package script for prettier
   * Setup prettier in IntelliJ/VS Code
 * [ ] Implement session with cookie
+  * If we don't know the user, /api/profiles give 401
+  * If we get 401, let the user log in
+  * Save username on cookie
 * [ ] Implement password login with passport js
 * [ ] Implement Google with passport js
 * [ ] Implement Active Directory with passport js
