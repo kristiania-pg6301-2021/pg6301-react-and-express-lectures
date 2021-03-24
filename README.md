@@ -5,7 +5,7 @@
   * `npm -D parcel@next`
   * `npm -P react react-dom`
   * Create `src/client/index.html` and `src/client/index.jsx`
-  * package.json script for parcel   
+  * package.json script for parcel
 * [x] Serve app from express
   * `npm install -P express`
   * `npm install -D nodemon`
@@ -18,9 +18,13 @@
     dext "subjectAltName = DNS:webapps.kristiania.no"`
   * Install self-signed certificate as Trusted Root CA
   * Use https certificate in express `const server = https.createServer({ key: fs.readFileSync("server.key"), cert: fs.readFileSync("server.crt") }, app).listen(3000`
-* [ ] Route in fronter
+* [ ] Route in frontend
+  * `npm install -P react-router react-router-dom`
+  * Extract Application, FrontPage, LoginPage, ProfilePage
   * `app.use(() => .... res.sendFile("index.html")`
 * [ ] Access API from frontend - with custom hooks
+  * ProfilePage fetches /api/profile using new useLoading, fetchJson functions
+  * Implement /api/profile (dummy) on express
 * [ ] prettier to format code
 * [ ] Implement session with cookie
 * [ ] Implement password login with passport js
