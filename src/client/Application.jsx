@@ -18,11 +18,11 @@ export function Application() {
         <Route path="/login">
           <LoginPage
             discovery_url={
-              "https://login.microsoftonline.com/common/.well-known/openid-configuration"
+              "https://oidc-ver1.difi.no/idporten-oidc-provider/.well-known/openid-configuration"
             }
-            client_id={"59318b7b-982c-46b2-a2f4-3009d09015ae"}
+            client_id={"8dd4d4aa-52a5-4b94-baa6-6d69a654490e"}
             response_type={"code"}
-            scope={"openid profile email"}
+            scope={"openid"}
           />
         </Route>
         <Route exact path="/">

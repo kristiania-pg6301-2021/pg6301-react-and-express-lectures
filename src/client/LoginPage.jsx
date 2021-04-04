@@ -15,10 +15,13 @@ export function LoginPage({ discovery_url, client_id, scope }) {
   async function redirectToLogin() {
     const code_verifier = randomString(50);
     sessionStorage.setItem("code_verifier", code_verifier);
+    const state = randomString(30);
+    sessionStorage.setItem("state", state);
     window.location.href = await authorizationUrl({
       discovery_url,
       client_id,
       scope,
+      state,
       response_type: "code",
       response_mode: "fragment",
       code_challenge_method: "S256",

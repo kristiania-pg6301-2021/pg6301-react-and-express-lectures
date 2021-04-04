@@ -18,7 +18,7 @@ app.post("/api/profile", async (req, res) => {
   const authorization = req.header("Authorization");
   if (authorization) {
     let discoveryResponse = await fetch(
-      "https://login.microsoftonline.com/common/.well-known/openid-configuration"
+      "https://oidc-ver1.difi.no/idporten-oidc-provider/.well-known/openid-configuration"
     );
     if (!discoveryResponse.ok) {
       console.error(discoveryResponse);
@@ -33,7 +33,7 @@ app.post("/api/profile", async (req, res) => {
       return res.status(401).send();
     }
     const userinfo = await userInfoResponse.json();
-    res.json({ username: userinfo.name });
+    res.json({ username: userinfo.name || userinfo.pid });
   }
   return res.status(401).send();
 });

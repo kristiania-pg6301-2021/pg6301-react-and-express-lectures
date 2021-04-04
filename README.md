@@ -62,6 +62,8 @@
   * Change parameters to use AD
   * Implement PKCE
   * fetchTokenResponse
+* [x] ID-porten (bonus)
+
   
 Active Directory trouble shooting:
 
