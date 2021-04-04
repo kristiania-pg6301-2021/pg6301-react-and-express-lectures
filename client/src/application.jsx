@@ -1,6 +1,7 @@
 import { BrowserRouter, Link } from "react-router-dom";
 import { Route, Switch } from "react-router";
 import React, { useEffect, useState } from "react";
+import { LoginView } from "./loginView";
 
 function useLoader(loadingFunction) {
   const [data, setData] = useState();
@@ -39,10 +40,6 @@ function LoadingView() {
   return <div>Loading</div>;
 }
 
-function LoginView() {
-  return <div>Login</div>;
-}
-
 export function Application({ api }) {
   const { data, loading, error, reload } = useLoader(api.getUserinfo);
 
@@ -54,7 +51,7 @@ export function Application({ api }) {
   }
 
   if (!data.user) {
-    return <LoginView />;
+    return <LoginView loginProvider={data.loginProvider} />;
   }
 
   return (

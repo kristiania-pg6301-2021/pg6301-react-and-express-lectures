@@ -1,16 +1,4 @@
-class HttpError extends Error {
-  constructor(url, status, statusText) {
-    super(`${url}: ${status} ${statusText}`);
-  }
-}
-
-async function fetchJSON(url) {
-  let response = await fetch(url);
-  if (!response.ok) {
-    throw new HttpError(url, response.status, response.statusText);
-  }
-  return await response.json();
-}
+import { fetchJSON } from "./http";
 
 export class QuizApplicationApi {
   async getUserinfo() {

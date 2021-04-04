@@ -13,6 +13,7 @@ app.get("/api/userinfo", (req, res) => {
       discovery_url:
         "https://login.microsoftonline.com/common/.well-known/openid-configuration",
       client_id: process.env.MICROSOFT_CLIENT_ID,
+      scope: "openid email profile",
     },
   });
 });
