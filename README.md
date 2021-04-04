@@ -58,8 +58,14 @@
   * Generate redirect URL
   * Handle callback
   * Send access_token to server in header
-* [ ] Implement PKCE flow with Active Directory
+* [x] Implement PKCE flow with Active Directory
   * Change parameters to use AD
   * Implement PKCE
   * fetchTokenResponse
   
+Active Directory trouble shooting:
+
+* If redirect URI wrong in redirect, you may get "missing response address". Solution: Verify redirect URI in portal.azure.com
+* If token response has missing or wrong content, leading to 400-response, CORS headers will not be set, suppressing the error message!
+* If you get CORS error during token fetch, make sure the redirect URI is registered as SPA url in portal.azure.com
+

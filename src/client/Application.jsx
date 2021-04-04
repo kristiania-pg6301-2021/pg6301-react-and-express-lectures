@@ -20,7 +20,7 @@ export function Application() {
             discovery_url={
               "https://login.microsoftonline.com/common/.well-known/openid-configuration"
             }
-            client_id={"af5da2d5-e810-4404-b578-43c37349441b"}
+            client_id={"59318b7b-982c-46b2-a2f4-3009d09015ae"}
             response_type={"code"}
             scope={"openid profile email"}
           />
