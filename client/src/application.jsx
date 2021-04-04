@@ -1,44 +1,10 @@
 import { BrowserRouter, Link } from "react-router-dom";
 import { Route, Switch } from "react-router";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { LoginView } from "./loginView";
-
-function useLoader(loadingFunction) {
-  const [data, setData] = useState();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState();
-
-  async function reload() {
-    setData(undefined);
-    setLoading(true);
-    setError(undefined);
-    try {
-      setData(await loadingFunction());
-    } catch (e) {
-      setError(e);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  useEffect(reload, []);
-
-  return { data, loading, error, reload };
-}
-
-function ErrorView({ error, reload }) {
-  return (
-    <div>
-      <h1>An error occurred</h1>
-      <div>{error.toString()}</div>
-      <button onClick={reload}>Retry</button>
-    </div>
-  );
-}
-
-function LoadingView() {
-  return <div>Loading</div>;
-}
+import { ErrorView } from "./errorView";
+import { LoadingView } from "./loadingView";
+import { useLoader } from "./useLoader";
 
 export function Application({ api }) {
   const { data, loading, error, reload } = useLoader(api.getUserinfo);
