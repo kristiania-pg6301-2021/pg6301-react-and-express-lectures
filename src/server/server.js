@@ -51,6 +51,10 @@ passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((id, done) => done(null, id));
 
 app.get("/api/profile", (req, res) => {
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://webapps.kristiania.no:1234"
+  );
   if (!req.user) {
     return res.status(401).send();
   }
@@ -85,5 +89,5 @@ const server = https
     app
   )
   .listen(3000, () => {
-    console.log(`server started on http://localhost:${server.address().port}`);
+    console.log(`server started on https://localhost:${server.address().port}`);
   });
