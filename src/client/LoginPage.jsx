@@ -1,40 +1,42 @@
-import React, { useState } from "react";
-import { postJson } from "./http";
+import React, { useEffect } from "react";
+import { fetchJson } from "./http";
+import { LoadingView } from "./LoadingView";
 import { useHistory } from "react-router";
-import { useSubmit } from "./useSubmit";
-import { InputField } from "./InputField";
 
-export function LoginPage() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+async function authorizationUrl({ client_id, scope, discovery_url }) {
+  const { authorization_endpoint } = await fetchJson(discovery_url);
+  const params = new URLSearchParams({
+    response_type: "token",
+    redirect_uri: window.location.href.split("#")[0],
+    client_id,
+    scope,
+  });
+  return authorization_endpoint + "?" + params;
+}
+
+export function LoginPage({ discovery_url, client_id, scope }) {
   const history = useHistory();
+  async function redirectToLogin() {
+    if (window.location.hash !== "") {
+      const { access_token } = Object.fromEntries(
+        new URLSearchParams(window.location.hash.substr(1))
+      );
+      localStorage.setItem("access_token", access_token);
+      history.push("/");
+    } else {
+      window.location.href = await authorizationUrl({
+        discovery_url,
+        client_id,
+        scope,
+      });
+    }
+  }
 
-  const { handleSubmit: handleLogin, submitting, error } = useSubmit(
-    async () => {
-      await postJson("/api/login", { username, password });
-    },
-    () => history.push("/")
-  );
+  useEffect(redirectToLogin);
 
-  return (
-    <div>
-      <h1>Please log in</h1>
-      <form onSubmit={handleLogin}>
-        {submitting && <div>Please wait</div>}
-        {error && <div>Error: {error.toString()}</div>}
-        <InputField
-          label={"Username"}
-          value={username}
-          onValueChange={setUsername}
-        />
-        <InputField
-          label={"Password"}
-          type="password"
-          value={password}
-          onValueChange={setPassword}
-        />
-        <button disabled={submitting}>Log in</button>
-      </form>
-    </div>
-  );
+  if (window.location.hash !== "") {
+    return <div>Handling callback</div>;
+  }
+
+  return <LoadingView />;
 }

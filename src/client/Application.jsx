@@ -16,7 +16,15 @@ export function Application() {
           <ProfilePage />
         </Route>
         <Route path="/login">
-          <LoginPage />
+          <LoginPage
+            discovery_url={
+              "https://accounts.google.com/.well-known/openid-configuration"
+            }
+            client_id={
+              "89654971890-e3lab068pu8mvl0avmmdbojskp8gjd9p.apps.googleusercontent.com"
+            }
+            scope={"profile"}
+          />
         </Route>
         <Route exact path="/">
           <FrontPage />

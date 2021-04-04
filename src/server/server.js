@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const passport = require("passport");
+const fetch = require("node-fetch");
 const LocalStrategy = require("passport-local").Strategy;
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
@@ -62,17 +63,34 @@ app.get("/api/profile", (req, res) => {
   res.json({ username });
 });
 
-app.post("/api/profile", (req, res) => {
+app.post("/api/profile", async (req, res) => {
   res.header(
     "Access-Control-Allow-Origin",
     "https://webapps.kristiania.no:1234"
   );
-  if (!req.user) {
-    return res.status(401).send();
+  const authorization = req.header("Authorization");
+  if (authorization) {
+    let discoveryResponse = await fetch(
+      "https://accounts.google.com/.well-known/openid-configuration"
+    );
+    if (!discoveryResponse.ok) {
+      console.error(discoveryResponse);
+      return res.status(500).send();
+    }
+    const { userinfo_endpoint } = await discoveryResponse.json();
+    const userInfoResponse = await fetch(userinfo_endpoint, {
+      headers: { authorization },
+    });
+    if (!userInfoResponse.ok) {
+      console.error(userInfoResponse);
+      return res.status(401).send();
+    }
+    const userinfo = await userInfoResponse.json();
+    res.json({ username: userinfo.name });
   }
-  const { username } = req.user;
-  res.json({ username });
+  return res.status(401).send();
 });
+
 app.options("/api/profile", (req, res) => {
   res.header(
     "Access-Control-Allow-Origin",

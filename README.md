@@ -51,10 +51,10 @@
   * Update URL for profile
   * Use https with parcel
   * Implement headers
-* [ ] Implement Cross Origin Resource Sharing headers with POST request
+* [x] Implement Cross Origin Resource Sharing headers with POST request
   * Change profile fetch to use POST
-  * Implement more headers
-* [ ] Implement Implicit Oauth2 flow with Google in frontend
+  * Implement more headers and OPTIONS
+* [x] Implement Implicit Oauth2 flow with Google in frontend
   * Generate redirect URL
   * Handle callback
   * Send access_token to server in header
