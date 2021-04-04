@@ -11,7 +11,7 @@ export async function authorizationUrl({
   code_challenge_method,
 }) {
   const { authorization_endpoint } = await fetchJson(discovery_url);
-  const params = new URLSearchParams({
+  const params = {
     response_type,
     response_mode,
     redirect_uri: window.location.href.split("#")[0],
@@ -20,8 +20,11 @@ export async function authorizationUrl({
     scope,
     code_challenge,
     code_challenge_method,
-  });
-  return authorization_endpoint + "?" + params;
+  };
+  Object.keys(params).forEach(
+    (key) => params[key] === undefined && delete params[key]
+  );
+  return authorization_endpoint + "?" + new URLSearchParams(params);
 }
 
 export async function fetchAccessToken({
@@ -39,6 +42,9 @@ export async function fetchAccessToken({
     code_verifier,
     grant_type,
   };
+  Object.keys(tokenRequest).forEach(
+    (key) => tokenRequest[key] === undefined && delete tokenRequest[key]
+  );
   const tokenResponse = await fetchJson(token_endpoint, {
     method: "POST",
     body: new URLSearchParams(tokenRequest),

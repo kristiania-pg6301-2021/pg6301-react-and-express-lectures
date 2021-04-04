@@ -10,16 +10,51 @@ const app = express();
 
 app.use(bodyParser.json());
 
+const loginProviders = [
+  {
+    name: "Google",
+    discovery_url:
+      "https://accounts.google.com/.well-known/openid-configuration",
+    client_id: process.env.GOOGLE_CLIENT_ID,
+    scope: "openid email profile",
+    use_pkce: false,
+  },
+  {
+    name: "Active Directory",
+    discovery_url:
+      "https://login.microsoftonline.com/common/.well-known/openid-configuration",
+    client_id: process.env.MICROSOFT_CLIENT_ID,
+    scope: "openid email profile",
+    use_pkce: true,
+  },
+  {
+    name: "ID-porten",
+    discovery_url:
+      "https://oidc-ver1.difi.no/idporten-oidc-provider/.well-known/openid-configuration",
+    client_id: process.env.IDPORTEN_CLIENT_ID,
+    scope: "openid",
+    use_pkce: true,
+  },
+];
+app.get("/api/loginProviders", (req, res) => {
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://webapps.kristiania.no:1234"
+  );
+  res.json(loginProviders);
+});
+
 app.post("/api/profile", async (req, res) => {
   res.header(
     "Access-Control-Allow-Origin",
     "https://webapps.kristiania.no:1234"
   );
   const authorization = req.header("Authorization");
-  if (authorization) {
-    let discoveryResponse = await fetch(
-      "https://oidc-ver1.difi.no/idporten-oidc-provider/.well-known/openid-configuration"
-    );
+  const loginProvider = loginProviders.find(
+    (p) => p.name === req.header("X-Login-Provider")
+  );
+  if (authorization && loginProvider) {
+    let discoveryResponse = await fetch(loginProvider.discovery_url);
     if (!discoveryResponse.ok) {
       console.error(discoveryResponse);
       return res.status(500).send();
@@ -33,6 +68,7 @@ app.post("/api/profile", async (req, res) => {
       return res.status(401).send();
     }
     const userinfo = await userInfoResponse.json();
+    console.log(loginProvider.name, { userinfo });
     res.json({ username: userinfo.name || userinfo.pid });
   }
   return res.status(401).send();

@@ -6,12 +6,14 @@ import { fetchJson } from "./http";
 
 export function ProfilePage() {
   const { loading, error, data } = useLoading(() => {
+    const loginProvider = localStorage.getItem("loginProvider");
     const access_token = localStorage.getItem("access_token");
     return fetchJson("https://webapps.kristiania.no:3000/api/profile", {
       method: "POST",
       data: JSON.stringify({ request: "get-profile" }),
       headers: {
         "Content-type": "application/json",
+        ...(loginProvider ? { "X-Login-Provider": loginProvider } : {}),
         ...(access_token ? { Authorization: `Bearer ${access_token}` } : {}),
       },
     });

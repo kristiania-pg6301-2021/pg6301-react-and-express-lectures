@@ -63,6 +63,10 @@
   * Implement PKCE
   * fetchTokenResponse
 * [x] ID-porten (bonus)
+* [x] Cleanup
+  * [x] Velge login provider fra serveren
+  * [x] Støtte både med og uten PKCS
+  * [x] Verifisere state
 
   
 Active Directory trouble shooting:
