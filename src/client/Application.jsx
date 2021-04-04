@@ -18,12 +18,11 @@ export function Application() {
         <Route path="/login">
           <LoginPage
             discovery_url={
-              "https://accounts.google.com/.well-known/openid-configuration"
+              "https://login.microsoftonline.com/common/.well-known/openid-configuration"
             }
-            client_id={
-              "89654971890-e3lab068pu8mvl0avmmdbojskp8gjd9p.apps.googleusercontent.com"
-            }
-            scope={"profile"}
+            client_id={"af5da2d5-e810-4404-b578-43c37349441b"}
+            response_type={"code"}
+            scope={"openid profile email"}
           />
         </Route>
         <Route exact path="/">

@@ -18,7 +18,7 @@ app.post("/api/profile", async (req, res) => {
   const authorization = req.header("Authorization");
   if (authorization) {
     let discoveryResponse = await fetch(
-      "https://accounts.google.com/.well-known/openid-configuration"
+      "https://login.microsoftonline.com/common/.well-known/openid-configuration"
     );
     if (!discoveryResponse.ok) {
       console.error(discoveryResponse);

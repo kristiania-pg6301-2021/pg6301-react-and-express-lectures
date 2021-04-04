@@ -58,3 +58,8 @@
   * Generate redirect URL
   * Handle callback
   * Send access_token to server in header
+* [ ] Implement PKCE flow with Active Directory
+  * Change parameters to use AD
+  * Implement PKCE
+  * fetchTokenResponse
+  
