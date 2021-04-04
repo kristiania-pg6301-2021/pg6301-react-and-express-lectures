@@ -10,7 +10,7 @@
 
 ## TODO
 
-* [ ] Create React application
+* [x] Create React application
     * `mkdir client`
     * `cd client`
     * `npm init -y`
