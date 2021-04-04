@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "parcel src/index.html",
+    "start": "parcel --https --cert ../server.crt --key ../server.key src/index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -17,7 +17,6 @@
     "react-router-dom": "^5.2.0"
   },
   "devDependencies": {
-    "parcel": "^2.0.0-beta.2",
-    "prettier": "^2.2.1"
+    "parcel": "^2.0.0-beta.2"
   }
 }

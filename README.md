@@ -15,7 +15,7 @@
     * `cd client`
     * `npm init -y`
     * `npm install -P react react-dom react-router react-router-dom`
-    * `npm install -D parcel prettier`
+    * `npm install -D parcel@next prettier`
     * Create start script, index.html, index.jsx and a few pages to route between
 * [x] Create Express application
     * `mkdir server`
@@ -24,9 +24,10 @@
     * `npm install -P express`
     * `npm install -D nodemon prettier`
     * Create server.js script
-* [ ] Top level app which lets user run tests and start servers for both client and server
+* [x] Top level app which lets user run tests and start servers for both client and server
     * Add scripts for prettier, test and start
     * Run server and client with https
+      * `openssl req -x509 -nodes -keyout server.key -out server.crt -subj "/CN=webapps.kristiania.no" -addext "subjectAltName = DNS:webapps.kristiania.no`
 * [ ] Login client side with Active Directory
     * Server returns discovery_url and client_id from GET /api/user
     * Client generates authorization url

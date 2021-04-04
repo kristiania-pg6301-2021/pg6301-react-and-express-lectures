@@ -1,0 +1,30 @@
+{
+  "name": "pg6301-react-and-express-lectures",
+  "version": "1.0.0",
+  "description": "1. User logs in\r 2. User starts quiz\r 3. User sees current question\r 4. User responds to current question\r 5. When user has answered all questions, final score is displayed",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently npm:server npm:client",
+    "client": "cd client && npm start",
+    "server": "cd server && npm start",
+    "test": "npm run test:server && npm run test:client",
+    "test:server": "cd server && npm test",
+    "test:client": "cd client && npm test",
+    "format": "prettier --write server client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kristiania-pg6301-2021/pg6301-react-and-express-lectures.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kristiania-pg6301-2021/pg6301-react-and-express-lectures/issues"
+  },
+  "homepage": "https://github.com/kristiania-pg6301-2021/pg6301-react-and-express-lectures#readme",
+  "devDependencies": {
+    "concurrently": "^6.0.0",
+    "prettier": "^2.2.1"
+  }
+}
