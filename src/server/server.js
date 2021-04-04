@@ -27,7 +27,10 @@ app.get("/api/profile", (req, res) => {
 });
 
 app.post("/api/login", (req, res) => {
-  const { username } = req.body;
+  const { username, password } = req.body;
+  if (username !== "johannes" || password !== "secret123") {
+    return res.status(401).send();
+  }
   req.session.username = username;
   res.end();
 });
