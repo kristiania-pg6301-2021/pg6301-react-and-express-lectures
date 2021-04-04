@@ -17,7 +17,7 @@
     * `npm install -P react react-dom react-router react-router-dom`
     * `npm install -D parcel prettier`
     * Create start script, index.html, index.jsx and a few pages to route between
-* [ ] Create Express application
+* [x] Create Express application
     * `mkdir server`
     * `cd server`
     * `npm init -y`
@@ -25,6 +25,8 @@
     * `npm install -D nodemon prettier`
     * Create server.js script
 * [ ] Top level app which lets user run tests and start servers for both client and server
+    * Add scripts for prettier, test and start
+    * Run server and client with https
 * [ ] Login client side with Active Directory
     * Server returns discovery_url and client_id from GET /api/user
     * Client generates authorization url
