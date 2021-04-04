@@ -17,7 +17,7 @@ export function Application({ api }) {
   }
 
   if (!data.user) {
-    return <LoginView loginProvider={data.loginProvider} />;
+    return <LoginView loginProvider={data.loginProvider} onLoggedIn={reload} />;
   }
 
   return (
