@@ -62,6 +62,26 @@ app.get("/api/profile", (req, res) => {
   res.json({ username });
 });
 
+app.post("/api/profile", (req, res) => {
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://webapps.kristiania.no:1234"
+  );
+  if (!req.user) {
+    return res.status(401).send();
+  }
+  const { username } = req.user;
+  res.json({ username });
+});
+app.options("/api/profile", (req, res) => {
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://webapps.kristiania.no:1234"
+  );
+  res.header("Access-Control-Allow-Headers", "*");
+  res.end();
+});
+
 app.post("/api/login", passport.authenticate("google"), (req, res) => {
   res.end();
 });
