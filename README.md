@@ -48,4 +48,8 @@
   * Configure how to store and serialize user with passport
   * use `req.user` in /api/profile
 * [ ] Implement Google with passport js
+  * Change /login to use passport-google
+  * Setup Google client id and client secret at https://console.cloud.google.com/
+  * Implement callback from Google
+  * Fix routing in server
 * [ ] Implement Active Directory with passport js

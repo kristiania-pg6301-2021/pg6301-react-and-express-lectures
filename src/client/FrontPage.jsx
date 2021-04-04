@@ -10,7 +10,9 @@ export function FrontPage() {
           <Link to="/profile">Profile page</Link>
         </li>
         <li>
-          <Link to="/login">Login</Link>
+          <a href="/login" target="_self">
+            Login
+          </a>
         </li>
       </ul>
     </div>
