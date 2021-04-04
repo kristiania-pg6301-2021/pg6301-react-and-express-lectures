@@ -5,6 +5,8 @@ const fs = require("fs");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
 
 const app = express();
 
@@ -18,20 +20,29 @@ app.use(
 app.use(bodyParser.json());
 app.use(cookieParser());
 
+passport.use(
+  new LocalStrategy((username, password, done) => {
+    if (username === "johannes" && password === "secret123") {
+      done(null, { username, is_admin: true });
+    } else {
+      done(null, false, { message: "Invalid username/password" });
+    }
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+passport.serializeUser((user, done) => done(null, user));
+passport.deserializeUser((id, done) => done(null, id));
+
 app.get("/api/profile", (req, res) => {
-  const { username } = req.session;
-  if (!username) {
+  if (!req.user) {
     return res.status(401).send();
   }
+  const { username } = req.user;
   res.json({ username });
 });
 
-app.post("/api/login", (req, res) => {
-  const { username, password } = req.body;
-  if (username !== "johannes" || password !== "secret123") {
-    return res.status(401).send();
-  }
-  req.session.username = username;
+app.post("/api/login", passport.authenticate("local"), (req, res) => {
   res.end();
 });
 

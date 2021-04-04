@@ -42,6 +42,10 @@
   * `npm install -P express-session`
   * `app.use(session({...}))`
   * Exchange `.cookie` with `.session` in POST /api/login and GET /api/profile
-* [ ] Implement password login with passport js
+* [x] Implement password login with passport js
+  * Use `passport.authenticate` to handle `POST /api/login`
+  * Configure how to check username and passport with the local passport strategy
+  * Configure how to store and serialize user with passport
+  * use `req.user` in /api/profile
 * [ ] Implement Google with passport js
 * [ ] Implement Active Directory with passport js
