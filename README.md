@@ -33,7 +33,7 @@
     * Client generates authorization url
     * Client gets redirect and fetches token
     * Client sends access_token to GET /api/user and gets back username
-* [ ] Server POST /api/quiz and GET /api/quiz
+* [x] Server POST /api/quiz and GET /api/quiz
     * `npm install -D jest supertest`
 * [ ] Client starts quiz
     * When user is logged in and GET /api/quiz returns nothing, "start quiz" is available
