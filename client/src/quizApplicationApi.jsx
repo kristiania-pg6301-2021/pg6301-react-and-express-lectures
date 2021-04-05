@@ -33,4 +33,19 @@ export class QuizApplicationApi {
       },
     });
   }
+
+  async answerQuestion(answer) {
+    return await fetchJSON(
+      "https://webapps.kristiania.no:3000/api/quiz/answer",
+      {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify({ answer }),
+        headers: {
+          "Content-Type": "application/json",
+          ...authorization(),
+        },
+      }
+    );
+  }
 }

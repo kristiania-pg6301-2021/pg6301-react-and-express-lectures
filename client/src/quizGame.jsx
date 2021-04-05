@@ -27,5 +27,21 @@ export function QuizGame({ api }) {
     );
   }
 
-  return <div>Do you want to play a game?</div>;
+  async function handleAnswer(index) {
+    await api.answerQuestion(index);
+    reload();
+  }
+
+  const { question, alternatives } = data;
+
+  return (
+    <div>
+      <h2>{question}</h2>
+      {alternatives.map((a, index) => (
+        <button key={index} onClick={() => handleAnswer(index)}>
+          {a}
+        </button>
+      ))}
+    </div>
+  );
 }

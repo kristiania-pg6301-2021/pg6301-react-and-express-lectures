@@ -5,6 +5,7 @@ const cors = require("cors");
 const https = require("https");
 const fs = require("fs");
 const fetch = require("node-fetch");
+const bodyParser = require("body-parser");
 const { quizApp, pickSome } = require("./quizApp");
 
 const app = express();
@@ -26,6 +27,7 @@ app.use(
     },
   })
 );
+app.use(bodyParser.json());
 
 async function fetchJSON(url, options) {
   const response = await fetch(url, options);
