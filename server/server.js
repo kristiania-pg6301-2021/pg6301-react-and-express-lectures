@@ -6,7 +6,7 @@ const https = require("https");
 const fs = require("fs");
 const fetch = require("node-fetch");
 const bodyParser = require("body-parser");
-const { quizApp, pickSome } = require("./quizApp");
+const { quizRouter } = require("./quizApp");
 
 const app = express();
 app.use(
@@ -72,13 +72,7 @@ app.get("/api/userinfo", async (req, res) => {
 
 const questionDb = JSON.parse(fs.readFileSync("./questions.json"));
 
-app.use(
-  "/api/quiz",
-  quizApp({
-    selectQuestions: () => pickSome(Object.keys(questionDb), 4),
-    getQuestion: (index) => questionDb[index],
-  })
-);
+app.use("/api/quiz", quizRouter(questionDb));
 
 const server = https
   .createServer(

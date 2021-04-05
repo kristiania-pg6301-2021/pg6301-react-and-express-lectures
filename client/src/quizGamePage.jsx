@@ -25,12 +25,12 @@ export function QuizGamePage({ api }) {
         <button onClick={startGame}>Start game</button>
       </div>
     );
-  } else if (data.state === "finished") {
+  } else if (data.state === "complete") {
     return (
       <div>
         <h2>You completed the quiz!</h2>
         <div>
-          {data.score} of {data.current} correct answers!
+          {data.score} of {data.answered} correct answers!
         </div>
         <button onClick={startGame}>Play again</button>
       </div>
@@ -42,7 +42,7 @@ export function QuizGamePage({ api }) {
     reload();
   }
 
-  const { question, alternatives } = data;
+  const { question, alternatives } = data.current;
 
   return (
     <div>

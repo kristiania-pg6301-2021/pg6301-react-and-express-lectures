@@ -1,56 +1,25 @@
 const express = require("express");
+const { QuizGame } = require("./quizGame");
 
-function pickSome(array, length) {
-  if (array.length < length) {
-    throw new Error("Array too short");
-  }
-  const copy = [...array];
-  const result = [];
-  while (result.length < length) {
-    const index = Math.floor(Math.random() * copy.length);
-    result.push(copy.splice(index, 1));
-  }
-  return result;
-}
-
-function quizApp(gameApi) {
+function quizRouter(questionDb) {
   const router = express.Router();
 
+  const quizGame = new QuizGame();
+
   router.get("/", (req, res) => {
-    if (!req.session?.game) {
-      return res.json({ state: "not_started" });
-    }
-    const { state, questions, current, score } = req.session.game;
-    if (current < questions.length) {
-      const { question, alternatives } = gameApi.getQuestion(
-        questions[current]
-      );
-      res.json({ state, score, question, alternatives, current });
-    } else {
-      res.json({ state, score, current });
-    }
+    res.json(quizGame.getState(req.session.match));
   });
 
   router.post("/", (req, res) => {
-    req.session.game = {
-      state: "started",
-      questions: gameApi.selectQuestions(),
-      current: 0,
-      score: 0,
-    };
+    req.session.match = quizGame.startMatch(() =>
+      quizGame.pickSome(questionDb, 4)
+    );
     res.json({});
   });
 
   router.post("/answer", (req, res) => {
     const { answer } = req.body;
-    const { questions, current, score } = req.session.game;
-    if (gameApi.getQuestion(questions[current]).answer === answer) {
-      req.session.game.score = score + 1;
-    }
-    req.session.game.current = current + 1;
-    if (req.session.game.current >= req.session.game.questions.length) {
-      req.session.game.state = "finished";
-    }
+    req.session.match = quizGame.answerQuestion(req.session.match, answer);
     res.json({});
   });
 
@@ -58,6 +27,5 @@ function quizApp(gameApi) {
 }
 
 module.exports = {
-  quizApp,
-  pickSome,
+  quizRouter,
 };
