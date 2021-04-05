@@ -1,20 +1,43 @@
 const request = require("supertest");
 const express = require("express");
 
-const router = express.Router();
+function quizApp() {
+  const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.json({ state: "not_started" });
-});
+  router.get("/", (req, res) => {
+    const state = req.session?.game?.state || "not_started";
+    res.json({ state });
+  });
 
-const app = express();
-app.use("/api/quiz", router);
+  router.post("/", (req, res) => {
+    req.session.game = { state: "started" };
+    res.status(200).end();
+  });
+
+  return router;
+}
+
+let app;
 
 describe("quiz api", () => {
+  const session = {};
+  beforeEach(() => {
+    app = express();
+    app.use((req, res, next) => {
+      req.session = session;
+      next();
+    });
+    app.use("/api/quiz", quizApp());
+  });
+
   it("gives initial empty game", async () => {
-    const r = await request(app).get("/api/quiz");
-    expect(r.status).toEqual(200);
-    const { state } = r.body;
+    const { state } = (await request(app).get("/api/quiz")).body;
     expect(state).toEqual("not_started");
+  });
+
+  it("starts game", async () => {
+    expect((await request(app).post("/api/quiz")).status).toEqual(200);
+    const { state } = (await request(app).get("/api/quiz")).body;
+    expect(state).toEqual("started");
   });
 });
