@@ -1,12 +1,31 @@
 require("dotenv").config();
 const express = require("express");
+const session = require("express-session");
 const cors = require("cors");
 const https = require("https");
 const fs = require("fs");
 const fetch = require("node-fetch");
+const { quizApp, pickSome } = require("./quizApp");
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    preflightContinue: true,
+    credentials: true,
+    origin: "https://webapps.kristiania.no:1234",
+  })
+);
+app.use(
+  session({
+    secret: "sdgnslgnaølawrhopisdnflka",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      sameSite: "none",
+      secure: true,
+    },
+  })
+);
 
 async function fetchJSON(url, options) {
   const response = await fetch(url, options);
@@ -24,9 +43,13 @@ app.use(async (req, res, next) => {
   const Authorization = req.header("Authorization");
   if (Authorization) {
     const { userinfo_endpoint } = await fetchJSON(discovery_url);
-    req.userinfo = await fetchJSON(userinfo_endpoint, {
-      headers: { Authorization },
-    });
+    try {
+      req.userinfo = await fetchJSON(userinfo_endpoint, {
+        headers: { Authorization },
+      });
+    } catch (e) {
+      console.warn(e);
+    }
   }
   next();
 });
@@ -44,6 +67,16 @@ app.get("/api/userinfo", async (req, res) => {
     loginProvider: { discovery_url, client_id, scope: "openid email profile" },
   });
 });
+
+const questionDb = JSON.parse(fs.readFileSync("./questions.json"));
+
+app.use(
+  "/api/quiz",
+  quizApp({
+    selectQuestions: () => pickSome(Object.keys(questionDb), 4),
+    getQuestion: (index) => questionDb[index],
+  })
+);
 
 const server = https
   .createServer(

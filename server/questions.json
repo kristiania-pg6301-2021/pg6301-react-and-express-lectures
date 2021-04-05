@@ -1,0 +1,376 @@
+[
+  {
+    "question": "Which company was established on April 1st, 1976 by Steve Jobs, Steve Wozniak and Ronald Wayne?",
+    "alternatives": [
+      "Microsoft",
+      "Atari",
+      "Commodore",
+      "Apple"
+    ],
+    "answer": 3
+  },
+  {
+    "question": "In any programming language, what is the most common way to iterate through an array?",
+    "alternatives": [
+      "&#039;If&#039; Statements",
+      "&#039;Do-while&#039; loops",
+      "&#039;For&#039; loops",
+      "&#039;While&#039; loops"
+    ],
+    "answer": 2
+  },
+  {
+    "question": "What does CPU stand for?",
+    "alternatives": [
+      "Central Processing Unit",
+      "Central Process Unit",
+      "Computer Personal Unit",
+      "Central Processor Unit"
+    ],
+    "answer": 0
+  },
+  {
+    "question": "What does the &quot;MP&quot; stand for in MP3?",
+    "alternatives": [
+      "Music Player",
+      "Moving Picture",
+      "Multi Pass",
+      "Micro Point"
+    ],
+    "answer": 1
+  },
+  {
+    "question": "According to the International System of Units, how many bytes are in a kilobyte of RAM?",
+    "alternatives": [
+      "512",
+      "1024",
+      "500",
+      "1000"
+    ],
+    "answer": 3
+  },
+  {
+    "question": "When Gmail first launched, how much storage did it provide for your email?",
+    "alternatives": [
+      "512MB",
+      "5GB",
+      "Unlimited",
+      "1GB"
+    ],
+    "answer": 3
+  },
+  {
+    "question": "What does GHz stand for?",
+    "alternatives": [
+      "Gigahotz",
+      "Gigahetz",
+      "Gigahatz",
+      "Gigahertz"
+    ],
+    "answer": 3
+  },
+  {
+    "question": "HTML is what type of language?",
+    "alternatives": [
+      "Macro Language",
+      "Markup Language",
+      "Programming Language",
+      "Scripting Language"
+    ],
+    "answer": 1
+  },
+  {
+    "question": "What amount of bits commonly equals one byte?",
+    "alternatives": [
+      "8",
+      "1",
+      "2",
+      "64"
+    ],
+    "answer": 0
+  },
+  {
+    "question": "Which computer hardware device provides an interface for all other connected devices to communicate?",
+    "alternatives": [
+      "Central Processing Unit",
+      "Hard Disk Drive",
+      "Motherboard",
+      "Random Access Memory"
+    ],
+    "answer": 2
+  },
+  {
+    "question": "Linus Torvalds created Linux and Git.",
+    "alternatives": [
+      "False",
+      "True"
+    ],
+    "answer": 1
+  },
+  {
+    "question": "In the programming language Java, which of these keywords would you put on a variable to make sure it doesn&#039;t get modified?",
+    "alternatives": [
+      "Static",
+      "Final",
+      "Private",
+      "Public"
+    ],
+    "answer": 1
+  },
+  {
+    "question": "The programming language &quot;Python&quot; is based off a modified version of &quot;JavaScript&quot;.",
+    "alternatives": [
+      "True",
+      "False"
+    ],
+    "answer": 3
+  },
+  {
+    "question": "The logo for Snapchat is a Bell.",
+    "alternatives": [
+      "False",
+      "True"
+    ],
+    "answer": 0
+  },
+  {
+    "question": "If you were to code software in this language you&#039;d only be able to type 0&#039;s and 1&#039;s.",
+    "alternatives": [
+      "JavaScript",
+      "C++",
+      "Binary",
+      "Python"
+    ],
+    "answer": 2
+  },
+  {
+    "question": "What does the Prt Sc button do?",
+    "alternatives": [
+      "Captures what&#039;s on the screen and copies it to your clipboard",
+      "Nothing",
+      "Saves a .png file of what&#039;s on the screen in your screenshots folder in photos",
+      "Closes all windows"
+    ],
+    "answer": 0
+  },
+  {
+    "question": "Pointers were not used in the original C programming language; they were added later on in C++.",
+    "alternatives": [
+      "True",
+      "False"
+    ],
+    "answer": 1
+  },
+  {
+    "question": "The series of the Intel HD graphics generation succeeding that of the 5000 and 6000 series (Broadwell) is called:",
+    "alternatives": [
+      "HD Graphics 700 ",
+      "HD Graphics 600",
+      "HD Graphics 500",
+      "HD Graphics 7000"
+    ],
+    "answer": 2
+  },
+  {
+    "question": "What is the most preferred image format used for logos in the Wikimedia database?",
+    "alternatives": [
+      ".png",
+      ".jpeg",
+      ".svg",
+      ".gif"
+    ],
+    "answer": 2
+  },
+  {
+    "question": "In web design, what does CSS stand for?",
+    "alternatives": [
+      "Counter Strike: Source",
+      "Corrective Style Sheet",
+      "Cascading Style Sheet",
+      "Computer Style Sheet"
+    ],
+    "answer": 2
+  },
+  {
+    "question": "RAM stands for Random Access Memory.",
+    "alternatives": [
+      "False",
+      "True"
+    ],
+    "answer": 1
+  },
+  {
+    "question": "How many kilobytes in one gigabyte (in decimal)?",
+    "alternatives": [
+      "1024",
+      "1000",
+      "1048576",
+      "1000000"
+    ],
+    "answer": 3
+  },
+  {
+    "question": "Ada Lovelace is often considered the first computer programmer.",
+    "alternatives": [
+      "False",
+      "True"
+    ],
+    "answer": 3
+  },
+  {
+    "question": "On Twitter, what was the original character limit for a Tweet?",
+    "alternatives": [
+      "120",
+      "140",
+      "160",
+      "100"
+    ],
+    "answer": 1
+  },
+  {
+    "question": "&quot;HTML&quot; stands for Hypertext Markup Language.",
+    "alternatives": [
+      "True",
+      "False"
+    ],
+    "answer": 0
+  },
+  {
+    "question": "In &quot;Hexadecimal&quot;, what color would be displayed from the color code? &quot;#00FF00&quot;?",
+    "alternatives": [
+      "Green",
+      "Red",
+      "Blue",
+      "Yellow"
+    ],
+    "answer": 0
+  },
+  {
+    "question": "In most programming languages, the operator ++ is equivalent to the statement &quot;+= 1&quot;.",
+    "alternatives": [
+      "False",
+      "True"
+    ],
+    "answer": 1
+  },
+  {
+    "question": "Time on Computers is measured via the EPOX System.",
+    "alternatives": [
+      "True",
+      "False"
+    ],
+    "answer": 3
+  },
+  {
+    "question": "The Windows 7 operating system has six main editions.",
+    "alternatives": [
+      "False",
+      "True"
+    ],
+    "answer": 3
+  },
+  {
+    "question": "The Windows ME operating system was released in the year 2000.",
+    "alternatives": [
+      "False",
+      "True"
+    ],
+    "answer": 2
+  },
+  {
+    "question": "The NVidia GTX 1080 gets its name because it can only render at a 1920x1080 screen resolution.",
+    "alternatives": [
+      "True",
+      "False"
+    ],
+    "answer": 1
+  },
+  {
+    "question": "Linux was first created as an alternative to Windows XP.",
+    "alternatives": [
+      "True",
+      "False"
+    ],
+    "answer": 2
+  },
+  {
+    "question": "This mobile OS held the largest market share in 2012.",
+    "alternatives": [
+      "Android",
+      "BlackBerry",
+      "Symbian",
+      "iOS"
+    ],
+    "answer": 3
+  },
+  {
+    "question": "How many values can a single byte represent?",
+    "alternatives": [
+      "8",
+      "1",
+      "256",
+      "1024"
+    ],
+    "answer": 2
+  },
+  {
+    "question": "The C programming language was created by this American computer scientist. ",
+    "alternatives": [
+      "Tim Berners Lee",
+      "al-Khwārizmī",
+      "Dennis Ritchie",
+      "Willis Ware"
+    ],
+    "answer": 2
+  },
+  {
+    "question": "How long is an IPv6 address?",
+    "alternatives": [
+      "128 bits",
+      "32 bits",
+      "64 bits",
+      "128 bytes"
+    ],
+    "answer": 0
+  },
+  {
+    "question": "In computing, what does MIDI stand for?",
+    "alternatives": [
+      "Musical Interface of Digital Instruments",
+      "Musical Instrument Digital Interface",
+      "Modular Interface of Digital Instruments",
+      "Musical Instrument Data Interface"
+    ],
+    "answer": 1
+  },
+  {
+    "question": "In computing, what does LAN stand for?",
+    "alternatives": [
+      "Long Antenna Node",
+      "Light Access Node",
+      "Local Area Network",
+      "Land Address Navigation"
+    ],
+    "answer": 2
+  },
+  {
+    "question": "What language does Node.js use?",
+    "alternatives": [
+      "Java",
+      "JavaScript",
+      "Java Source",
+      "Joomla Source Code"
+    ],
+    "answer": 1
+  },
+  {
+    "question": "What does the computer software acronym JVM stand for?",
+    "alternatives": [
+      "Java Vendor Machine",
+      "Java Visual Machine",
+      "Just Virtual Machine",
+      "Java Virtual Machine"
+    ],
+    "answer": 3
+  }
+]
