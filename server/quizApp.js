@@ -21,8 +21,14 @@ function quizApp(gameApi) {
       return res.json({ state: "not_started" });
     }
     const { state, questions, current, score } = req.session.game;
-    const { question, alternatives } = gameApi.getQuestion(questions[current]);
-    res.json({ state, score, question, alternatives, current });
+    if (current < questions.length) {
+      const { question, alternatives } = gameApi.getQuestion(
+        questions[current]
+      );
+      res.json({ state, score, question, alternatives, current });
+    } else {
+      res.json({ state, score, current });
+    }
   });
 
   router.post("/", (req, res) => {
@@ -42,6 +48,9 @@ function quizApp(gameApi) {
       req.session.game.score = score + 1;
     }
     req.session.game.current = current + 1;
+    if (req.session.game.current >= req.session.game.questions.length) {
+      req.session.game.state = "finished";
+    }
     res.json({});
   });
 

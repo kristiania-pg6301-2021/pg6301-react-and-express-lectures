@@ -35,10 +35,10 @@
     * Client sends access_token to GET /api/user and gets back username
 * [x] Server POST /api/quiz and GET /api/quiz
     * `npm install -D jest supertest`
-* [ ] Client starts quiz
+* [x] Client starts quiz
     * When user is logged in and GET /api/quiz returns nothing, "start quiz" is available
     * When user clicks "start", client calls POST /api/quiz and then refreshes to call GET /api/quiz again
     * Server stores quiz status on session
-* [ ] Client display quiz status based on session
-* [ ] Client responds to quiz answer
-* [ ] When all answers are complete, client displays end state
+* [x] Client display quiz status based on session
+* [x] Client responds to quiz answer
+* [x] When all answers are complete, client displays end state

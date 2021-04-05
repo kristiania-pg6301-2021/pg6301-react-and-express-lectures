@@ -3,7 +3,7 @@ import { LoginView } from "./loginView";
 import { ErrorView } from "./errorView";
 import { LoadingView } from "./loadingView";
 import { useLoader } from "./useLoader";
-import { QuizGame } from "./quizGame";
+import { QuizGamePage } from "./quizGamePage";
 
 export function Application({ api }) {
   const { data, loading, error, reload } = useLoader(api.getUserinfo);
@@ -23,7 +23,7 @@ export function Application({ api }) {
     <div>
       <h1>Kristiania Quiz</h1>
       <div>Welcome {data.user.username}</div>
-      <QuizGame api={api} />
+      <QuizGamePage api={api} />
     </div>
   );
 }

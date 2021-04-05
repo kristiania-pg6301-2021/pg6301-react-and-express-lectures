@@ -3,7 +3,7 @@ import { useLoader } from "./useLoader";
 import { ErrorView } from "./errorView";
 import { LoadingView } from "./loadingView";
 
-export function QuizGame({ api }) {
+export function QuizGamePage({ api }) {
   const { data, loading, error, reload } = useLoader(api.fetchQuiz);
 
   async function startGame() {
@@ -23,6 +23,16 @@ export function QuizGame({ api }) {
       <div>
         <div>Do you want to play a game?</div>
         <button onClick={startGame}>Start game</button>
+      </div>
+    );
+  } else if (data.state === "finished") {
+    return (
+      <div>
+        <h2>You completed the quiz!</h2>
+        <div>
+          {data.score} of {data.current} correct answers!
+        </div>
+        <button onClick={startGame}>Play again</button>
       </div>
     );
   }
