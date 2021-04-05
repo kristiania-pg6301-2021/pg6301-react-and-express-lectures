@@ -3,18 +3,45 @@ const express = require("express");
 const cors = require("cors");
 const https = require("https");
 const fs = require("fs");
+const fetch = require("node-fetch");
 
 const app = express();
 app.use(cors());
 
-app.get("/api/userinfo", (req, res) => {
+async function fetchJSON(url, options) {
+  const response = await fetch(url, options);
+  if (!response.ok) {
+    throw new Error(`${url}: ${response.status} ${response.statusText}`);
+  }
+  return await response.json();
+}
+
+const discovery_url =
+  "https://login.microsoftonline.com/common/.well-known/openid-configuration";
+const client_id = process.env.MICROSOFT_CLIENT_ID;
+
+app.use(async (req, res, next) => {
+  const Authorization = req.header("Authorization");
+  if (Authorization) {
+    const { userinfo_endpoint } = await fetchJSON(discovery_url);
+    req.userinfo = await fetchJSON(userinfo_endpoint, {
+      headers: { Authorization },
+    });
+  }
+  next();
+});
+
+app.get("/api/userinfo", async (req, res) => {
+  let user = undefined;
+  if (req.userinfo) {
+    user = {
+      username: req.userinfo.name,
+      id: req.userinfo.upn,
+    };
+  }
   res.json({
-    loginProvider: {
-      discovery_url:
-        "https://login.microsoftonline.com/common/.well-known/openid-configuration",
-      client_id: process.env.MICROSOFT_CLIENT_ID,
-      scope: "openid email profile",
-    },
+    user,
+    loginProvider: { discovery_url, client_id, scope: "openid email profile" },
   });
 });
 

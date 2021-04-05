@@ -6,8 +6,8 @@ export function useLoader(loadingFunction, deps = []) {
   const [error, setError] = useState();
 
   async function reload() {
-    setData(undefined);
     setLoading(true);
+    setData(undefined);
     setError(undefined);
     try {
       setData(await loadingFunction());

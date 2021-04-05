@@ -22,8 +22,6 @@ export function LoginView({ loginProvider, onLoggedIn }) {
     sessionStorage.setItem("loginState", JSON.stringify(loginState));
     const { state, code_verifier } = loginState;
 
-    console.log("Starting request");
-
     const params = {
       client_id,
       redirect_uri,
@@ -49,7 +47,6 @@ export function LoginView({ loginProvider, onLoggedIn }) {
       setLoading(false);
       return;
     }
-    console.log("Trying to get token");
 
     try {
       const { discovery_url, client_id } = loginProvider;
@@ -63,13 +60,11 @@ export function LoginView({ loginProvider, onLoggedIn }) {
         code_verifier,
         grant_type: "authorization_code",
       };
-      console.log("Request", token_endpoint, payload);
 
       const tokenResponse = await fetchJSON(token_endpoint, {
         method: "POST",
         body: new URLSearchParams(payload),
       });
-      console.log({ tokenResponse });
       localStorage.setItem("authorization", JSON.stringify(tokenResponse));
       sessionStorage.removeItem("loginState");
       onLoggedIn();
