@@ -28,7 +28,7 @@
     * Add scripts for prettier, test and start
     * Run server and client with https
       * `openssl req -x509 -nodes -keyout server.key -out server.crt -subj "/CN=webapps.kristiania.no" -addext "subjectAltName = DNS:webapps.kristiania.no`
-* [ ] Login client side with Active Directory
+* [x] Login client side with Active Directory
     * Server returns discovery_url and client_id from GET /api/user
     * Client generates authorization url
     * Client gets redirect and fetches token
