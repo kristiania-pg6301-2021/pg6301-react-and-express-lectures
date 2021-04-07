@@ -1,0 +1,33 @@
+{
+  "name": "pg6301-react-and-express-lectures",
+  "version": "1.0.0",
+  "description": "* [ ] Login with google in client\r   * [ ] Create client app\r   * [ ] Create server app\r   * [ ] Client calls /api/profile for server app\r   * [ ] If userinfo is missing, start authention with google\r   * [ ] Add access_token to /api/profile\r   * [ ] Server verifies access token with call to user_endpoint",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently npm:server npm:client",
+    "server": "nodemon src/server/server.js",
+    "client": "parcel src/client/index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kristiania-pg6301-2021/pg6301-react-and-express-lectures.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kristiania-pg6301-2021/pg6301-react-and-express-lectures/issues"
+  },
+  "homepage": "https://github.com/kristiania-pg6301-2021/pg6301-react-and-express-lectures#readme",
+  "devDependencies": {
+    "concurrently": "^6.0.1",
+    "nodemon": "^2.0.7",
+    "parcel": "^2.0.0-beta.2"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}
