@@ -4,6 +4,7 @@ import { ProfilePage } from "./ProfilePage";
 import { LoginPage } from "./LoginPage";
 import { FrontPage } from "./FrontPage";
 import React from "react";
+import { AuthorizationCallback } from "./AuthorizationCallback";
 
 export function Application() {
   return (
@@ -17,6 +18,9 @@ export function Application() {
         </Route>
         <Route path="/login">
           <LoginPage />
+        </Route>
+        <Route path={"/oauth2callback"}>
+          <AuthorizationCallback />
         </Route>
         <Route exact path="/">
           <FrontPage />

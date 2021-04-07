@@ -46,4 +46,4 @@
 * [x] Implement password login with passport js
 * [x] Implement Google with passport js
   * Set up client with Google: http://console.cloud.google.com/ -> https://console.cloud.google.com/apis/credentials
-* [ ] Implement Active Directory with passport js
+* [x] Implement Google authorization with frontend implicit flow
