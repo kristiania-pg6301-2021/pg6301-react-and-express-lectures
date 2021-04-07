@@ -27,9 +27,14 @@ app.get("/api/profile", (req, res) => {
 });
 
 app.post("/api/login", (req, res) => {
-  const { username } = req.body;
-  req.session.username = username;
-  res.end();
+  const { username, password } = req.body;
+
+  if (username === "johannes" && password === "123456") {
+    req.session.username = username;
+    res.end();
+  } else {
+    res.sendStatus(401);
+  }
 });
 
 app.use(express.static(path.resolve(__dirname, "..", "..", "dist")));
