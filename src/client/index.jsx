@@ -30,6 +30,24 @@ function LoadingView() {
   return <div>Loading...</div>;
 }
 
+function LoginView({ loginProvider: {discoveryUrl, client_id, label} }) {
+  const [authorizationUrl, setAuthorizationUrl] = useState();
+  useEffect(async () => {
+    const {authorization_endpoint} = await fetchJSON(discoveryUrl);
+    const parameters = new URLSearchParams({
+      response_type: "token",
+      scope: "openid email profile",
+      client_id,
+      redirect_uri: window.location.origin + "/oauth2callback"
+    });
+    setAuthorizationUrl(authorization_endpoint + "?" + parameters);
+  }, [discoveryUrl]);
+  
+  return <div>
+    <a href={authorizationUrl}><button disabled={!authorizationUrl}>Log in with {label}</button></a>
+  </div>;
+}
+
 function Application({loadProfile}) {
   const {data, loading, error} = useLoader(() => loadProfile());
   
@@ -40,7 +58,13 @@ function Application({loadProfile}) {
     return <LoadingView />;
   }
   
-  return <h1>Hello world</h1>;
+  const {userinfo} = data;
+  
+  if (userinfo) {
+    return <div>Hello: {userinfo.username}</div>
+  } else {
+    return <LoginView loginProvider={data.loginProvider} />;
+  }
 }
 
 async function fetchJSON(url) {
