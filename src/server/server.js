@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const https = require("https");
@@ -7,6 +8,7 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
 const app = express();
 
@@ -29,10 +31,24 @@ passport.use(
     }
   })
 );
-passport.serializeUser((user, done) => done(null, user));
-passport.deserializeUser((id, done) => done(null, id));
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: "/api/oauth2callback",
+    },
+    (accessToken, refreshToken, profile, done) => {
+      console.log(profile);
+      done(null, { username: profile.emails[0].value });
+    }
+  )
+);
+
 app.use(passport.initialize());
 app.use(passport.session());
+passport.serializeUser((user, done) => done(null, user));
+passport.deserializeUser((id, done) => done(null, id));
 
 app.get("/api/profile", (req, res) => {
   if (!req.user) {
@@ -42,8 +58,16 @@ app.get("/api/profile", (req, res) => {
   res.json({ username });
 });
 
-app.post("/api/login", passport.authenticate("local"), (req, res) => {
+app.post("/api/login", passport.authenticate("google"), (req, res) => {
   res.end();
+});
+
+app.get(
+  "/api/login",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+app.get("/api/oauth2callback", passport.authenticate("google"), (req, res) => {
+  res.redirect("/");
 });
 
 app.use(express.static(path.resolve(__dirname, "..", "..", "dist")));
