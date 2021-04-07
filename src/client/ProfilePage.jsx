@@ -5,7 +5,15 @@ import { useLoading } from "./useLoading";
 import { fetchJson } from "./http";
 
 export function ProfilePage() {
-  const { loading, error, data } = useLoading(() => fetchJson("/api/profile"));
+  const { loading, error, data } = useLoading(() =>
+    fetchJson("https://webapps.kristiania.no:3000/api/profile", {
+      method: "POST",
+      body: JSON.stringify({}),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+  );
 
   if (error) {
     return <ErrorView error={error} />;
