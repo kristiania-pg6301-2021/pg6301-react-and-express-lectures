@@ -75,7 +75,7 @@ function Application({ loadProfile }) {
   const { userinfo } = data;
 
   if (userinfo) {
-    return <div>Hello: {userinfo.username}</div>;
+    return <div>Hello: {userinfo.name}</div>;
   } else {
     return <LoginView onLogin={reload} loginProvider={data.loginProvider} />;
   }
