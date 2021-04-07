@@ -3,7 +3,7 @@
 
 
 * [ ] Login with google in client
-  * [ ] Create client app
+  * [x] Create client app
   * [ ] Create server app
   * [ ] Client calls /api/profile for server app
   * [ ] If userinfo is missing, start authention with google
