@@ -5,8 +5,8 @@ function useLoader(loadingFunction) {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
-  
-  useEffect(async() => {
+
+  async function reload() {
     setLoading(true);
     setData(undefined);
     setError(undefined);
@@ -17,12 +17,14 @@ function useLoader(loadingFunction) {
     } finally {
       setLoading(false);
     }
-  }, []);
-  
-  return {data, loading, error};
+  }
+
+  useEffect(() => reload(), []);
+
+  return { data, loading, error, reload };
 }
 
-function ErrorView({error}) {
+function ErrorView({ error }) {
   return <div>Something went wrong: {error.toString()}</div>;
 }
 
@@ -30,10 +32,19 @@ function LoadingView() {
   return <div>Loading...</div>;
 }
 
-function LoginView({ loginProvider: {discoveryUrl, client_id, label} }) {
+function LoginView({ onLogin, loginProvider: { discoveryUrl, client_id, label } }) {
   const [authorizationUrl, setAuthorizationUrl] = useState();
   useEffect(async () => {
-    const {authorization_endpoint} = await fetchJSON(discoveryUrl);
+    const hash = Object.fromEntries(new URLSearchParams(window.location.hash.substr(1)));
+
+    const { access_token } = hash;
+    if (access_token) {
+      window.location.hash = "";
+      localStorage.setItem("access_token", access_token);
+      return onLogin();
+    }
+
+    const { authorization_endpoint } = await fetchJSON(discoveryUrl);
     const parameters = new URLSearchParams({
       response_type: "token",
       scope: "openid email profile",
@@ -42,33 +53,36 @@ function LoginView({ loginProvider: {discoveryUrl, client_id, label} }) {
     });
     setAuthorizationUrl(authorization_endpoint + "?" + parameters);
   }, [discoveryUrl]);
-  
+
+
   return <div>
-    <a href={authorizationUrl}><button disabled={!authorizationUrl}>Log in with {label}</button></a>
+    <a href={authorizationUrl}>
+      <button disabled={!authorizationUrl}>Log in with {label}</button>
+    </a>
   </div>;
 }
 
-function Application({loadProfile}) {
-  const {data, loading, error} = useLoader(() => loadProfile());
-  
+function Application({ loadProfile }) {
+  const { data, loading, error, reload } = useLoader(() => loadProfile());
+
   if (error) {
     return <ErrorView error={error} />;
   }
   if (loading || !data) {
     return <LoadingView />;
   }
-  
-  const {userinfo} = data;
-  
+
+  const { userinfo } = data;
+
   if (userinfo) {
-    return <div>Hello: {userinfo.username}</div>
+    return <div>Hello: {userinfo.username}</div>;
   } else {
-    return <LoginView loginProvider={data.loginProvider} />;
+    return <LoginView onLogin={reload} loginProvider={data.loginProvider} />;
   }
 }
 
-async function fetchJSON(url) {
-  const res = await fetch(url);
+async function fetchJSON(url, options) {
+  const res = await fetch(url, options);
   if (!res.ok) {
     throw new Error(`${url}: ${res.status} ${res.statusText}`);
   }
@@ -76,7 +90,12 @@ async function fetchJSON(url) {
 }
 
 async function loadProfile() {
-  return await fetchJSON("http://localhost:3000/api/profile");
+  return await fetchJSON("http://localhost:3000/api/profile", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`
+      }
+    }
+  );
 }
 
 ReactDOM.render(<Application loadProfile={loadProfile} />, document.getElementById("app"));
