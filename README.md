@@ -1,3 +1,26 @@
+## Lecture 11
+
+### Client side
+
+* [ ] Update with what we've learned since then
+  * [ ] Upgrade parcel
+  * [ ] Improve scripts
+* [ ] Refactor the app to allow for better testing
+  * [ ] Extract `fetchJSON` function for reuse
+  * [ ] Introduce BookApi calls in `CreateBookPage` and `EditBookPage`
+* [ ] Review existing `BookListPage.test.tsx`
+  * [ ] Add test for loading
+  * [ ] Add test for errors
+* [ ] Add tests for `EditBookPage.jsx`
+
+### Server side
+
+* [ ] Extract route
+* [ ] Create API tests with Supertest
+* [ ] Review Supertests for quiz application
+* [ ] Review plain JavaScript tests for quiz application
+
+## Lecture 8
 
 Setting up a react application:
 
