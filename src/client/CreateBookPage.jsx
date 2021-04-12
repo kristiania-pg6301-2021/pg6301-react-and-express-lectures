@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { InputField } from "./InputField";
-import { postJSON } from "./http";
 
-export function CreateBookPage() {
+export function CreateBookPage({ bookApi }) {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [year, setYear] = useState("");
 
   async function submit(e) {
     e.preventDefault();
-    await postJSON("/api/books", { title, author, year });
+    await bookApi.createBook({ title, author, year });
   }
 
   return (

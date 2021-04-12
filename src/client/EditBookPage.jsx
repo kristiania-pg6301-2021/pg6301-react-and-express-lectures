@@ -4,16 +4,15 @@ import { LoadingView } from "./LoadingView";
 import { InputField } from "./InputField";
 import { useLoading } from "./useLoading";
 import { ErrorView } from "./ErrorView";
-import { postJSON } from "./http";
 
-function EditBookForm({ book }) {
+function EditBookForm({ onSave, book }) {
   const [title, setTitle] = useState(book.title);
   const [author, setAuthor] = useState(book.author);
   const [year, setYear] = useState(book.year);
 
   async function submit(e) {
     e.preventDefault();
-    await postJSON(`/api/books/${book.id}`, { title, author, year }, "PUT");
+    await onSave({ title, author, year });
   }
 
   return (
@@ -40,6 +39,10 @@ export function EditBookPage({ bookApi }) {
     [id]
   );
 
+  async function handleSave({ title, author, year }) {
+    await bookApi.updateBook(id, { title, author, year });
+  }
+
   if (error) {
     return <ErrorView error={error} reload={reload()} />;
   }
@@ -48,5 +51,5 @@ export function EditBookPage({ bookApi }) {
     return <LoadingView />;
   }
 
-  return <EditBookForm book={book} />;
+  return <EditBookForm onSave={handleSave} book={book} />;
 }

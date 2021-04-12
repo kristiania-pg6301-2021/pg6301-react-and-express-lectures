@@ -5,12 +5,16 @@ import { Route, Switch } from "react-router";
 import { BookListPage } from "./BookListPage";
 import { CreateBookPage } from "./CreateBookPage";
 import { EditBookPage } from "./EditBookPage";
-import { fetchJSON } from "./http";
+import { fetchJSON, postJSON } from "./http";
 
 function Application() {
   const bookApi = {
     listBooks: async () => await fetchJSON("/api/books"),
     getBook: async (id) => await fetchJSON(`/api/books/${id}`),
+    createBook: async ({ title, author, year }) =>
+      await postJSON("/api/books", { title, author, year }),
+    updateBook: async (id, { title, author, year }) =>
+      await postJSON(`/api/books/${id}`, { title, author, year }, "PUT"),
   };
 
   return (
@@ -24,7 +28,7 @@ function Application() {
             <BookListPage bookApi={bookApi} />
           </Route>
           <Route path={"/create"}>
-            <CreateBookPage />
+            <CreateBookPage bookApi={bookApi} />
           </Route>
           <Route path={"/books/:id/edit"}>
             <EditBookPage bookApi={bookApi} />

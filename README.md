@@ -5,9 +5,9 @@
 * [x] Update with what we've learned since then
   * [x] Upgrade parcel
   * [x] Improve scripts
-* [ ] Refactor the app to allow for better testing
+* [x] Refactor the app to allow for better testing
   * [x] Extract `fetchJSON` function for reuse
-  * [ ] Introduce BookApi calls in `CreateBookPage` and `EditBookPage`
+  * [x] Introduce BookApi calls in `CreateBookPage` and `EditBookPage`
 * [ ] Review existing `BookListPage.test.tsx`
   * [ ] Add test for loading
   * [ ] Add test for errors
