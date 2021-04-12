@@ -5,27 +5,12 @@ import { Route, Switch } from "react-router";
 import { BookListPage } from "./BookListPage";
 import { CreateBookPage } from "./CreateBookPage";
 import { EditBookPage } from "./EditBookPage";
+import { fetchJSON } from "./http";
 
 function Application() {
   const bookApi = {
-    listBooks: async () => {
-      const res = await fetch("/api/books");
-      if (!res.ok) {
-        throw new Error(
-          `Something went wrong loading ${res.url}: ${res.statusText}`
-        );
-      }
-      return await res.json();
-    },
-    getBook: async (id) => {
-      const res = await fetch(`/api/books/${id}`);
-      if (!res.ok) {
-        throw new Error(
-          `Something went wrong loading ${res.url}: ${res.statusText}`
-        );
-      }
-      return await res.json();
-    },
+    listBooks: async () => await fetchJSON("/api/books"),
+    getBook: async (id) => await fetchJSON(`/api/books/${id}`),
   };
 
   return (

@@ -4,6 +4,7 @@ import { LoadingView } from "./LoadingView";
 import { InputField } from "./InputField";
 import { useLoading } from "./useLoading";
 import { ErrorView } from "./ErrorView";
+import { postJSON } from "./http";
 
 function EditBookForm({ book }) {
   const [title, setTitle] = useState(book.title);
@@ -12,14 +13,7 @@ function EditBookForm({ book }) {
 
   async function submit(e) {
     e.preventDefault();
-    console.log("Submitting", { title, author, year });
-    await fetch(`/api/books/${book.id}`, {
-      method: "PUT",
-      body: JSON.stringify({ title, author, year }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    await postJSON(`/api/books/${book.id}`, { title, author, year }, "PUT");
   }
 
   return (

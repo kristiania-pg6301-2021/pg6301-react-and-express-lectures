@@ -1,7 +1,6 @@
 {
   "name": "book-project",
   "version": "1.0.0",
-  "main": "index.js",
   "author": "Johannes Brodwall <johannes.brodwall@soprasteria.com>",
   "license": "MIT",
   "devDependencies": {

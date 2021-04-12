@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { InputField } from "./InputField";
+import { postJSON } from "./http";
 
 export function CreateBookPage() {
   const [title, setTitle] = useState("");
@@ -8,14 +9,7 @@ export function CreateBookPage() {
 
   async function submit(e) {
     e.preventDefault();
-    console.log("Submitting", { title, author, year });
-    await fetch("/api/books", {
-      method: "POST",
-      body: JSON.stringify({ title, author, year }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    await postJSON("/api/books", { title, author, year });
   }
 
   return (

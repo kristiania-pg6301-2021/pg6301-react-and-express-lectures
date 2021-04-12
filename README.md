@@ -2,11 +2,11 @@
 
 ### Client side
 
-* [ ] Update with what we've learned since then
-  * [ ] Upgrade parcel
-  * [ ] Improve scripts
+* [x] Update with what we've learned since then
+  * [x] Upgrade parcel
+  * [x] Improve scripts
 * [ ] Refactor the app to allow for better testing
-  * [ ] Extract `fetchJSON` function for reuse
+  * [x] Extract `fetchJSON` function for reuse
   * [ ] Introduce BookApi calls in `CreateBookPage` and `EditBookPage`
 * [ ] Review existing `BookListPage.test.tsx`
   * [ ] Add test for loading
