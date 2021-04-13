@@ -8,10 +8,10 @@
 * [x] Refactor the app to allow for better testing
   * [x] Extract `fetchJSON` function for reuse
   * [x] Introduce BookApi calls in `CreateBookPage` and `EditBookPage`
-* [ ] Review existing `BookListPage.test.tsx`
-  * [ ] Add test for loading
-  * [ ] Add test for errors
-* [ ] Add tests for `EditBookPage.jsx`
+* [x] Review existing `BookListPage.test.tsx`
+  * [x] Add test for loading
+  * [x] Add test for errors
+* [x] Add tests for `EditBookPage.jsx`
 
 ### Server side
 

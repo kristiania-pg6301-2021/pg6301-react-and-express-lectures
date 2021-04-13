@@ -44,7 +44,7 @@ export function EditBookPage({ bookApi }) {
   }
 
   if (error) {
-    return <ErrorView error={error} reload={reload()} />;
+    return <ErrorView error={error} reload={reload} />;
   }
 
   if (loading || !book) {
