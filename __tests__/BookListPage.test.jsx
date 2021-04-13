@@ -4,10 +4,6 @@ import { act } from "react-dom/test-utils";
 import { BookListPage } from "../src/client/BookListPage";
 import { MemoryRouter } from "react-router";
 
-const bookApi = {
-  listBooks: async () => [{ id: 1, title: "Hakkebakkeskogen" }],
-};
-
 async function render(component) {
   const container = document.createElement("div");
   document.body.appendChild(container);
@@ -19,7 +15,8 @@ async function render(component) {
 
 describe("book list page", () => {
   it("show books on dom", async () => {
-    const container = await render(<BookListPage bookApi={bookApi} />);
+    const listBooks = async () => [{ id: 1, title: "Hakkebakkeskogen" }];
+    const container = await render(<BookListPage bookApi={{ listBooks }} />);
     expect(container.innerHTML).toMatchSnapshot();
     expect(container.querySelector("li").textContent).toEqual(
       "Hakkebakkeskogen"
