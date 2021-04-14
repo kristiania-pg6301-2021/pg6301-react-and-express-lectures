@@ -2,7 +2,7 @@ import { EditBookPage } from "../src/client/EditBookPage";
 import * as ReactDOM from "react-dom";
 import * as React from "react";
 import { MemoryRouter } from "react-router";
-import { act } from "react-dom/test-utils";
+import { act, Simulate } from "react-dom/test-utils";
 
 async function renderForTest(child) {
   const container = document.createElement("div");
@@ -48,5 +48,26 @@ describe("edit book page", () => {
     expect(container.querySelector("div").textContent).toEqual(
       "Something went wrong: Error: Failed to load"
     );
+  });
+
+  it("updates server on submit", async () => {
+    const book = {
+      author: "Dostoevsky",
+      title: "Idioten",
+      year: "1868",
+    };
+    const getBook = () => book;
+    const updateBook = jest.fn();
+    const container = await renderForTest(
+      <EditBookPage bookApi={{ getBook, updateBook }} />
+    );
+    Simulate.change(container.querySelector("input"), {
+      target: { value: "Besumniki" },
+    });
+    Simulate.submit(container.querySelector("form"));
+    expect(updateBook).toBeCalledWith(undefined, {
+      ...book,
+      title: "Besumniki",
+    });
   });
 });
