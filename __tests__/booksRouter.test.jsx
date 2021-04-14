@@ -34,4 +34,21 @@ describe("books api", () => {
         );
       });
   });
+
+  it("can update existing books", async () => {
+    const book = (await request(app).get("/2")).body;
+    const updated = {
+      ...book,
+      author: "Egner",
+    };
+    await request(app).put("/2").send(updated).expect(200);
+    await request(app)
+      .get("/2")
+      .then((response) => {
+        expect(response.body).toMatchObject({
+          id: 2,
+          author: "Egner",
+        });
+      });
+  });
 });
