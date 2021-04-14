@@ -25,4 +25,19 @@ describe("edit book page", () => {
       "Edit an existing book (Prosessen)"
     );
   });
+
+  it("can show loading screen", async () => {
+    const getBook = () => new Promise((resolve) => {});
+    const container = document.createElement("div");
+    await act(async () => {
+      await ReactDOM.render(
+        <MemoryRouter>
+          <EditBookPage bookApi={{ getBook }} />
+        </MemoryRouter>,
+        container
+      );
+    });
+    expect(container.innerHTML).toMatchSnapshot();
+    expect(container.querySelector("div").textContent).toEqual("Loading ...");
+  });
 });
