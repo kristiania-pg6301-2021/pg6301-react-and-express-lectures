@@ -36,7 +36,7 @@ describe("book edit page", function () {
     expect(container.innerHTML).toMatchSnapshot();
   });
 
-  it("updates book on save", async () => {
+  it("updates book on submit", async () => {
     const getBook = () => ({
       title: "My Book",
       author: "Firstname Lastname",

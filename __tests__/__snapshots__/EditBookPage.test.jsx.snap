@@ -3,3 +3,5 @@
 exports[`book edit page loads book 1`] = `"<form><h1>Edit an existing book (My Book)</h1><div><label>Title: <input type=\\"text\\" value=\\"My Book\\"></label></div><div><label>Author: <input type=\\"text\\" value=\\"Firstname Lastname\\"></label></div><div><label>Year: <input type=\\"number\\" value=\\"1999\\"></label></div><button>Submit</button></form>"`;
 
 exports[`book edit page shows book loading failure 1`] = `"<div>Something went wrong: Error: Not found</div><button>Try again</button>"`;
+
+exports[`book edit page updates book on save 1`] = `"<form><h1>Edit an existing book (New Value)</h1><div><label>Title: <input type=\\"text\\" value=\\"New Value\\"></label></div><div><label>Author: <input type=\\"text\\" value=\\"Firstname Lastname\\"></label></div><div><label>Year: <input type=\\"number\\" value=\\"1999\\"></label></div><button>Submit</button></form><div>Books page</div>"`;

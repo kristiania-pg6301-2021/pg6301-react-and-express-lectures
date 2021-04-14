@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import { LoadingView } from "./LoadingView";
 import { InputField } from "./InputField";
 import { useLoading } from "./useLoading";
 import { ErrorView } from "./ErrorView";
 
-function EditBookForm({ onSave, book }) {
+function EditBookForm({ onSubmit, book }) {
   const [title, setTitle] = useState(book.title);
   const [author, setAuthor] = useState(book.author);
   const [year, setYear] = useState(book.year);
 
   async function submit(e) {
     e.preventDefault();
-    await onSave({ title, author, year });
+    await onSubmit({ title, author, year });
   }
 
   return (
@@ -33,14 +33,16 @@ function EditBookForm({ onSave, book }) {
 
 export function EditBookPage({ bookApi }) {
   const { id } = useParams();
+  const history = useHistory();
 
   const { data: book, loading, error, reload } = useLoading(
     async () => await bookApi.getBook(id),
     [id]
   );
 
-  async function handleSave({ title, author, year }) {
+  async function handleSubmit({ title, author, year }) {
     await bookApi.updateBook(id, { title, author, year });
+    history.push("/books");
   }
 
   if (error) {
@@ -51,5 +53,5 @@ export function EditBookPage({ bookApi }) {
     return <LoadingView />;
   }
 
-  return <EditBookForm onSave={handleSave} book={book} />;
+  return <EditBookForm onSubmit={handleSubmit} book={book} />;
 }
