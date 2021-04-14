@@ -4,6 +4,14 @@ import * as React from "react";
 import { MemoryRouter } from "react-router";
 import { act } from "react-dom/test-utils";
 
+async function renderForTest(child) {
+  const container = document.createElement("div");
+  await act(async () => {
+    await ReactDOM.render(<MemoryRouter>{child}</MemoryRouter>, container);
+  });
+  return container;
+}
+
 describe("edit book page", () => {
   it("can show information about an existing book", async () => {
     const getBook = () => ({
@@ -11,15 +19,9 @@ describe("edit book page", () => {
       title: "Prosessen",
       year: "1925",
     });
-    const container = document.createElement("div");
-    await act(async () => {
-      await ReactDOM.render(
-        <MemoryRouter>
-          <EditBookPage bookApi={{ getBook }} />
-        </MemoryRouter>,
-        container
-      );
-    });
+    const container = await renderForTest(
+      <EditBookPage bookApi={{ getBook }} />
+    );
     expect(container.innerHTML).toMatchSnapshot();
     expect(container.querySelector("h1").textContent).toEqual(
       "Edit an existing book (Prosessen)"
@@ -28,15 +30,9 @@ describe("edit book page", () => {
 
   it("can show loading screen", async () => {
     const getBook = () => new Promise((resolve) => {});
-    const container = document.createElement("div");
-    await act(async () => {
-      await ReactDOM.render(
-        <MemoryRouter>
-          <EditBookPage bookApi={{ getBook }} />
-        </MemoryRouter>,
-        container
-      );
-    });
+    const container = await renderForTest(
+      <EditBookPage bookApi={{ getBook }} />
+    );
     expect(container.innerHTML).toMatchSnapshot();
     expect(container.querySelector("div").textContent).toEqual("Loading ...");
   });
