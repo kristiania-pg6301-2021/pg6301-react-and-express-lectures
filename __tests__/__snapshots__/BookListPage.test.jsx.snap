@@ -1,14 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`book list page show books 1`] = `
-Array [
-  <h1>
-    List books
-  </h1>,
-  <li>
-    Hakkebakkeskogen
-  </li>,
-]
-`;
-
-exports[`book list page show books on dom 1`] = `"<h1>List books</h1><li>Hakkebakkeskogen</li>"`;
+exports[`book list page show books on dom 1`] = `"<h1>List books</h1><li><a href=\\"/books/1/edit\\">Hakkebakkeskogen</a></li>"`;
