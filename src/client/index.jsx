@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { fetchJSON, postJSON } from "./http";
 import { Application } from "./Application";
+import { BrowserRouter } from "react-router-dom";
 
 const bookApi = {
   listBooks: async () => await fetchJSON("/api/books"),
@@ -13,6 +14,8 @@ const bookApi = {
 };
 
 ReactDOM.render(
-  <Application bookApi={bookApi} />,
+  <BrowserRouter>
+    <Application bookApi={bookApi} />
+  </BrowserRouter>,
   document.getElementById("root")
 );

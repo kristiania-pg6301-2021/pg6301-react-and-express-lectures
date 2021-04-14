@@ -1,4 +1,4 @@
-import { BrowserRouter, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Route, Switch } from "react-router";
 import { BookListPage } from "./BookListPage";
 import { CreateBookPage } from "./CreateBookPage";
@@ -7,7 +7,7 @@ import React from "react";
 
 export function Application({ bookApi }) {
   return (
-    <BrowserRouter>
+    <>
       <nav>
         <Link to={"/"}>Home</Link>
       </nav>
@@ -36,6 +36,6 @@ export function Application({ bookApi }) {
           <Route>Page not found</Route>
         </Switch>
       </main>
-    </BrowserRouter>
+    </>
   );
 }

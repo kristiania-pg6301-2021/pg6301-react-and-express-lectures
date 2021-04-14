@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`application can navigate to create book page 1`] = `"<nav><a href=\\"/\\">Home</a></nav><main><form><h1>Create new book</h1><div><label>Title: <input type=\\"text\\" value=\\"\\"></label></div><div><label>Author: <input type=\\"text\\" value=\\"\\"></label></div><div><label>Year: <input type=\\"number\\" value=\\"\\"></label></div><button>Submit</button></form></main>"`;
+
+exports[`application can show home page 1`] = `"<nav><a href=\\"/\\">Home</a></nav><main><h1>Book application</h1><ul><li><a href=\\"/books\\">List books</a></li><li><a href=\\"/create\\">Add a book</a></li></ul></main>"`;
