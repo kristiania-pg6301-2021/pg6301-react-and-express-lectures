@@ -2,4 +2,8 @@
 *.iml
 node_modules/
 .cache/
+.parcel-cache/
 dist/
+.env
+*.crt
+*.key
