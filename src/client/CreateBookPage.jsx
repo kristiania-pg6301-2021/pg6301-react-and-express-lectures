@@ -1,21 +1,14 @@
 import React, { useState } from "react";
 import { InputField } from "./InputField";
 
-export function CreateBookPage() {
+export function CreateBookPage({ bookApi }) {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [year, setYear] = useState("");
 
   async function submit(e) {
     e.preventDefault();
-    console.log("Submitting", { title, author, year });
-    await fetch("/api/books", {
-      method: "POST",
-      body: JSON.stringify({ title, author, year }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    await bookApi.createBook({ title, author, year });
   }
 
   return (

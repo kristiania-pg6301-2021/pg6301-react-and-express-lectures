@@ -5,27 +5,23 @@ import { Route, Switch } from "react-router";
 import { BookListPage } from "./BookListPage";
 import { CreateBookPage } from "./CreateBookPage";
 import { EditBookPage } from "./EditBookPage";
+import { fetchJSON, postJSON } from "./http";
 
 function Application() {
   const bookApi = {
-    listBooks: async () => {
-      const res = await fetch("/api/books");
-      if (!res.ok) {
-        throw new Error(
-          `Something went wrong loading ${res.url}: ${res.statusText}`
-        );
-      }
-      return await res.json();
+    listBooks: async () => await fetchJSON("/api/books"),
+    getBook: async (id) => await fetchJSON(`/api/books/${id}`),
+    createBook: async ({ title, author, year }) => {
+      return postJSON("/api/books", {
+        method: "POST",
+        json: { title, author, year },
+      });
     },
-    getBook: async (id) => {
-      const res = await fetch(`/api/books/${id}`);
-      if (!res.ok) {
-        throw new Error(
-          `Something went wrong loading ${res.url}: ${res.statusText}`
-        );
-      }
-      return await res.json();
-    },
+    updateBook: async (id, { title, author, year }) =>
+      postJSON(`/api/books/${id}`, {
+        method: "PUT",
+        json: { title, author, year },
+      }),
   };
 
   return (
@@ -39,7 +35,7 @@ function Application() {
             <BookListPage bookApi={bookApi} />
           </Route>
           <Route path={"/create"}>
-            <CreateBookPage />
+            <CreateBookPage bookApi={bookApi} />
           </Route>
           <Route path={"/books/:id/edit"}>
             <EditBookPage bookApi={bookApi} />
