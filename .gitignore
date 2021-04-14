@@ -7,3 +7,4 @@ dist/
 .env
 *.crt
 *.key
+coverage/

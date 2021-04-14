@@ -36,4 +36,17 @@ describe("edit book page", () => {
     expect(container.innerHTML).toMatchSnapshot();
     expect(container.querySelector("div").textContent).toEqual("Loading ...");
   });
+
+  it("can show error message", async () => {
+    const getBook = () => {
+      throw new Error("Failed to load");
+    };
+    const container = await renderForTest(
+      <EditBookPage bookApi={{ getBook }} />
+    );
+    expect(container.innerHTML).toMatchSnapshot();
+    expect(container.querySelector("div").textContent).toEqual(
+      "Something went wrong: Error: Failed to load"
+    );
+  });
 });
