@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`the quiz game page can display a question 1`] = `"<div>Loading</div>"`;
+
+exports[`the quiz game page can display a starting page 1`] = `"<div><div>Do you want to play a game?</div><button>Start game</button></div>"`;
