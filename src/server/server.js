@@ -22,18 +22,20 @@ const books = [
 app.use(bodyParser.json());
 app.use(express.static(path.resolve(__dirname, "..", "..", "dist")));
 
-app.get("/api/books", (req, res) => {
+const router = express.Router();
+
+router.get("/api/books", (req, res) => {
   console.log(books);
   res.json(books);
 });
 
-app.get("/api/books/:id", (req, res) => {
+router.get("/api/books/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const book = books.find((b) => b.id === id);
   res.json(book);
 });
 
-app.put("/api/books/:id", (req, res) => {
+router.put("/api/books/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const bookIndex = books.findIndex((b) => b.id === id);
   const { title, author, year } = req.body;
@@ -41,12 +43,14 @@ app.put("/api/books/:id", (req, res) => {
   res.status(200).end();
 });
 
-app.post("/api/books", (req, res) => {
+router.post("/api/books", (req, res) => {
   const { title, author, year } = req.body;
   console.log(req.body);
   books.push({ title, author, year, id: books.length + 1 });
   res.status(201).end();
 });
+
+app.use(router);
 
 app.use((req, res, next) => {
   if (req.method !== "GET" || req.path.startsWith("/api")) {
