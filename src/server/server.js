@@ -1,13 +1,13 @@
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
-const booksRouter = require("./booksRouter");
+const booksApi = require("./booksApi");
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(express.static(path.resolve(__dirname, "..", "..", "dist")));
-app.use("/api/books", booksRouter);
+app.use("/api/books", booksApi);
 
 app.use((req, res, next) => {
   if (req.method !== "GET" || req.path.startsWith("/api")) {
