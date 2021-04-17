@@ -33,12 +33,30 @@ function UsernameForm({ onUsername }) {
 function ChatPage({ username }) {
   const [chatLog, setChatLog] = useState([]);
   const [message, setMessage] = useState("");
+  const [ws, setWs] = useState();
+
+  useEffect(() => {
+    const ws = new WebSocket("ws://" + window.location.host);
+    setWs(ws);
+    ws.onopen = (event) => {
+      console.log("Opened", event);
+    };
+    ws.onerror = (event) => {
+      console.log(event);
+    };
+    ws.onmessage = (msg) => {
+      console.log(msg);
+    };
+  }, []);
 
   function handleSubmit(e) {
     e.preventDefault();
     const newChat = { username, message, id: chatLog.length };
     setMessage("");
+
     setChatLog([...chatLog, newChat]);
+
+    ws.send(newChat);
   }
 
   return (
