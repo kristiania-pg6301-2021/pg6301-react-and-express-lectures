@@ -31,6 +31,16 @@ function UsernameForm({ onUsername }) {
 }
 
 function ChatPage({ username }) {
+  const [chatLog, setChatLog] = useState([]);
+  const [message, setMessage] = useState("");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const newChat = { username, message, id: chatLog.length };
+    setMessage("");
+    setChatLog([...chatLog, newChat]);
+  }
+
   return (
     <>
       <header>
@@ -39,10 +49,19 @@ function ChatPage({ username }) {
       <main>
         <h2>Chat started...</h2>
         <div>Welcome {username}</div>
+        {chatLog.map(({ id, username, message }) => (
+          <div key={id}>
+            <strong>{username}:</strong> {message}
+          </div>
+        ))}
       </main>
       <footer>
-        <form>
-          <input autoFocus={true} />
+        <form onSubmit={handleSubmit}>
+          <input
+            autoFocus={true}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
           <button>Send</button>
         </form>
       </footer>
