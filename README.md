@@ -98,3 +98,117 @@ When you can get this to work, you will need to master the following:
 * Use React Router in front-end
 * Make React call API calls on the backend (using `fetch`)
 * Make Express respond to API calls
+
+### Testing
+
+#### Snapshot testing - check that a view is rendered correctly
+
+```javascript
+  it("loads book", async () => {
+    // Fake data instead of calling the real backend
+    const getBook = () => ({
+      title: "My Book",
+      author: "Firstname Lastname",
+      year: 1999,
+    });
+    // Construct an artification dom element to display the app (with jsdom)
+    const container = document.createElement("div");
+    // The act method from react-dom/test-utils ensures that promises are resolved
+    //  - that is, we wait until the `getBook` function returns a value
+    await act(async () => {
+      await ReactDOM.render(
+        <!-- construct an object with the necessary wrapping - in our case, routing -->
+        <MemoryRouter initialEntries={["/books/12/edit"]}>
+          <Route path={"/books/:id/edit"}>
+            <!-- use shorthand properties to construct an api object with
+              getBook property with the getBook function
+              -->
+            <EditBookPage bookApi={{ getBook }} />
+          </Route>
+        </MemoryRouter>,
+        container
+      );
+    });
+    // Snapshot tests fail if the page is changed in any way - intentionally or non-intentionally
+    expect(container.innerHTML).toMatchSnapshot();
+    // querySelector can be used to find dom elements in order to make assertions
+    expect(container.querySelector("h1").textContent).toEqual("Edit book: My Book")
+  });
+```
+
+#### Simulate events
+
+```javascript
+  it("updates book on submit", async () => {
+    const getBook = () => ({
+      title: "My Book",
+      author: "Firstname Lastname",
+      year: 1999,
+    });
+    // We create a mock function. Instead of having functionality,
+    // this fake implementation of updateBook() lets us record and
+    // make assertions about the calls to the function
+    const updateBook = jest.fn();
+    const container = document.createElement("div");
+    await act(async () => {
+      await ReactDOM.render(
+        <MemoryRouter initialEntries={["/books/12/edit"]}>
+          <Route path={"/books/:id/edit"}>
+            <EditBookPage bookApi={{ getBook, updateBook }} />
+          </Route>
+        </MemoryRouter>,
+        container
+      );
+    });
+
+    // The simulate function lets us create artificatial events, such as
+    // a change event (which will trigger the `onChange` handler of our 
+    // component
+    Simulate.change(container.querySelector("input"), {
+      // The object we pass must work with e.target.value in the event handler
+      target: {
+        value: "New Value",
+      },
+    });
+    Simulate.submit(container.querySelector("form"));
+    // We check that the call to `updateBook` is as expected
+    // The value "12" is from MemoryRouter intialEntries
+    expect(updateBook).toHaveBeenCalledWith("12", {
+      title: "New Value",
+      author: "Firstname Lastname",
+      year: 1999,
+    });
+  });
+```
+
+#### Using supertest to check server side behavior
+
+```javascript
+const request = require("supertest");
+const express = require("express");
+
+const app = express();
+app.use(require("body-parser").json());
+app.use(require("../src/server/booksApi"));
+
+describe("...", () => {
+
+  it("can update existing books", async () => {
+    const book = (await request(app).get("/2")).body;
+    const updated = {
+      ...book,
+      author: "Egner",
+    };
+    await request(app).put("/2").send(updated).expect(200);
+    await request(app)
+      .get("/2")
+      .then((response) => {
+        expect(response.body).toMatchObject({
+          id: 2,
+          author: "Egner",
+        });
+      });
+  });
+
+});
+```
