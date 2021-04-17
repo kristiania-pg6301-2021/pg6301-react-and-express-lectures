@@ -1,4 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-ReactDOM.render(<h1>Hello world</h1>, document.getElementById("app"));
+function Application() {
+  return (
+    <>
+      <header>
+        <h1>Chat application</h1>
+      </header>
+      <main>
+        <h2>Chat started...</h2>
+      </main>
+      <footer>
+        <form>
+          <input autoFocus={true} />
+          <button>Send</button>
+        </form>
+      </footer>
+    </>
+  );
+}
+
+ReactDOM.render(<Application />, document.getElementById("app"));

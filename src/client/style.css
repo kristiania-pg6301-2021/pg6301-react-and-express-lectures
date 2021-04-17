@@ -1,0 +1,31 @@
+body {
+    margin: 0;
+}
+
+#app {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    height: 100vh;
+}
+
+header {
+    background: red;
+}
+
+main {
+    background: green;
+}
+
+footer {
+    background: blue;
+}
+
+footer form {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+footer form > input {
+    flex: 1;
+}
