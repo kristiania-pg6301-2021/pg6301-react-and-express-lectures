@@ -22,7 +22,8 @@
   "dependencies": {
     "express": "^4.17.1",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "ws": "^7.4.4"
   },
   "devDependencies": {
     "concurrently": "^6.0.2",

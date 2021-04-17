@@ -56,7 +56,7 @@ function ChatPage({ username }) {
 
     setChatLog([...chatLog, newChat]);
 
-    ws.send(newChat);
+    ws.send(JSON.stringify(newChat));
   }
 
   return (
