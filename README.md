@@ -24,7 +24,8 @@ To bridge this gap, we will divide the client application into two parts:
 
 1. Create a react + express application
     * `npm init -y`
-    * `npm install -P react react-dom express && npm install -D parcel concurrently prettier nodemon`
+    * `npm install -P react react-dom express && npm install -D parcel@next concurrently prettier nodemon`
+    * create `package.json` scripts
     * Create the express code to serve the client application
     * Create the client application
 2. Create a view that displays a chat input and a chat log (we'll use css grid this time)
