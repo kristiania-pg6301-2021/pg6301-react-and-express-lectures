@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
-function useLocalStorage(key) {
-  const [value, setValue] = useState(localStorage.getItem(key));
+function useSessionStorage(key) {
+  const [value, setValue] = useState(sessionStorage.getItem(key));
   useEffect(() => {
-    localStorage.setItem(key, value);
+    sessionStorage.setItem(key, value);
   }, [value]);
   return [value, setValue];
 }
@@ -46,17 +46,15 @@ function ChatPage({ username }) {
     };
     ws.onmessage = (msg) => {
       console.log(msg);
+      const { username, message, id } = JSON.parse(msg.data);
+      setChatLog((chatLog) => [...chatLog, { username, message, id }]);
     };
   }, []);
 
   function handleSubmit(e) {
     e.preventDefault();
-    const newChat = { username, message, id: chatLog.length };
+    ws.send(JSON.stringify({ username, message }));
     setMessage("");
-
-    setChatLog([...chatLog, newChat]);
-
-    ws.send(JSON.stringify(newChat));
   }
 
   return (
@@ -88,7 +86,7 @@ function ChatPage({ username }) {
 }
 
 function Application() {
-  const [username, setUsername] = useLocalStorage("username");
+  const [username, setUsername] = useSessionStorage("username");
 
   if (!username) {
     return <UsernameForm onUsername={setUsername} />;

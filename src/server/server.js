@@ -6,16 +6,17 @@ const app = express();
 
 app.use(express.static(path.resolve(__dirname, "..", "..", "dist")));
 
+let index = 0;
 const sockets = [];
 
 const wsServer = new ws.Server({ noServer: true });
 wsServer.on("connection", (socket) => {
   sockets.push(socket);
-  socket.send("Hello there");
-  socket.on("message", (message) => {
-    console.log({ message });
+  socket.on("message", (msg) => {
+    const { username, message } = JSON.parse(msg);
+    const id = index++;
     for (const recipient of sockets) {
-      recipient.send(message);
+      recipient.send(JSON.stringify({ id, username, message }));
     }
   });
 });
