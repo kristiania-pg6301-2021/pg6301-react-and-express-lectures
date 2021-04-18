@@ -32,3 +32,6 @@ To bridge this gap, we will divide the client application into two parts:
 3. Use pure frontend react to talk with ourselves
 4. Set up websockets on the server to distribute incoming messages to all clients
 5. Update the client code to send messages to the web socket instead
+6. Add frontend test. Verify that chat view shows chats and sends chats
+   * `npm install -D jest`
+7. Add reconnect code (frontend)
