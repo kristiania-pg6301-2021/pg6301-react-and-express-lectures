@@ -101,6 +101,35 @@ When you can get this to work, you will need to master the following:
 
 ### Testing
 
+### Installing
+
+When using test, we need to add some babel mumbo jumbo to get Jest to understand modern JavaScript syntax as well as JSX tags
+
+1. `npm install -D jest babel-jest`
+
+You need the following fragment or similar in `package.json`:
+
+```
+  "jest": {
+    "transform": {
+      "\\.jsx": "babel-jest"
+    }
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ]
+  },
+  "browserslist": [
+    "last 1 Chrome version"
+  ]
+```
+
+The `jest`-section tells jest to use babel to transform `jsx`-files, the `babel`-section tells babel to use the browserlist ("preset-env") and react to transform files and `browserlist` tells babel to target the newest version of Chrome.
+
+With this in place, it should be possible to run tests like those below.
+
 #### Snapshot testing - check that a view is rendered correctly
 
 ```javascript
