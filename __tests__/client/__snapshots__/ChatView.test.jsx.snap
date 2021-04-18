@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`chat view can show existing chat messages 1`] = `
+<div>
+  <header>
+    <h1>
+      Chat application
+    </h1>
+  </header>
+  <main>
+    <h2>
+      Chat started...
+    </h2>
+    <div>
+      Welcome 
+      Myself
+    </div>
+    <div
+      class="chatLog"
+    >
+      <div
+        class="message"
+      >
+        <strong>
+          User 1
+          :
+        </strong>
+         
+        Hello
+      </div>
+      <div
+        class="message"
+      >
+        <strong>
+          User 2
+          :
+        </strong>
+         
+        Welcome, User 1
+      </div>
+    </div>
+  </main>
+  <footer>
+    <form>
+      <input
+        value=""
+      />
+      <button>
+        Send
+      </button>
+    </form>
+  </footer>
+</div>
+`;

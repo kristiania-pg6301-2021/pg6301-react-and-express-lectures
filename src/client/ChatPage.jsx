@@ -59,11 +59,13 @@ export function ChatView({ username, chatLog, onSendMessage }) {
       <main>
         <h2>Chat started...</h2>
         <div>Welcome {username}</div>
-        {chatLog.map(({ id, username, message }) => (
-          <div key={id}>
-            <strong>{username}:</strong> {message}
-          </div>
-        ))}
+        <div className={"chatLog"}>
+          {chatLog.map(({ id, username, message }) => (
+            <div key={id} className={"message"}>
+              <strong>{username}:</strong> {message}
+            </div>
+          ))}
+        </div>
       </main>
       <footer>
         <form onSubmit={handleSubmit}>
