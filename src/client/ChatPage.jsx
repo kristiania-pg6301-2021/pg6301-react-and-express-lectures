@@ -1,14 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 function useWsChat() {
   const [chatLog, setChatLog] = useState([]);
   const [ws, setWs] = useState();
+  const connected = useRef(false);
 
-  useEffect(() => {
+  function connect() {
+    console.log("Connecting");
     const ws = new WebSocket("ws://" + window.location.host);
     setWs(ws);
     ws.onopen = (event) => {
       console.log("Opened", event);
+      connected.current = true;
+    };
+    ws.onclose = () => {
+      if (connected.current) {
+        setTimeout(connect, 1000);
+      } else {
+        setTimeout(connect, 10000);
+      }
+      connected.current = false;
     };
     ws.onerror = (event) => {
       console.log(event);
@@ -18,7 +29,9 @@ function useWsChat() {
       const { username, message, id } = JSON.parse(msg.data);
       setChatLog((chatLog) => [...chatLog, { username, message, id }]);
     };
-  }, []);
+  }
+
+  useEffect(() => connect(), []);
 
   function sendMessage(json) {
     ws.send(JSON.stringify(json));
