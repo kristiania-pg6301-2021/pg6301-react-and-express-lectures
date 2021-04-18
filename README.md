@@ -306,3 +306,99 @@ const server = app.listen(3000, () => {
 });
 ```
 
+## OpenID Connect - Log on with Google
+
+### Client side (implicit flow)
+
+"Implicit flow" means that the login provider (Google) will not require a client secret to complete the authentication. This is often not recommended, and for example Active Directory instead uses another mechanism called PKCE, which protects against some security risks.
+
+1. Set up the application in [Google Cloud Console](https://console.cloud.google.com/apis/credentials). Create a new OAuth client ID and select Web Application. Make sure `http://localhost:3000` is added as an Authorized JavaScript origin and `http://localhost:3000/callback` is an authorized redirect URI
+2. To start authentication, redirect the browser (see code below)
+3. To complete the authentication, pick up the `access_token` when Google redirects the browser back (see code below)
+4. Save the `access_token` (e.g. in `localStorage`) and add as a header to all requests to backend
+
+#### Redirect the client to authenticate
+
+```javascript
+export function Login() {
+  async function handleStartLogin() {
+    // Get the location of endpoints from Google
+    const { authorization_endpoint } = await fetchJson(
+      "https://accounts.google.com/.well-known/openid-configuration"
+    );
+    // Tell Google how to authentication
+    const query = new URLSearchParams({
+      response_type: "token",
+      scope: "openid profile email",
+      client_id:
+        "<get this from Google Cloud Console>",
+      // Tell user to come back to http://localhost:3000/callback when logged in
+      redirect_uri: window.location.origin + "/callback",
+    });
+    // Redirect the browser to log in
+    window.location.href = authorization_endpoint + "?" + query;
+  }
+
+  return <button onClick={handleStartLogin}>Log in</button>;
+}
+```
+
+In the case of Active Directory, you also need parameters `response_type: "code"`, `response_mode: "fragment"`, `code_challenge_method` and `code_challenge` (the latest two are needed for PKCE).
+
+#### Handle the authentication callback
+
+```javascript
+
+// Router should take user here on /callback
+export function CompleteLoginPage({onComplete}) {
+  // Given an URL like http://localhost:3000/callback#access_token=sdlgnsoln&foo=bar,
+  //  window.location.hash will give the part starting with "#"
+  //  ...substring(1) will remove the "#"
+  //  and Object.fromEntries(new URLSearchParams(...)) will parse it into an object
+  // In this case, hash = { access_token: "sdlgnsoln", foo: "bar" }
+  const hash = Object.fromEntries(
+    new URLSearchParams(window.location.hash.substr(1))
+  );
+  // Get the values returned from the login provider. For Active Directory,
+  // this will be more complex
+  const { access_token, error } = hash;
+  useEffect(() => {
+    // Send the access token back to the outside application. This should
+    //  be saved to localStorage and then redirect the user
+    onComplete({access_token});
+  }, [access_token]);
+  
+  if (error) {
+    // deal with the user failing to log in or to give consent with Google
+  }
+  
+  return <div>Completing loging...</div>;
+}
+```
+
+For Active Directory, the hash will instead include a `code`, which you will then need to send to the `token_endpoint` along with the `client_id` and `redirect_uri` as well as `grant_type: "authorization_code"` and the `code_verifier` value from PKCE. This call will return the `access_token`.
+
+#### Handle access_token on the backend
+
+```javascript
+
+app.use(async (req, res, next) => {
+  const authorization = req.header("Authorization");
+  if (authorization) {
+    const { userinfo_endpoint } = await fetchJSON(
+      "https://accounts.google.com/.well-known/openid-configuration"
+    );
+    req.userinfo = await fetchJSON(userinfo_endpoint, {
+      headers: { authorization },
+    });
+  }
+  next();
+});
+
+app.get("/profile", (req, res) => {
+  if (!req.userinfo) {
+    return res.send(200);
+  }
+});
+
+```
