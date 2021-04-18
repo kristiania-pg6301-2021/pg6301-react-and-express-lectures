@@ -6,10 +6,12 @@ describe("chat view", () => {
   it("can show existing chat messages", async () => {
     const chatLog = [
       {
+        id: "1",
         username: "User 1",
         message: "Hello",
       },
       {
+        id: "2",
         username: "User 2",
         message: "Welcome, User 1",
       },
