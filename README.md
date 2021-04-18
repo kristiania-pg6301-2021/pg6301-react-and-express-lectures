@@ -33,5 +33,8 @@ To bridge this gap, we will divide the client application into two parts:
 4. Set up websockets on the server to distribute incoming messages to all clients
 5. Update the client code to send messages to the web socket instead
 6. Add frontend test. Verify that chat view shows chats and sends chats
-   * `npm install -D jest`
+   * `npm install -D jest babel-jest`
+   * `package.json`: `"jest": {"transform": { "\\.jsx": "babel-jest" }}`
+   * `package.json`: `"babel": {"presets": ["@babel/preset-env", "@babel/preset-react"]}`
+   * `package.json`: `"browserVersions": [ "last 1 Chrome version" ]`
 7. Add reconnect code (frontend)
