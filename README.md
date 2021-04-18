@@ -65,6 +65,16 @@ The lecture continues with the code from [lecture 8](https://github.com/kristian
 * [Reference implementation](https://github.com/kristiania-pg6301-2021/pg6301-react-and-express-lectures/tree/reference/11)
 * [Commit log from live exercise rehearsal](https://github.com/kristiania-pg6301-2021/pg6301-react-and-express-lectures/tree/exercise/11)
 
+### Lecture 12: Web Sockets
+
+In this lecture, we cover more real-time communication between server and clients using WebSockets. We will also revisit testing of the client in the context of this application.
+
+This lecture starts with a new React + Express application
+
+* [Issues resolved](https://github.com/kristiania-pg6301-2021/pg6301-react-and-express-lectures/milestone/5)
+* [Commit log from live coding](https://github.com/kristiania-pg6301-2021/pg6301-react-and-express-lectures/commits/lectures/12)
+* [Reference implementation](https://github.com/kristiania-pg6301-2021/pg6301-react-and-express-lectures/tree/reference/12)
+
 ## Reference material
 
 ### Creating a React Application with Express backend
@@ -241,3 +251,58 @@ describe("...", () => {
 
 });
 ```
+
+## WebSockets
+
+### Client side:
+
+```javascript
+    // Connect to ws on the same host as we got the frontend
+    const ws = new WebSocket("ws://" + window.location.host);
+    // log out the message and destructor the contents when we receive it
+    ws.onmessage = (msg) => {
+      console.log(msg);
+      const { username, message, id } = JSON.parse(msg.data);
+    };
+    // send a new message
+    ws.send(JSON.stringify({username: "Myself", message: "Hello"}));
+```
+
+### Server side
+
+```javascript
+
+// Create a websocket server
+const wsServer = new ws.Server({ noServer: true });
+
+// Keep a list of all incomings connections
+const sockets = [];
+let messageIndex = 0;
+wsServer.on("connection", (socket) => {
+  // Add this connection to the list of connections
+  sockets.push(socket);
+  // Set up the handling of messages from this sockets
+  socket.on("message", (msg) => {
+    // Destructor the incoming message
+    const { username, message } = JSON.parse(msg);
+    // Add fields from server side
+    const id = messageIndex++;
+    // broadcast a new message to all recipients
+    for (const recipient of sockets) {
+      recipient.send(JSON.stringify({ id, username, message }));
+    }
+  });
+});
+
+// Start express app
+const server = app.listen(3000, () => {
+  // Handle incoming clients
+  server.on("upgrade", (req, socket, head) => {
+    wsServer.handleUpgrade(req, socket, head, (socket) => {
+      // This will pass control to `wsServer.on("connection")`
+      wsServer.emit("connection", socket, req);
+    });
+  });
+});
+```
+
