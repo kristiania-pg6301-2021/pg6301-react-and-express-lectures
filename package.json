@@ -1,0 +1,34 @@
+{
+  "name": "pg6301-react-and-express-lectures",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "concurrently npm:server npm:client",
+    "client": "parcel watch src/client/index.html",
+    "server": "nodemon --watch src/server src/server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kristiania-pg6301-2021/pg6301-react-and-express-lectures.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kristiania-pg6301-2021/pg6301-react-and-express-lectures/issues"
+  },
+  "homepage": "https://github.com/kristiania-pg6301-2021/pg6301-react-and-express-lectures#readme",
+  "devDependencies": {
+    "concurrently": "^6.0.2",
+    "nodemon": "^2.0.7",
+    "parcel": "^2.0.0-beta.2",
+    "prettier": "^2.2.1"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0"
+  }
+}
