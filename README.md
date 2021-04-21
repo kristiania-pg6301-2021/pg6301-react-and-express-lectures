@@ -1,7 +1,7 @@
 Goal: Chat server
 
 
-* [ ] React + Express application
+* [x] React + Express application
     * `npm init -y`
     * `npm install -D nodemon prettier parcel@next concurrently && npm install -P react react-dom express`
     * create start script
