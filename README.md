@@ -25,14 +25,14 @@ Create a page that displays user details for a login-provider (Google or Active 
     * [x] `const hash = Object.fromEntries(new URLSearchParams(window.location.hash.substr(1))); const {access_token} = hash;`
 * [x] Lookup userinfo
 * [x] `state`
-* [ ] Active Directory
-    * [ ] Create Active Directory Tenant at https://portal.azure.com
-    * [ ] Create Active Directory App Registration
-    * [ ] Use discovery URL https://login.microsoftonline.com/common/.well-known/openid-configuration
-* [ ] PKCE - Proof of Key Code Exchange
-* [ ] ID-porten
-    * [ ] Create client_id at https://selvbetjening-samarbeid-ver1.difi.no/integrations
-    * [ ] Discovery URL at https://oidc-ver1.difi.no/idporten-oidc-provider/.well-known/openid-configuration
+* [x] Active Directory
+    * [x] Create Active Directory Tenant at https://portal.azure.com
+    * [x] Create Active Directory App Registration
+    * [x] Use discovery URL https://login.microsoftonline.com/common/.well-known/openid-configuration
+* [x] PKCE - Proof of Key Code Exchange
+* [x] ID-porten
+    * [x] Create client_id at https://selvbetjening-samarbeid-ver1.difi.no/integrations
+    * [x] Discovery URL at https://oidc-ver1.difi.no/idporten-oidc-provider/.well-known/openid-configuration
 
 
 
