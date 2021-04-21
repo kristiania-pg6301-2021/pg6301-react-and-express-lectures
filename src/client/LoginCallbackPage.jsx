@@ -10,10 +10,19 @@ export function LoginCallbackPage({ onAccessToken }) {
   const history = useHistory();
 
   useEffect(() => {
-    const { access_token } = hash;
+    const loginState = JSON.parse(sessionStorage.getItem("loginState"));
+    const { access_token, state } = hash;
+
+    if (state !== loginState.state) {
+      alert("Why are you here?");
+      return;
+    }
+
     onAccessToken(access_token);
+    // TODO: I'll keep this for now for debugging
+    //sessionStorage.removeItem("loginState");
     history.push("/");
-  }, []);
+  }, [hash]);
 
   return <h1>Login callback</h1>;
 }

@@ -31,6 +31,7 @@ Create a page that displays user details for a login-provider (Google or Active 
     * [ ] Discovery URL at https://oidc-ver1.difi.no/idporten-oidc-provider/.well-known/openid-configuration
 
 
+
 ## Snippets
 
 ### fetchJSON
