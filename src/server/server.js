@@ -8,6 +8,8 @@ const googleDiscoveryURL =
   "https://accounts.google.com/.well-known/openid-configuration";
 const microsoftDiscoveryURL =
   "https://login.microsoftonline.com/common/.well-known/openid-configuration";
+const idportenDiscoveryURL =
+  "https://oidc-ver1.difi.no/idporten-oidc-provider/.well-known/openid-configuration";
 
 async function fetchJson(url, options) {
   const res = await fetch(url, options);
@@ -20,7 +22,7 @@ async function fetchJson(url, options) {
 app.use(async (req, res, next) => {
   const Authorization = req.header("Authorization");
   if (Authorization) {
-    const { userinfo_endpoint } = await fetchJson(microsoftDiscoveryURL);
+    const { userinfo_endpoint } = await fetchJson(idportenDiscoveryURL);
     req.userinfo = await fetchJson(userinfo_endpoint, {
       headers: {
         Authorization,

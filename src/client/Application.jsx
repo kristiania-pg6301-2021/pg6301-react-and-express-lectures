@@ -36,6 +36,11 @@ export function Application() {
       "https://login.microsoftonline.com/common/.well-known/openid-configuration",
     client_id: "d8984955-1066-496a-8968-2fa6fe21dca6",
   };
+  const idportenIdentityProvider = {
+    discoveryURL:
+      "https://oidc-ver1.difi.no/idporten-oidc-provider/.well-known/openid-configuration",
+    client_id: "8dd4d4aa-52a5-4b94-baa6-6d69a654490e",
+  };
 
   async function loadProfile() {
     return fetchJson("/api/profile", {
@@ -63,11 +68,11 @@ export function Application() {
           <ProfilePage loadProfile={loadProfile} />
         </Route>
         <Route path={"/login"} exact>
-          <LoginPage identityProvider={microsoftIdentityProvider} />
+          <LoginPage identityProvider={idportenIdentityProvider} />
         </Route>
         <Route path={"/login/callback"}>
           <LoginCallbackPage
-            identityProvider={microsoftIdentityProvider}
+            identityProvider={idportenIdentityProvider}
             onAccessToken={(access_token) => setAccess_token(access_token)}
           />
         </Route>

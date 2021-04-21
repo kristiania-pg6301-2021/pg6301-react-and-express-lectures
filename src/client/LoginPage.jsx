@@ -37,7 +37,7 @@ export function LoginPage({ identityProvider }) {
       client_id,
       response_type: "code",
       response_mode: "fragment",
-      scope: "openid email profile",
+      scope: "openid profile",
       redirect_uri: window.location.origin + "/login/callback",
       state,
       code_challenge: await sha256(code_verifier),
