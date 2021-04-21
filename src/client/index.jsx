@@ -14,7 +14,6 @@ function ChatApplication() {
     };
     ws.onmessage = (event) => {
       console.log("from server", event);
-      console.log(chatLog);
       setChatLog((chatLog) => [...chatLog, event.data]);
     };
     ws.onclose = (event) => {
