@@ -75,6 +75,11 @@ This lecture starts with a new React + Express application
 * [Commit log from live coding](https://github.com/kristiania-pg6301-2021/pg6301-react-and-express-lectures/commits/lectures/12)
 * [Reference implementation](https://github.com/kristiania-pg6301-2021/pg6301-react-and-express-lectures/tree/reference/12)
 
+### Bonus lecture: Active Directory
+
+* [Commit log from live coding](https://github.com/kristiania-pg6301-2021/pg6301-react-and-express-lectures/commits/lectures/13)
+* [Reference implementation from lecture 10](https://github.com/kristiania-pg6301-2021/pg6301-react-and-express-lectures/tree/reference/10)
+
 ## Reference material
 
 ### Creating a React Application with Express backend
