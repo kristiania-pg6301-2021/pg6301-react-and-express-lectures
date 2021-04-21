@@ -2,6 +2,7 @@ import { BrowserRouter, Link } from "react-router-dom";
 import { Route, Switch } from "react-router";
 import { ProfilePage } from "./ProfilePage";
 import * as React from "react";
+import { ChatPage } from "./ChatPage";
 
 export function Application() {
   return (
@@ -28,7 +29,7 @@ export function Application() {
           <ProfilePage />
         </Route>
         <Route path={"/chat"}>
-          <h1>Chat page</h1>
+          <ChatPage />
         </Route>
         <Route path={"/login"}>
           <h1>Login page</h1>
