@@ -17,8 +17,8 @@ Create a page that displays user details for a login-provider (Google or Active 
     * [x] redirect to authorization_endpoint from discovery URL https://accounts.google.com/.well-known/openid-configuration
     * [x] include `client_id`, `redirect_uri` + other parameters (scope, response_type)
     * [x] `window.location.href = authorization_endpoint + "?" + new URLSearchParams({})`
-* [ ] Handle callback
-    * [ ] `const hash = Object.fromEntries(new URLSearchParams(window.location.hash.substr(1))); const {access_token} = hash;`
+* [x] Handle callback
+    * [x] `const hash = Object.fromEntries(new URLSearchParams(window.location.hash.substr(1))); const {access_token} = hash;`
 * [ ] Lookup userinfo
 * [ ] `state`
 * [ ] Active Directory
