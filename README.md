@@ -12,13 +12,13 @@ Create a page that displays user details for a login-provider (Google or Active 
     * [x] `index.html`, `index.jsx`, `server.js`
 * [x] Routing: /profile, /login, /login/callback
 * [x] Call GET /api/profile with hypothetical access token
-* [ ] Create an authorization URL
-    * [ ] create client_id at https://console.cloud.google.com/apis/credentials
-    * [ ] redirect to authorization_endpoint from discovery URL https://accounts.google.com/.well-known/openid-configuration
-    * [ ] include `client_id`, `redirect_uri` + other parameters
-    * [ ] `window.location.href = authorization_endpoint + "?" + new URLSearchParams({})`
+* [x] Create an authorization URL
+    * [x] create client_id at https://console.cloud.google.com/apis/credentials
+    * [x] redirect to authorization_endpoint from discovery URL https://accounts.google.com/.well-known/openid-configuration
+    * [x] include `client_id`, `redirect_uri` + other parameters (scope, response_type)
+    * [x] `window.location.href = authorization_endpoint + "?" + new URLSearchParams({})`
 * [ ] Handle callback
-    * [ ] `const hash = Object.fromEntries(new URLSearchParams(window.location.hash.substr(1)));`
+    * [ ] `const hash = Object.fromEntries(new URLSearchParams(window.location.hash.substr(1))); const {access_token} = hash;`
 * [ ] Lookup userinfo
 * [ ] `state`
 * [ ] Active Directory
