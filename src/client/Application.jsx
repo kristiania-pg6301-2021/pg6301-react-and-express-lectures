@@ -1,8 +1,14 @@
 import * as React from "react";
 import { BrowserRouter, Link } from "react-router-dom";
 import { Route, Switch } from "react-router";
+import { ProfilePage } from "./ProfilePage";
+import { fetchJson } from "./http";
 
 export function Application() {
+  async function loadProfile() {
+    return fetchJson("/api/profile");
+  }
+
   return (
     <BrowserRouter>
       <Switch>
@@ -18,7 +24,7 @@ export function Application() {
           </ul>
         </Route>
         <Route path={"/profile"}>
-          <h1>Profile</h1>
+          <ProfilePage loadProfile={loadProfile} />
         </Route>
         <Route path={"/login"} exact>
           <h1>Login</h1>
