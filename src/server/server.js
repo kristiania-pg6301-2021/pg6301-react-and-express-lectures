@@ -6,9 +6,14 @@ const app = express();
 app.use(express.static(path.resolve(__dirname, "..", "..", "dist")));
 
 const wsServer = new ws.Server({ noServer: true });
+const sockets = [];
 wsServer.on("connection", (socket) => {
-  console.log("Client connected");
-  socket.on("message", (message) => socket.send("From server: " + message));
+  sockets.push(socket);
+  socket.on("message", (message) => {
+    for (const socket of sockets) {
+      socket.send("From server: " + message);
+    }
+  });
 });
 
 const server = app.listen(3000, () => {
