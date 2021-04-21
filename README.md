@@ -19,7 +19,7 @@ Create a page that displays user details for a login-provider (Google or Active 
     * [x] `window.location.href = authorization_endpoint + "?" + new URLSearchParams({})`
 * [x] Handle callback
     * [x] `const hash = Object.fromEntries(new URLSearchParams(window.location.hash.substr(1))); const {access_token} = hash;`
-* [ ] Lookup userinfo
+* [x] Lookup userinfo
 * [ ] `state`
 * [ ] Active Directory
     * [ ] Create Active Directory Tenant at https://portal.azure.com

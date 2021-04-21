@@ -19,7 +19,7 @@ export function ProfilePage({ loadProfile }) {
   return (
     <div>
       <h1>Profile</h1>
-      <div>{data.username}</div>
+      <div>{data.name}</div>
     </div>
   );
 }
