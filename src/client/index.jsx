@@ -1,7 +1,46 @@
 import * as React from "react";
+import { useEffect, useState } from "react";
 import * as ReactDOM from "react-dom";
 import { BrowserRouter, Link } from "react-router-dom";
 import { Route, Switch } from "react-router";
+
+async function fetchJSON(url) {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(
+      `Failed to fetch ${url}: ${response.status} ${response.statusText}`
+    );
+  }
+  return await response.json();
+}
+
+function ErrorView(props) {
+  return (
+    <div>
+      <h1>An error occurred</h1>
+      <div>{props.error.toString()}</div>
+    </div>
+  );
+}
+
+function ProfilePage() {
+  const [profile, setProfile] = useState();
+  const [error, setError] = useState();
+
+  useEffect(async () => {
+    try {
+      setProfile(await fetchJSON("http://localhost:3000/api/profile"));
+    } catch (e) {
+      setError(e);
+    }
+  }, []);
+
+  if (error) {
+    return <ErrorView error={error} />;
+  }
+
+  return <h1>Profile page</h1>;
+}
 
 function Application() {
   return (
@@ -25,7 +64,7 @@ function Application() {
           </ul>
         </Route>
         <Route path={"/profile"}>
-          <h1>Profile page</h1>
+          <ProfilePage />
         </Route>
         <Route path={"/chat"}>
           <h1>Chat page</h1>
