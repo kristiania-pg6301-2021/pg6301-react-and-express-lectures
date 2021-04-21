@@ -7,6 +7,7 @@ const ws = require("ws");
 const wsServer = new ws.Server({ noServer: true });
 const sockets = [];
 let messageIndex = 0;
+
 wsServer.on("connection", (socket) => {
   // Add this connection to the list of connections
   sockets.push(socket);

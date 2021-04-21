@@ -1,6 +1,15 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 
+export function ChatPage() {
+  const [username, setUsername] = useState();
+  if (!username) {
+    return <ChatLoginPage onLogin={(username) => setUsername(username)} />;
+  }
+
+  return <ChatView username={username} />;
+}
+
 function ChatLoginPage({ onLogin }) {
   const [username, setUsername] = useState("");
   function handleSubmit(e) {
@@ -22,15 +31,6 @@ function ChatLoginPage({ onLogin }) {
   );
 }
 
-export function ChatPage() {
-  const [username, setUsername] = useState();
-  if (!username) {
-    return <ChatLoginPage onLogin={(username) => setUsername(username)} />;
-  }
-
-  return <ChatView username={username} />;
-}
-
 export function ChatView({ username }) {
   const [chatLog, setChatLog] = useState([]);
   const [message, setMessage] = useState("");
@@ -41,10 +41,7 @@ export function ChatView({ username }) {
     ws.onmessage = (event) => {
       console.log("message", event);
       const { message, id, username } = JSON.parse(event.data);
-      setChatLog((chatLog) => [
-        ...chatLog,
-        id + ": from " + username + ": " + message,
-      ]);
+      setChatLog((chatLog) => [...chatLog, { message, id, username }]);
     };
     ws.onopen = (event) => {
       ws.send(
@@ -72,8 +69,11 @@ export function ChatView({ username }) {
     <div>
       <h1>Chat page</h1>
       <div>
-        {chatLog.map((message, index) => (
-          <div key={index}>{message}</div>
+        {chatLog.map(({ message, id, username }) => (
+          <div key={id}>
+            <strong>{username}: </strong>
+            {message}
+          </div>
         ))}
       </div>
       <div>
