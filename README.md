@@ -10,7 +10,8 @@ Create a page that displays user details for a login-provider (Google or Active 
     * [x] `npm install -P react react-dom react-router react-router-dom express`
     * [x] start scripts
     * [x] `index.html`, `index.jsx`, `server.js`
-* [ ] Routing: /profile, /login, /login/callback
+* [x] Routing: /profile, /login, /login/callback
+* [x] Call GET /api/profile with hypothetical access token
 * [ ] Create an authorization URL
     * [ ] create client_id at https://console.cloud.google.com/apis/credentials
     * [ ] redirect to authorization_endpoint from discovery URL https://accounts.google.com/.well-known/openid-configuration
