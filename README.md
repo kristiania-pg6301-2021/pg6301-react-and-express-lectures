@@ -5,11 +5,11 @@ Create a page that displays user details for a login-provider (Google or Active 
 ## Plan
 
 * [ ] Basic React + Express application
-    * [ ] `npm init -y`
-    * [ ] `npm install -D nodemon parcel prettier`
-    * [ ] `npm install -P react react-dom react-router react-router-dom express`
-    * [ ] start scripts
-    * [ ] `index.html`, `index.jsx`, `server.js`
+    * [x] `npm init -y`
+    * [x] `npm install -D nodemon parcel@next prettier concurrently`
+    * [x] `npm install -P react react-dom react-router react-router-dom express`
+    * [x] start scripts
+    * [x] `index.html`, `index.jsx`, `server.js`
 * [ ] Routing: /profile, /login, /login/callback
 * [ ] Create an authorization URL
     * [ ] create client_id at https://console.cloud.google.com/apis/credentials
