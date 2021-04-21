@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`chat view shows chat log as messages 1`] = `
+<div>
+  <header>
+    <h1>
+      Welcome to CoronaChat
+    </h1>
+  </header>
+  <main>
+    <div
+      id="chatLog"
+    >
+      <div>
+        hello
+      </div>
+      <div>
+        how are you doing?
+      </div>
+    </div>
+  </main>
+  <footer>
+    <form>
+      <input
+        type="text"
+        value=""
+      />
+      <button>
+        Submit
+      </button>
+    </form>
+  </footer>
+</div>
+`;
