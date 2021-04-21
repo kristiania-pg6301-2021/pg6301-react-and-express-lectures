@@ -22,7 +22,7 @@ async function fetchJson(url, options) {
 app.use(async (req, res, next) => {
   const Authorization = req.header("Authorization");
   if (Authorization) {
-    const { userinfo_endpoint } = await fetchJson(idportenDiscoveryURL);
+    const { userinfo_endpoint } = await fetchJson(microsoftDiscoveryURL);
     req.userinfo = await fetchJson(userinfo_endpoint, {
       headers: {
         Authorization,

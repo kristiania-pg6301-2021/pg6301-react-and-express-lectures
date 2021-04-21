@@ -23,7 +23,7 @@ export async function sha256(string) {
 }
 
 export function LoginPage({ identityProvider }) {
-  const { discoveryURL, client_id } = identityProvider;
+  const { discoveryURL, client_id, scope } = identityProvider;
 
   async function handleLogin() {
     const { authorization_endpoint } = await fetchJson(discoveryURL);
@@ -37,11 +37,12 @@ export function LoginPage({ identityProvider }) {
       client_id,
       response_type: "code",
       response_mode: "fragment",
-      scope: "openid profile",
+      scope,
       redirect_uri: window.location.origin + "/login/callback",
       state,
       code_challenge: await sha256(code_verifier),
       code_challenge_method: "S256",
+      domain_hint: "egms.no",
     };
     window.location.href =
       authorization_endpoint + "?" + new URLSearchParams(params);
