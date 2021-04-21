@@ -5,6 +5,7 @@ import { Route, Switch } from "react-router";
 import { ProfilePage } from "./ProfilePage";
 import { fetchJson } from "./http";
 import { LoginPage } from "./LoginPage";
+import { LoginCallbackPage } from "./LoginCallbackPage";
 
 export function Application() {
   const [access_token, setAccess_token] = useState();
@@ -45,7 +46,10 @@ export function Application() {
           <LoginPage identityProvider={googleIdentityProvider} />
         </Route>
         <Route path={"/login/callback"}>
-          <h1>Login callback</h1>
+          <LoginCallbackPage
+            identityProvider={googleIdentityProvider}
+            onAccessToken={(access_token) => setAccess_token(access_token)}
+          />
         </Route>
         <Route>
           <h1>Not found</h1>
