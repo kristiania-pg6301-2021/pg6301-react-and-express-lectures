@@ -8,12 +8,13 @@ function ChatApplication() {
   const [ws, setWs] = useState();
 
   useEffect(() => {
-    const ws = new WebSocket("ws://" + window.location);
+    const ws = new WebSocket("ws://localhost:3000");
     ws.onopen = (event) => {
       console.log("opened", event);
     };
     ws.onmessage = (event) => {
-      console.log("message", event);
+      console.log("from server", event);
+      setChatLog([...chatLog, event.data]);
     };
     ws.onclose = (event) => {
       console.log("close", event);
@@ -23,7 +24,6 @@ function ChatApplication() {
 
   function handleSubmitChatMessage(e) {
     e.preventDefault();
-    setChatLog([...chatLog, message]);
     ws.send(message);
     setMessage("");
   }
@@ -31,7 +31,7 @@ function ChatApplication() {
   return (
     <>
       <header>
-        <h1>Welcome to Home Alone Chat</h1>
+        <h1>Welcome to CoronaChat</h1>
       </header>
       <main>
         <div id="chatLog">
