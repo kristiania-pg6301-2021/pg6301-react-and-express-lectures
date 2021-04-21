@@ -1,3 +1,7 @@
+
+PAUSE TIL 22:35
+
+
 ## Goal
 
 Create a page that displays user details for a login-provider (Google or Active Directory)
@@ -20,11 +24,11 @@ Create a page that displays user details for a login-provider (Google or Active 
 * [x] Handle callback
     * [x] `const hash = Object.fromEntries(new URLSearchParams(window.location.hash.substr(1))); const {access_token} = hash;`
 * [x] Lookup userinfo
-* [ ] `state`
+* [x] `state`
 * [ ] Active Directory
     * [ ] Create Active Directory Tenant at https://portal.azure.com
     * [ ] Create Active Directory App Registration
-    * [ ] Use discovery URL https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration
+    * [ ] Use discovery URL https://login.microsoftonline.com/common/.well-known/openid-configuration
 * [ ] PKCE - Proof of Key Code Exchange
 * [ ] ID-porten
     * [ ] Create client_id at https://selvbetjening-samarbeid-ver1.difi.no/integrations

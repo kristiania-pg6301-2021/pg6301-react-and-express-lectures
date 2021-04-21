@@ -16,6 +16,11 @@ export function Application() {
     client_id:
       "89654971890-966v5po9guds812ktsvfig973vfqsg3f.apps.googleusercontent.com",
   };
+  const microsoftIdentityProvider = {
+    discoveryURL:
+      "https://login.microsoftonline.com/common/.well-known/openid-configuration",
+    client_id: "d8984955-1066-496a-8968-2fa6fe21dca6",
+  };
 
   async function loadProfile() {
     return fetchJson("/api/profile", {
@@ -43,11 +48,11 @@ export function Application() {
           <ProfilePage loadProfile={loadProfile} />
         </Route>
         <Route path={"/login"} exact>
-          <LoginPage identityProvider={googleIdentityProvider} />
+          <LoginPage identityProvider={microsoftIdentityProvider} />
         </Route>
         <Route path={"/login/callback"}>
           <LoginCallbackPage
-            identityProvider={googleIdentityProvider}
+            identityProvider={microsoftIdentityProvider}
             onAccessToken={(access_token) => setAccess_token(access_token)}
           />
         </Route>
