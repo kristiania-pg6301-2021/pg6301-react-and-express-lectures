@@ -20,6 +20,11 @@ export function ProfilePage({ loadProfile }) {
     <div>
       <h1>Profile</h1>
       <div>{data.name}</div>
+      {data.picture && (
+        <div>
+          <img src={data.picture} />
+        </div>
+      )}
     </div>
   );
 }
