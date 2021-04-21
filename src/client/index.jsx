@@ -1,17 +1,30 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function ChatApplication() {
-  const ws = new WebSocket();
-  ws.onmessage;
-
   const [chatLog, setChatLog] = useState([]);
   const [message, setMessage] = useState("");
+  const [ws, setWs] = useState();
+
+  useEffect(() => {
+    const ws = new WebSocket("ws://" + window.location);
+    ws.onopen = (event) => {
+      console.log("opened", event);
+    };
+    ws.onmessage = (event) => {
+      console.log("message", event);
+    };
+    ws.onclose = (event) => {
+      console.log("close", event);
+    };
+    setWs(ws);
+  }, []);
 
   function handleSubmitChatMessage(e) {
     e.preventDefault();
     setChatLog([...chatLog, message]);
+    ws.send(message);
     setMessage("");
   }
 
